@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Sampling Distributions - Probability Distributions{% endblock %}
+{% block title %}Sampling Distributions & Central Limit Theorem{% endblock %}
 
 {% block content %}
 <div class="container-fluid">
@@ -10,9 +10,16 @@
                 <div class="card-body text-center">
                     <h1 class="display-5 mb-3">
                         <i class="fas fa-random text-primary me-2"></i>
-                        Sampling Distributions Explorer
+                        Sampling Distributions & Central Limit Theorem
                     </h1>
                     <p class="lead">Explore how sample means behave and understand the Central Limit Theorem</p>
+                    
+                    <div class="alert alert-primary mt-3">
+                        <h6 class="mb-2">
+                            <i class="fas fa-quote-left me-2"></i>
+                            <strong>Central Limit Theorem:</strong> The sampling distribution of sample means approaches normal distribution as sample size increases, regardless of population shape.
+                        </h6>
+                    </div>
                 </div>
             </div>
         </div>
@@ -21,6 +28,31 @@
     <div class="row">
         <!-- Controls Panel -->
         <div class="col-lg-4">
+            <!-- Mode Selection -->
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h6><i class="fas fa-cogs text-primary me-2"></i>Visualization Mode</h6>
+                </div>
+                <div class="card-body">
+                    <div class="btn-group w-100" role="group">
+                        <input type="radio" class="btn-check" name="mode" id="basicMode" value="basic" checked>
+                        <label class="btn btn-outline-primary" for="basicMode">
+                            <i class="fas fa-chart-bar me-1"></i>Basic
+                        </label>
+                        
+                        <input type="radio" class="btn-check" name="mode" id="cltMode" value="clt">
+                        <label class="btn btn-outline-success" for="cltMode">
+                            <i class="fas fa-magic me-1"></i>CLT Demo
+                        </label>
+                        
+                        <input type="radio" class="btn-check" name="mode" id="comparisonMode" value="comparison">
+                        <label class="btn btn-outline-warning" for="comparisonMode">
+                            <i class="fas fa-exchange-alt me-1"></i>Compare
+                        </label>
+                    </div>
+                </div>
+            </div>
+
             <div class="card mb-4">
                 <div class="card-header">
                     <h5><i class="fas fa-sliders-h text-primary me-2"></i>Parameters</h5>
@@ -51,15 +83,54 @@
                             </div>
                         </div>
 
-                        <!-- Sampling Parameters -->
-                        <div class="row mb-3">
-                            <div class="col-6">
-                                <label for="sample_size" class="form-label">Sample Size (n):</label>
-                                <input type="number" class="form-control" id="sample_size" name="sample_size" value="30" min="5" max="100" step="5">
+                        <!-- Basic Mode Sampling Parameters -->
+                        <div id="basicParams">
+                            <div class="row mb-3">
+                                <div class="col-6">
+                                    <label for="sample_size" class="form-label">Sample Size (n):</label>
+                                    <input type="number" class="form-control" id="sample_size" name="sample_size" value="30" min="5" max="100" step="5">
+                                </div>
+                                <div class="col-6">
+                                    <label for="num_samples" class="form-label">Number of Samples:</label>
+                                    <input type="number" class="form-control" id="num_samples" name="num_samples" value="1000" min="100" max="5000" step="100">
+                                </div>
                             </div>
-                            <div class="col-6">
-                                <label for="num_samples" class="form-label">Number of Samples:</label>
-                                <input type="number" class="form-control" id="num_samples" name="num_samples" value="1000" min="100" max="5000" step="100">
+                        </div>
+
+                        <!-- CLT Mode Parameters -->
+                        <div id="cltParams" style="display: none;">
+                            <div class="mb-3">
+                                <label for="clt_sizes" class="form-label">Sample Sizes to Compare:</label>
+                                <select class="form-select" id="clt_sizes" name="clt_sizes" multiple>
+                                    <option value="5" selected>n = 5 (Small)</option>
+                                    <option value="15" selected>n = 15 (Medium)</option>
+                                    <option value="30" selected>n = 30 (CLT Threshold)</option>
+                                    <option value="50">n = 50 (Large)</option>
+                                    <option value="100">n = 100 (Very Large)</option>
+                                </select>
+                                <small class="text-muted">Hold Ctrl/Cmd to select multiple</small>
+                            </div>
+                            <div class="mb-3">
+                                <label for="clt_num_samples" class="form-label">Number of Samples:</label>
+                                <input type="number" class="form-control" id="clt_num_samples" name="clt_num_samples" value="1000" min="500" max="3000" step="100">
+                            </div>
+                        </div>
+
+                        <!-- Comparison Mode Parameters -->
+                        <div id="comparisonParams" style="display: none;">
+                            <div class="row mb-3">
+                                <div class="col-4">
+                                    <label for="n1" class="form-label">Size 1 (n₁):</label>
+                                    <input type="number" class="form-control" id="n1" name="n1" value="10" min="5" max="100" step="5">
+                                </div>
+                                <div class="col-4">
+                                    <label for="n2" class="form-label">Size 2 (n₂):</label>
+                                    <input type="number" class="form-control" id="n2" name="n2" value="30" min="5" max="100" step="5">
+                                </div>
+                                <div class="col-4">
+                                    <label for="n3" class="form-label">Size 3 (n₃):</label>
+                                    <input type="number" class="form-control" id="n3" name="n3" value="50" min="5" max="100" step="5">
+                                </div>
                             </div>
                         </div>
 
@@ -86,7 +157,7 @@
                         <!-- Action Buttons -->
                         <div class="d-grid gap-2">
                             <button type="submit" class="btn btn-primary btn-lg">
-                                <i class="fas fa-play me-2"></i>Generate Plot
+                                <i class="fas fa-play me-2"></i>Generate Visualization
                             </button>
                             <button type="button" class="btn btn-outline-secondary" onclick="resetForm()">
                                 <i class="fas fa-undo me-2"></i>Reset
@@ -109,11 +180,11 @@
                         <button class="btn btn-outline-info btn-sm" onclick="loadExample('skewed')">
                             <i class="fas fa-chart-line me-1"></i>Skewed Population
                         </button>
-                        <button class="btn btn-outline-warning btn-sm" onclick="loadExample('small_n')">
-                            <i class="fas fa-compress me-1"></i>Small Sample Size
+                        <button class="btn btn-outline-warning btn-sm" onclick="loadExample('clt_demo')">
+                            <i class="fas fa-magic me-1"></i>CLT Demonstration
                         </button>
-                        <button class="btn btn-outline-success btn-sm" onclick="loadExample('large_n')">
-                            <i class="fas fa-expand me-1"></i>Large Sample Size
+                        <button class="btn btn-outline-success btn-sm" onclick="loadExample('size_comparison')">
+                            <i class="fas fa-exchange-alt me-1"></i>Size Comparison
                         </button>
                     </div>
                 </div>
@@ -158,6 +229,11 @@
                             SE = σ / √n = <span id="seFormula">10 / √30 = 1.83</span>
                         </small>
                     </div>
+                    
+                    <!-- CLT Status -->
+                    <div class="mt-2 text-center">
+                        <span id="cltStatus" class="badge bg-success">CLT applies (n≥30)</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -175,7 +251,7 @@
                             <div class="spinner-border text-primary mb-3" role="status">
                                 <span class="visually-hidden">Loading...</span>
                             </div>
-                            <div>Generating plot...</div>
+                            <div>Generating visualization...</div>
                         </div>
 
                         <!-- Plot Image -->
@@ -184,8 +260,8 @@
                         <!-- Placeholder -->
                         <div id="plotPlaceholder" class="text-center text-muted" style="padding: 100px 20px; border: 2px dashed #dee2e6; border-radius: 8px;">
                             <i class="fas fa-chart-area fa-4x mb-3"></i>
-                            <h5>Ready to Generate Plot</h5>
-                            <p>Adjust the parameters on the left and click "Generate Plot" to see the visualization.</p>
+                            <h5>Ready to Generate Visualization</h5>
+                            <p>Select a mode and adjust parameters, then click "Generate Visualization".</p>
                         </div>
 
                         <!-- Error State -->
@@ -201,30 +277,106 @@
                 </div>
             </div>
 
-            <!-- Educational Content -->
+            <!-- Educational Content Tabs -->
             <div class="card mt-4">
                 <div class="card-header">
-                    <h6><i class="fas fa-graduation-cap text-success me-2"></i>Central Limit Theorem</h6>
+                    <ul class="nav nav-tabs card-header-tabs" id="educationTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="clt-tab" data-bs-toggle="tab" data-bs-target="#clt-content" type="button" role="tab">
+                                <i class="fas fa-magic me-1"></i>Central Limit Theorem
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="properties-tab" data-bs-toggle="tab" data-bs-target="#properties-content" type="button" role="tab">
+                                <i class="fas fa-list-check me-1"></i>Key Properties
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="formulas-tab" data-bs-toggle="tab" data-bs-target="#formulas-content" type="button" role="tab">
+                                <i class="fas fa-calculator me-1"></i>Formulas
+                            </button>
+                        </li>
+                    </ul>
                 </div>
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h6 class="text-primary">Key Points:</h6>
-                            <ul class="small">
-                                <li>Sample means approach normal distribution</li>
-                                <li>Works for <strong>any</strong> population shape</li>
-                                <li>Larger sample size = more normal shape</li>
-                                <li>Standard error decreases with larger n</li>
-                            </ul>
+                    <div class="tab-content" id="educationTabContent">
+                        <!-- CLT Content -->
+                        <div class="tab-pane fade show active" id="clt-content" role="tabpanel">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h6 class="text-primary">CLT Assumptions:</h6>
+                                    <ul class="small">
+                                        <li><strong>Random Sampling:</strong> Data must be randomly sampled</li>
+                                        <li><strong>Independence:</strong> Sample values must be independent</li>
+                                        <li><strong>Same Distribution:</strong> Samples from same distribution</li>
+                                        <li><strong>Large Sample:</strong> Sample size ≥ 30 (magic number!)</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6">
+                                    <h6 class="text-success">What to Observe:</h6>
+                                    <ul class="small">
+                                        <li>Population can be any shape</li>
+                                        <li>Sampling distribution becomes bell-shaped</li>
+                                        <li>Mean stays the same (unbiased)</li>
+                                        <li>Spread gets narrower with larger n</li>
+                                        <li>Works regardless of population shape!</li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-6">
-                            <h6 class="text-success">What to Observe:</h6>
-                            <ul class="small">
-                                <li>Population can be any shape</li>
-                                <li>Sampling distribution becomes bell-shaped</li>
-                                <li>Mean stays the same (unbiased)</li>
-                                <li>Spread gets narrower with larger n</li>
-                            </ul>
+
+                        <!-- Properties Content -->
+                        <div class="tab-pane fade" id="properties-content" role="tabpanel">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="text-center p-3 border rounded">
+                                        <i class="fas fa-bell fa-2x text-primary mb-2"></i>
+                                        <h6>Shape</h6>
+                                        <small>Always becomes normal</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="text-center p-3 border rounded">
+                                        <i class="fas fa-crosshairs fa-2x text-success mb-2"></i>
+                                        <h6>Mean</h6>
+                                        <small>μ_x̄ = μ</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="text-center p-3 border rounded">
+                                        <i class="fas fa-arrows-alt-h fa-2x text-warning mb-2"></i>
+                                        <h6>Std Error</h6>
+                                        <small>σ_x̄ = σ/√n</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="text-center p-3 border rounded">
+                                        <i class="fas fa-expand fa-2x text-info mb-2"></i>
+                                        <h6>As n↑</h6>
+                                        <small>Distribution narrows</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Formulas Content -->
+                        <div class="tab-pane fade" id="formulas-content" role="tabpanel">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <h6>Sampling Distribution of Sample Means</h6>
+                                    <div class="bg-light p-3 rounded border text-center mb-3" style="font-size: 1.2em;">
+                                        <em>X̄</em> ~ N(<em>μ</em>, <em>σ</em>/√<em>n</em>)
+                                    </div>
+                                    <small><strong>Interpretation:</strong> Sample means follow normal distribution with mean μ and standard error σ/√n</small>
+                                </div>
+                                <div class="col-lg-6">
+                                    <h6>Standardization (Z-Score)</h6>
+                                    <div class="bg-light p-3 rounded border text-center mb-3" style="font-size: 1.2em;">
+                                        <em>Z</em> = (<em>X̄</em> - <em>μ</em>) / (<em>σ</em>/√<em>n</em>)
+                                    </div>
+                                    <small><strong>Use:</strong> Convert sample means to standard normal for probability calculations</small>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -241,11 +393,47 @@ document.addEventListener('DOMContentLoaded', function() {
     const plotPlaceholder = document.getElementById('plotPlaceholder');
     const errorState = document.getElementById('errorState');
     
+    // Mode switching
+    const modeRadios = document.querySelectorAll('input[name="mode"]');
+    const basicParams = document.getElementById('basicParams');
+    const cltParams = document.getElementById('cltParams');
+    const comparisonParams = document.getElementById('comparisonParams');
+    
+    modeRadios.forEach(radio => {
+        radio.addEventListener('change', function() {
+            // Hide all parameter sections
+            basicParams.style.display = 'none';
+            cltParams.style.display = 'none';
+            comparisonParams.style.display = 'none';
+            
+            // Show relevant parameter section
+            switch(this.value) {
+                case 'basic':
+                    basicParams.style.display = 'block';
+                    break;
+                case 'clt':
+                    cltParams.style.display = 'block';
+                    break;
+                case 'comparison':
+                    comparisonParams.style.display = 'block';
+                    break;
+            }
+            updateStats();
+        });
+    });
+
     // Update statistics display
     function updateStats() {
         const mean = parseFloat(document.getElementById('mean').value);
         const std = parseFloat(document.getElementById('std').value);
-        const n = parseInt(document.getElementById('sample_size').value);
+        const mode = document.querySelector('input[name="mode"]:checked').value;
+        
+        let n = 30; // default
+        if (mode === 'basic') {
+            n = parseInt(document.getElementById('sample_size').value);
+        } else if (mode === 'comparison') {
+            n = parseInt(document.getElementById('n2').value); // Use middle value for display
+        }
         
         const se = std / Math.sqrt(n);
         
@@ -254,6 +442,16 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('statSampleSize').textContent = n;
         document.getElementById('statSE').textContent = se.toFixed(2);
         document.getElementById('seFormula').textContent = `${std} / √${n} = ${se.toFixed(2)}`;
+        
+        // Update CLT status
+        const cltStatus = document.getElementById('cltStatus');
+        if (n >= 30) {
+            cltStatus.textContent = 'CLT applies (n≥30)';
+            cltStatus.className = 'badge bg-success';
+        } else {
+            cltStatus.textContent = `CLT may not apply (n=${n})`;
+            cltStatus.className = 'badge bg-warning';
+        }
     }
 
     // Form submission
@@ -263,8 +461,11 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Update stats when inputs change
-    ['mean', 'std', 'sample_size'].forEach(id => {
-        document.getElementById(id).addEventListener('input', updateStats);
+    ['mean', 'std', 'sample_size', 'n1', 'n2', 'n3'].forEach(id => {
+        const element = document.getElementById(id);
+        if (element) {
+            element.addEventListener('input', updateStats);
+        }
     });
 
     // Generate plot function
@@ -275,29 +476,41 @@ document.addEventListener('DOMContentLoaded', function() {
         errorState.style.display = 'none';
         loadingState.style.display = 'block';
 
-        // Get form data
-        const formData = new FormData(form);
+        // Get current mode
+        const mode = document.querySelector('input[name="mode"]:checked').value;
+        
+        // Build URL based on mode
+        let url = '/generate_sampling_plot?';
         const params = new URLSearchParams();
         
-        // Convert form data to URL parameters
-        for (let [key, value] of formData.entries()) {
-            if (value === 'on') {
-                params.append(key, 'true');
-            } else {
-                params.append(key, value);
-            }
+        // Common parameters
+        params.append('distribution', document.getElementById('distribution').value);
+        params.append('mean', document.getElementById('mean').value);
+        params.append('std', document.getElementById('std').value);
+        params.append('show_population', document.getElementById('show_population').checked);
+        params.append('show_sampling', document.getElementById('show_sampling').checked);
+        params.append('show_normal', document.getElementById('show_normal').checked);
+        params.append('show_grid', document.getElementById('show_grid').checked);
+        
+        // Mode-specific parameters
+        if (mode === 'basic') {
+            params.append('sample_size', document.getElementById('sample_size').value);
+            params.append('num_samples', document.getElementById('num_samples').value);
+        } else if (mode === 'clt') {
+            const selectedSizes = Array.from(document.getElementById('clt_sizes').selectedOptions).map(o => o.value);
+            params.append('clt_mode', 'true');
+            params.append('clt_sizes', selectedSizes.join(','));
+            params.append('num_samples', document.getElementById('clt_num_samples').value);
+        } else if (mode === 'comparison') {
+            params.append('comparison', 'true');
+            params.append('sample_size', document.getElementById('n1').value);
+            params.append('n2', document.getElementById('n2').value);
+            params.append('n3', document.getElementById('n3').value);
+            params.append('num_samples', '1000');
         }
 
-        // Add unchecked checkboxes as false
-        const checkboxes = ['show_population', 'show_sampling', 'show_normal', 'show_grid'];
-        checkboxes.forEach(name => {
-            if (!formData.has(name)) {
-                params.append(name, 'false');
-            }
-        });
-
         // Make request to backend
-        fetch(`/generate_sampling_plot?${params.toString()}`)
+        fetch(`${url}${params.toString()}`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
@@ -327,35 +540,49 @@ document.addEventListener('DOMContentLoaded', function() {
     window.loadExample = function(type) {
         switch(type) {
             case 'normal':
+                document.getElementById('basicMode').checked = true;
                 document.getElementById('distribution').value = 'normal';
                 document.getElementById('mean').value = 50;
                 document.getElementById('std').value = 10;
                 document.getElementById('sample_size').value = 30;
                 break;
             case 'skewed':
+                document.getElementById('basicMode').checked = true;
                 document.getElementById('distribution').value = 'exponential';
                 document.getElementById('mean').value = 30;
                 document.getElementById('std').value = 15;
                 document.getElementById('sample_size').value = 30;
                 break;
-            case 'small_n':
+            case 'clt_demo':
+                document.getElementById('cltMode').checked = true;
                 document.getElementById('distribution').value = 'uniform';
                 document.getElementById('mean').value = 50;
-                document.getElementById('std').value = 10;
-                document.getElementById('sample_size').value = 5;
+                document.getElementById('std').value = 12;
+                // Select specific sizes for CLT demo
+                const cltSizes = document.getElementById('clt_sizes');
+                Array.from(cltSizes.options).forEach(option => {
+                    option.selected = ['5', '15', '30'].includes(option.value);
+                });
                 break;
-            case 'large_n':
+            case 'size_comparison':
+                document.getElementById('comparisonMode').checked = true;
                 document.getElementById('distribution').value = 'gamma';
                 document.getElementById('mean').value = 40;
                 document.getElementById('std').value = 12;
-                document.getElementById('sample_size').value = 100;
+                document.getElementById('n1').value = 10;
+                document.getElementById('n2').value = 30;
+                document.getElementById('n3').value = 50;
                 break;
         }
+        
+        // Trigger mode change
+        document.querySelector('input[name="mode"]:checked').dispatchEvent(new Event('change'));
         updateStats();
     };
 
     // Reset form
     window.resetForm = function() {
+        document.getElementById('basicMode').checked = true;
         document.getElementById('distribution').value = 'normal';
         document.getElementById('mean').value = 50;
         document.getElementById('std').value = 10;
@@ -367,6 +594,8 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('show_normal').checked = false;
         document.getElementById('show_grid').checked = true;
         
+        // Reset mode
+        document.getElementById('basicMode').dispatchEvent(new Event('change'));
         updateStats();
         
         // Reset display

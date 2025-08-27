@@ -42,10 +42,6 @@ def random_variable():
 def sampling_distributions():
     return render_template('sampling_distributions.html')
 
-@app.route('/central_limit_theorem')
-def central_limit_theorem():
-    return render_template('central_limit_theorem.html')
-
 @app.route('/estimations')
 def estimations():
     return render_template('estimations.html')
