@@ -5,65 +5,175 @@
 {% block content %}
 <div class="row">
     <div class="col-12">
-        <div class="card mb-4">
+        <div class="card mb-3">
             <div class="card-body">
                 <h1 class="display-5 mb-3">
-                    <i class="fas fa-equals text-info me-3"></i>
-                    Uniform Distribution
+                    <i class="fas fa-equals text-info me-2"></i>
+                    Uniform Distribution Interactive Explorer
                 </h1>
-                <p class="lead">The uniform distribution is the probability distribution where all outcomes are equally likely.</p>
+                <p class="lead">Explore both discrete and continuous uniform distributions with interactive visualizations, probability calculations, and real-time simulations.</p>
+                
+                <!-- Quick Action Buttons -->
+                <div class="row g-2 mt-2">
+                    <div class="col-md-2">
+                        <button id="diceExample" class="btn btn-outline-primary btn-sm w-100">
+                            <i class="fas fa-dice me-1"></i>Dice (1-6)
+                        </button>
+                    </div>
+                    <div class="col-md-2">
+                        <button id="coinExample" class="btn btn-outline-info btn-sm w-100">
+                            <i class="fas fa-coins me-1"></i>Coin (0-1)
+                        </button>
+                    </div>
+                    <div class="col-md-2">
+                        <button id="timeExample" class="btn btn-outline-success btn-sm w-100">
+                            <i class="fas fa-clock me-1"></i>Time (0-60min)
+                        </button>
+                    </div>
+                    <div class="col-md-2">
+                        <button id="compareMode" class="btn btn-outline-warning btn-sm w-100">
+                            <i class="fas fa-exchange-alt me-1"></i>Compare Two
+                        </button>
+                    </div>
+                    <div class="col-md-2">
+                        <button id="simulationMode" class="btn btn-outline-danger btn-sm w-100">
+                            <i class="fas fa-play me-1"></i>Simulation
+                        </button>
+                    </div>
+                    <div class="col-md-2">
+                        <button id="resetAll" class="btn btn-outline-secondary btn-sm w-100">
+                            <i class="fas fa-undo me-1"></i>Reset
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
+<!-- Main Control Panel -->
 <div class="row">
-    <div class="col-lg-9">
-        <div class="card">
+    <div class="col-lg-8">
+        <div class="card mb-3">
             <div class="card-body">
-                <h4><i class="fas fa-sliders-h text-primary me-2"></i>Interactive Uniform Distribution</h4>
-                
-                <div class="interactive-section">
-                    <div class="row mb-3">
-                        <div class="col-12">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" id="discreteSwitch">
-                                <label class="form-check-label" for="discreteSwitch">
-                                    <strong>Discrete Uniform Distribution</strong>
-                                </label>
-                            </div>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4><i class="fas fa-sliders-h text-primary me-2"></i>Distribution Controls</h4>
+                    <div class="d-flex gap-3">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="discreteSwitch">
+                            <label class="form-check-label" for="discreteSwitch">Discrete Mode</label>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="showGrid" checked>
+                            <label class="form-check-label" for="showGrid">Show Grid</label>
                         </div>
                     </div>
-                    
+                </div>
+                
+                <!-- Primary Distribution Controls -->
+                <div id="primaryControls" class="border p-3 rounded mb-3" style="border-color: #0d6efd !important;">
+                    <h6 class="text-primary mb-3">
+                        <i class="fas fa-chart-line me-1"></i>Primary Distribution
+                        <span id="primaryLabel" class="badge bg-primary ms-2">Uniform(0, 1)</span>
+                    </h6>
                     <div class="row">
                         <div class="col-md-6">
                             <label for="minValue" class="form-label">Minimum Value (a):</label>
-                            <input type="range" class="form-range" id="minValue" min="0" max="10" step="1" value="0">
-                            <div class="text-center">
+                            <div class="input-group">
+                                <input type="range" class="form-range" id="minValue" min="0" max="50" step="0.1" value="0">
+                                <input type="number" class="form-control form-control-sm" id="minInput" min="0" max="50" step="0.1" value="0" style="max-width: 80px;">
+                            </div>
+                            <div class="text-center mt-1">
                                 <span id="minValueDisplay" class="badge bg-primary">0</span>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <label for="maxValue" class="form-label">Maximum Value (b):</label>
-                            <input type="range" class="form-range" id="maxValue" min="1" max="15" step="1" value="6">
-                            <div class="text-center">
-                                <span id="maxValueDisplay" class="badge bg-success">6</span>
+                            <div class="input-group">
+                                <input type="range" class="form-range" id="maxValue" min="1" max="50" step="0.1" value="10">
+                                <input type="number" class="form-control form-control-sm" id="maxInput" min="1" max="50" step="0.1" value="10" style="max-width: 80px;">
+                            </div>
+                            <div class="text-center mt-1">
+                                <span id="maxValueDisplay" class="badge bg-success">10</span>
                             </div>
                         </div>
                     </div>
-                    <div class="text-center mt-3">
-                        <button id="generateUniformPlot" class="btn btn-primary">
-                            <i class="fas fa-chart-bar me-2"></i>Generate Plot
-                        </button>
-                        <button id="diceExample" class="btn btn-outline-success ms-2">
-                            <i class="fas fa-dice me-2"></i>Dice Example
-                        </button>
+                </div>
+
+                <!-- Comparison Controls (Hidden by default) -->
+                <div id="comparisonControls" class="border p-3 rounded mb-3 d-none" style="border-color: #dc3545 !important;">
+                    <h6 class="text-danger mb-3">
+                        <i class="fas fa-chart-line me-1"></i>Comparison Distribution
+                        <span id="comparisonLabel" class="badge bg-danger ms-2">Uniform(5, 15)</span>
+                    </h6>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="minValue2" class="form-label">Minimum Value (a₂):</label>
+                            <div class="input-group">
+                                <input type="range" class="form-range" id="minValue2" min="0" max="50" step="0.1" value="5">
+                                <input type="number" class="form-control form-control-sm" id="minInput2" min="0" max="50" step="0.1" value="5" style="max-width: 80px;">
+                            </div>
+                            <div class="text-center mt-1">
+                                <span id="minValue2Display" class="badge bg-danger">5</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="maxValue2" class="form-label">Maximum Value (b₂):</label>
+                            <div class="input-group">
+                                <input type="range" class="form-range" id="maxValue2" min="1" max="50" step="0.1" value="15">
+                                <input type="number" class="form-control form-control-sm" id="maxInput2" min="1" max="50" step="0.1" value="15" style="max-width: 80px;">
+                            </div>
+                            <div class="text-center mt-1">
+                                <span id="maxValue2Display" class="badge bg-warning">15</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div id="uniformPlotContainer" class="text-center mt-4">
+                <!-- Visualization Options -->
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="showMean">
+                            <label class="form-check-label" for="showMean">
+                                Show Mean
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="showQuartiles">
+                            <label class="form-check-label" for="showQuartiles">
+                                Show Quartiles
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="showProbabilities">
+                            <label class="form-check-label" for="showProbabilities">
+                                Show Probabilities
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="showCDF">
+                            <label class="form-check-label" for="showCDF">
+                                Show CDF
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Plot -->
+        <div class="card mb-3">
+            <div class="card-body">
+                <div id="plotContainer" class="text-center">
                     <img id="uniformPlot" src="" alt="Uniform Distribution Plot" class="img-fluid" style="display: none;">
-                    <div id="uniformLoadingSpinner" class="d-none">
+                    <div id="loadingSpinner" class="d-none">
                         <div class="spinner-border text-primary" role="status">
                             <span class="visually-hidden">Loading...</span>
                         </div>
@@ -71,106 +181,245 @@
                 </div>
             </div>
         </div>
+
+        <!-- Probability Calculator -->
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5><i class="fas fa-calculator text-success me-2"></i>Probability Calculator</h5>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="probType" class="form-label">Calculate:</label>
+                        <select class="form-select" id="probType">
+                            <option value="less">P(X < value)</option>
+                            <option value="greater">P(X > value)</option>
+                            <option value="between">P(a ≤ X ≤ b)</option>
+                            <option value="equal">P(X = value)</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="probValue1" class="form-label">Value (a):</label>
+                        <input type="number" class="form-control" id="probValue1" value="5" step="0.1">
+                    </div>
+                    <div class="col-md-3" id="probValue2Container" style="display: none;">
+                        <label for="probValue2" class="form-label">Value (b):</label>
+                        <input type="number" class="form-control" id="probValue2" value="8" step="0.1">
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">&nbsp;</label>
+                        <button id="calculateProb" class="btn btn-success w-100">Calculate</button>
+                    </div>
+                </div>
+                <div id="probResult" class="mt-3 p-3 bg-light rounded d-none">
+                    <h6>Result:</h6>
+                    <div id="probResultText"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Simulation Panel -->
+        <div class="card mb-3" id="simulationPanel" style="display: none;">
+            <div class="card-body">
+                <h5><i class="fas fa-play text-danger me-2"></i>Monte Carlo Simulation</h5>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="simSamples" class="form-label">Number of Samples:</label>
+                        <input type="range" class="form-range" id="simSamples" min="100" max="10000" step="100" value="1000">
+                        <div class="text-center">
+                            <span id="simSamplesValue" class="badge bg-info">1000</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="simBins" class="form-label">Histogram Bins:</label>
+                        <input type="range" class="form-range" id="simBins" min="10" max="50" step="5" value="20">
+                        <div class="text-center">
+                            <span id="simBinsValue" class="badge bg-secondary">20</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="d-grid gap-2">
+                            <label class="form-label">&nbsp;</label>
+                            <button id="runSimulation" class="btn btn-danger">
+                                <i class="fas fa-play me-1"></i>Run Simulation
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div id="simulationResults" class="mt-3 d-none">
+                    <div class="row text-center">
+                        <div class="col-md-3">
+                            <div class="border rounded p-2">
+                                <small class="text-muted">Sample Mean</small>
+                                <div id="simMean" class="fw-bold"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="border rounded p-2">
+                                <small class="text-muted">Sample Variance</small>
+                                <div id="simVariance" class="fw-bold"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="border rounded p-2">
+                                <small class="text-muted">Theoretical Mean</small>
+                                <div id="theoreticalMean" class="fw-bold"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="border rounded p-2">
+                                <small class="text-muted">Theoretical Variance</small>
+                                <div id="theoreticalVariance" class="fw-bold"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="col-lg-3">
-        <div class="card mb-4">
+    <!-- Side Panel -->
+    <div class="col-lg-4">
+        <!-- Distribution Type Selector -->
+        <div class="card mb-3">
             <div class="card-body">
-                <h5><i class="fas fa-info-circle text-info me-2"></i>Types</h5>
-                
-                <div class="mb-3">
-                    <h6 class="text-primary">
-                        <i class="fas fa-list-ol me-2"></i>Discrete Uniform Distribution
-                    </h6>
-                    <p class="small">Can take a finite number (m) of values and each value has an equal probability of selection.</p>
-                    <div class="bg-light p-2 rounded">
-                        <strong>Example:</strong> Rolling a single die
+                <h5><i class="fas fa-toggle-on text-info me-2"></i>Distribution Type</h5>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="border rounded p-3 text-center" id="discreteCard">
+                            <i class="fas fa-list-ol fa-2x text-primary mb-2"></i>
+                            <h6>Discrete</h6>
+                            <small class="text-muted">Finite outcomes</small>
+                        </div>
                     </div>
-                </div>
-
-                <div class="mb-3">
-                    <h6 class="text-success">
-                        <i class="fas fa-wave-square me-2"></i>Continuous Uniform Distribution
-                    </h6>
-                    <p class="small">Can take any value within a given range with equal probability.</p>
-                    <div class="bg-light p-2 rounded">
-                        <strong>Example:</strong> Weight gained by a person over 2 months (2-5 Kg)
+                    <div class="col-6">
+                        <div class="border rounded p-3 text-center" id="continuousCard">
+                            <i class="fas fa-wave-square fa-2x text-success mb-2"></i>
+                            <h6>Continuous</h6>
+                            <small class="text-muted">Infinite outcomes</small>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="card mb-4">
+        <!-- Current Distribution Stats -->
+        <div class="card mb-3">
             <div class="card-body">
-                <h5><i class="fas fa-calculator text-warning me-2"></i>Formulas</h5>
-                
-                <div class="mb-3">
-                    <h6>Discrete Uniform:</h6>
-                    <div class="formula">
-                        P(X = x) = 1/n
+                <h5><i class="fas fa-chart-bar text-info me-2"></i>Distribution Statistics</h5>
+                <div id="statsContainer">
+                    <div class="row text-center">
+                        <div class="col-6">
+                            <div class="border rounded p-2">
+                                <h6 class="text-primary mb-1">Mean (μ)</h6>
+                                <span id="statMean" class="h5">5.0</span>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="border rounded p-2">
+                                <h6 class="text-success mb-1">Variance (σ²)</h6>
+                                <span id="statVariance" class="h5">8.33</span>
+                            </div>
+                        </div>
                     </div>
-                    <small>where n = number of possible outcomes</small>
-                </div>
-
-                <div class="mb-3">
-                    <h6>Continuous Uniform:</h6>
-                    <div class="formula">
-                        f(x) = 1/(b-a) for a ≤ x ≤ b
+                    <div class="row text-center mt-2">
+                        <div class="col-6">
+                            <div class="border rounded p-2">
+                                <h6 class="text-warning mb-1">Std Dev (σ)</h6>
+                                <span id="statStd" class="h5">2.89</span>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="border rounded p-2">
+                                <h6 class="text-info mb-1">Range</h6>
+                                <span id="statRange" class="h5">10</span>
+                            </div>
+                        </div>
                     </div>
-                    <small>where a = minimum, b = maximum</small>
                 </div>
             </div>
         </div>
 
-        <div class="card">
+        <!-- Properties -->
+        <div class="card mb-3">
             <div class="card-body">
-                <h5><i class="fas fa-lightbulb text-success me-2"></i>Real Examples</h5>
-                <ul class="list-unstyled">
-                    <li class="mb-2">
-                        <i class="fas fa-dice text-primary me-2"></i>
-                        <strong>Rolling a die</strong> (1-6)
+                <h5><i class="fas fa-list-ul text-info me-2"></i>Properties</h5>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span><i class="fas fa-check text-success me-2"></i>Equal probabilities</span>
+                        <span class="badge bg-success">✓</span>
                     </li>
-                    <li class="mb-2">
-                        <i class="fas fa-coins text-warning me-2"></i>
-                        <strong>Coin toss</strong> (H/T)
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span><i class="fas fa-check text-success me-2"></i>Flat distribution</span>
+                        <span class="badge bg-success">✓</span>
                     </li>
-                    <li class="mb-2">
-                        <i class="fas fa-book text-info me-2"></i>
-                        <strong>Books sold weekly</strong> at a bookstore
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span><i class="fas fa-check text-success me-2"></i>Symmetric</span>
+                        <span class="badge bg-success">✓</span>
                     </li>
-                    <li class="mb-2">
-                        <i class="fas fa-clock text-success me-2"></i>
-                        <strong>Waiting time</strong> for a bus
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span id="domainText"><i class="fas fa-ruler text-primary me-2"></i>Domain: [0, 10]</span>
+                        <span class="badge bg-primary">Finite</span>
                     </li>
                 </ul>
             </div>
         </div>
-    </div>
-</div>
 
-<div class="row mt-4">
-    <div class="col-12">
+        <!-- Real-World Examples -->
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5><i class="fas fa-lightbulb text-success me-2"></i>Real-World Examples</h5>
+                <div class="row g-2">
+                    <div class="col-12">
+                        <button class="btn btn-outline-primary btn-sm w-100" onclick="setExample('dice')">
+                            <i class="fas fa-dice me-1"></i>Dice Roll (1-6)
+                        </button>
+                    </div>
+                    <div class="col-12">
+                        <button class="btn btn-outline-info btn-sm w-100" onclick="setExample('card')">
+                            <i class="fas fa-address-card me-1"></i>Card Draw (1-13)
+                        </button>
+                    </div>
+                    <div class="col-12">
+                        <button class="btn btn-outline-success btn-sm w-100" onclick="setExample('time')">
+                            <i class="fas fa-clock me-1"></i>Bus Arrival (0-15 min)
+                        </button>
+                    </div>
+                    <div class="col-12">
+                        <button class="btn btn-outline-warning btn-sm w-100" onclick="setExample('random')">
+                            <i class="fas fa-random me-1"></i>Random Number (0-1)
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Formulas -->
         <div class="card">
             <div class="card-body">
-                <h4><i class="fas fa-chart-pie text-primary me-2"></i>Key Properties</h4>
-                <div class="row">
-                    <div class="col-lg-6">
-                        <h5>Discrete Uniform Distribution</h5>
-                        <ul>
-                            <li><strong>Mean:</strong> μ = (a + b) / 2</li>
-                            <li><strong>Variance:</strong> σ² = ((b - a + 1)² - 1) / 12</li>
-                            <li><strong>Range:</strong> Finite set of values</li>
-                            <li><strong>Probability:</strong> Each outcome has probability 1/n</li>
-                        </ul>
+                <h5><i class="fas fa-calculator text-warning me-2"></i>Mathematical Formulas</h5>
+                
+                <div class="mb-3" id="discreteFormulas">
+                    <h6 class="text-primary">Discrete Uniform:</h6>
+                    <div class="bg-light p-2 rounded mb-2">
+                        <strong>PMF:</strong> P(X = k) = 1/n
                     </div>
-                    <div class="col-lg-6">
-                        <h5>Continuous Uniform Distribution</h5>
-                        <ul>
-                            <li><strong>Mean:</strong> μ = (a + b) / 2</li>
-                            <li><strong>Variance:</strong> σ² = (b - a)² / 12</li>
-                            <li><strong>Range:</strong> [a, b] interval</li>
-                            <li><strong>Density:</strong> Constant over the interval</li>
-                        </ul>
+                    <div class="bg-light p-2 rounded mb-2">
+                        <strong>Mean:</strong> μ = (a + b)/2
+                    </div>
+                    <div class="bg-light p-2 rounded">
+                        <strong>Variance:</strong> σ² = ((b-a+1)²-1)/12
+                    </div>
+                </div>
+
+                <div class="mb-3" id="continuousFormulas">
+                    <h6 class="text-success">Continuous Uniform:</h6>
+                    <div class="bg-light p-2 rounded mb-2">
+                        <strong>PDF:</strong> f(x) = 1/(b-a) for a ≤ x ≤ b
+                    </div>
+                    <div class="bg-light p-2 rounded mb-2">
+                        <strong>Mean:</strong> μ = (a + b)/2
+                    </div>
+                    <div class="bg-light p-2 rounded">
+                        <strong>Variance:</strong> σ² = (b-a)²/12
                     </div>
                 </div>
             </div>
@@ -182,20 +431,154 @@
 {% block scripts %}
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // Get all the DOM elements
     const discreteSwitch = document.getElementById('discreteSwitch');
     const minSlider = document.getElementById('minValue');
     const maxSlider = document.getElementById('maxValue');
+    const minInput = document.getElementById('minInput');
+    const maxInput = document.getElementById('maxInput');
     const minDisplay = document.getElementById('minValueDisplay');
     const maxDisplay = document.getElementById('maxValueDisplay');
-    const diceButton = document.getElementById('diceExample');
+    
+    // Comparison controls
+    const minSlider2 = document.getElementById('minValue2');
+    const maxSlider2 = document.getElementById('maxValue2');
+    const minInput2 = document.getElementById('minInput2');
+    const maxInput2 = document.getElementById('maxInput2');
+    const minDisplay2 = document.getElementById('minValue2Display');
+    const maxDisplay2 = document.getElementById('maxValue2Display');
+    
+    // UI elements
     const plotImage = document.getElementById('uniformPlot');
-    const loadingSpinner = document.getElementById('uniformLoadingSpinner');
+    const loadingSpinner = document.getElementById('loadingSpinner');
+    const comparisonControls = document.getElementById('comparisonControls');
+    const primaryLabel = document.getElementById('primaryLabel');
+    const comparisonLabel = document.getElementById('comparisonLabel');
+    const simulationPanel = document.getElementById('simulationPanel');
+    
+    // Buttons
+    const diceExampleBtn = document.getElementById('diceExample');
+    const coinExampleBtn = document.getElementById('coinExample');
+    const timeExampleBtn = document.getElementById('timeExample');
+    const compareModeBtn = document.getElementById('compareMode');
+    const simulationModeBtn = document.getElementById('simulationMode');
+    const resetAllBtn = document.getElementById('resetAll');
+    
+    // Checkboxes and options
+    const showMean = document.getElementById('showMean');
+    const showQuartiles = document.getElementById('showQuartiles');
+    const showProbabilities = document.getElementById('showProbabilities');
+    const showCDF = document.getElementById('showCDF');
+    const showGrid = document.getElementById('showGrid');
+    
+    // Probability calculator
+    const probType = document.getElementById('probType');
+    const probValue1 = document.getElementById('probValue1');
+    const probValue2 = document.getElementById('probValue2');
+    const probValue2Container = document.getElementById('probValue2Container');
+    const calculateProbBtn = document.getElementById('calculateProb');
+    const probResult = document.getElementById('probResult');
+    const probResultText = document.getElementById('probResultText');
+    
+    // Simulation controls
+    const simSamples = document.getElementById('simSamples');
+    const simSamplesValue = document.getElementById('simSamplesValue');
+    const simBins = document.getElementById('simBins');
+    const simBinsValue = document.getElementById('simBinsValue');
+    const runSimulationBtn = document.getElementById('runSimulation');
+    const simulationResults = document.getElementById('simulationResults');
+    
+    // Stats display
+    const statMean = document.getElementById('statMean');
+    const statVariance = document.getElementById('statVariance');
+    const statStd = document.getElementById('statStd');
+    const statRange = document.getElementById('statRange');
+    const domainText = document.getElementById('domainText');
+    const discreteCard = document.getElementById('discreteCard');
+    const continuousCard = document.getElementById('continuousCard');
 
     let updateTimeout;
     let isInitialLoad = true;
+    let comparisonMode = false;
+    let simulationMode = false;
+
+    // Utility functions
+    function updateStats() {
+        const a = parseFloat(minSlider.value);
+        const b = parseFloat(maxSlider.value);
+        const isDiscrete = discreteSwitch.checked;
+        
+        const mean = (a + b) / 2;
+        const range = b - a;
+        let variance, std;
+        
+        if (isDiscrete) {
+            const n = Math.floor(b) - Math.floor(a) + 1;
+            variance = ((n * n) - 1) / 12;
+        } else {
+            variance = (range * range) / 12;
+        }
+        std = Math.sqrt(variance);
+        
+        statMean.textContent = mean.toFixed(2);
+        statVariance.textContent = variance.toFixed(2);
+        statStd.textContent = std.toFixed(2);
+        statRange.textContent = range.toFixed(1);
+        
+        // Update domain text
+        domainText.innerHTML = `<i class="fas fa-ruler text-primary me-2"></i>Domain: [${a}, ${b}]`;
+        
+        // Update labels
+        primaryLabel.textContent = `Uniform(${a}, ${b})`;
+        if (comparisonMode) {
+            const a2 = parseFloat(minSlider2.value);
+            const b2 = parseFloat(maxSlider2.value);
+            comparisonLabel.textContent = `Uniform(${a2}, ${b2})`;
+        }
+        
+        // Update distribution type cards
+        if (isDiscrete) {
+            discreteCard.classList.add('bg-primary', 'text-white');
+            continuousCard.classList.remove('bg-success', 'text-white');
+        } else {
+            continuousCard.classList.add('bg-success', 'text-white');
+            discreteCard.classList.remove('bg-primary', 'text-white');
+        }
+    }
+
+    function updateSliderSteps() {
+        const isDiscrete = discreteSwitch.checked;
+        const step = isDiscrete ? "1" : "0.1";
+        
+        [minSlider, maxSlider, minSlider2, maxSlider2].forEach(slider => {
+            if (slider) slider.step = step;
+        });
+        
+        [minInput, maxInput, minInput2, maxInput2].forEach(input => {
+            if (input) input.step = step;
+        });
+        
+        // Round values for discrete mode
+        if (isDiscrete) {
+            minSlider.value = Math.round(parseFloat(minSlider.value));
+            maxSlider.value = Math.round(parseFloat(maxSlider.value));
+            minInput.value = minSlider.value;
+            maxInput.value = maxSlider.value;
+            minDisplay.textContent = minSlider.value;
+            maxDisplay.textContent = maxSlider.value;
+            
+            if (comparisonMode) {
+                minSlider2.value = Math.round(parseFloat(minSlider2.value));
+                maxSlider2.value = Math.round(parseFloat(maxSlider2.value));
+                minInput2.value = minSlider2.value;
+                maxInput2.value = maxSlider2.value;
+                minDisplay2.textContent = minSlider2.value;
+                maxDisplay2.textContent = maxSlider2.value;
+            }
+        }
+    }
 
     function generatePlot() {
-        // Only show spinner on initial load
         if (isInitialLoad) {
             loadingSpinner.classList.remove('d-none');
             plotImage.style.display = 'none';
@@ -204,8 +587,21 @@ document.addEventListener('DOMContentLoaded', function() {
         const a = minSlider.value;
         const b = maxSlider.value;
         const discrete = discreteSwitch.checked;
+        
+        let url = `/generate_uniform_plot?a=${a}&b=${b}&discrete=${discrete}`;
+        url += `&show_mean=${showMean.checked}`;
+        url += `&show_quartiles=${showQuartiles.checked}`;
+        url += `&show_probabilities=${showProbabilities.checked}`;
+        url += `&show_cdf=${showCDF.checked}`;
+        url += `&show_grid=${showGrid.checked}`;
+        
+        if (comparisonMode) {
+            const a2 = minSlider2.value;
+            const b2 = maxSlider2.value;
+            url += `&comparison=true&a2=${a2}&b2=${b2}`;
+        }
 
-        fetch(`/generate_uniform_plot?a=${a}&b=${b}&discrete=${discrete}`)
+        fetch(url)
             .then(response => response.json())
             .then(data => {
                 plotImage.src = 'data:image/png;base64,' + data.plot;
@@ -225,42 +621,373 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function debounceUpdate() {
+        updateStats();
+        updateSliderSteps();
         clearTimeout(updateTimeout);
-        updateTimeout = setTimeout(generatePlot, 200); // Reduced to 200ms for faster response
+        updateTimeout = setTimeout(generatePlot, 200);
     }
 
-    minSlider.addEventListener('input', function() {
-        minDisplay.textContent = this.value;
-        if (parseInt(this.value) >= parseInt(maxSlider.value)) {
-            maxSlider.value = parseInt(this.value) + 1;
-            maxDisplay.textContent = maxSlider.value;
+    // Sync sliders with number inputs
+    function syncControls() {
+        minSlider.addEventListener('input', function() {
+            const value = discreteSwitch.checked ? Math.round(this.value) : this.value;
+            minDisplay.textContent = value;
+            minInput.value = value;
+            this.value = value;
+            if (parseFloat(value) >= parseFloat(maxSlider.value)) {
+                const newMax = parseFloat(value) + (discreteSwitch.checked ? 1 : 0.1);
+                maxSlider.value = newMax;
+                maxInput.value = newMax;
+                maxDisplay.textContent = newMax;
+            }
+            debounceUpdate();
+        });
+
+        minInput.addEventListener('input', function() {
+            const value = discreteSwitch.checked ? Math.round(this.value) : this.value;
+            if (value >= 0 && value <= 50) {
+                minSlider.value = value;
+                minDisplay.textContent = value;
+                this.value = value;
+                debounceUpdate();
+            }
+        });
+
+        maxSlider.addEventListener('input', function() {
+            const value = discreteSwitch.checked ? Math.round(this.value) : this.value;
+            maxDisplay.textContent = value;
+            maxInput.value = value;
+            this.value = value;
+            if (parseFloat(value) <= parseFloat(minSlider.value)) {
+                const newMin = parseFloat(value) - (discreteSwitch.checked ? 1 : 0.1);
+                minSlider.value = Math.max(0, newMin);
+                minInput.value = minSlider.value;
+                minDisplay.textContent = minSlider.value;
+            }
+            debounceUpdate();
+        });
+
+        maxInput.addEventListener('input', function() {
+            const value = discreteSwitch.checked ? Math.round(this.value) : this.value;
+            if (value >= 1 && value <= 50) {
+                maxSlider.value = value;
+                maxDisplay.textContent = value;
+                this.value = value;
+                debounceUpdate();
+            }
+        });
+
+        // Comparison controls
+        if (minSlider2) {
+            minSlider2.addEventListener('input', function() {
+                const value = discreteSwitch.checked ? Math.round(this.value) : this.value;
+                minDisplay2.textContent = value;
+                minInput2.value = value;
+                this.value = value;
+                debounceUpdate();
+            });
+
+            minInput2.addEventListener('input', function() {
+                const value = discreteSwitch.checked ? Math.round(this.value) : this.value;
+                if (value >= 0 && value <= 50) {
+                    minSlider2.value = value;
+                    minDisplay2.textContent = value;
+                    this.value = value;
+                    debounceUpdate();
+                }
+            });
+
+            maxSlider2.addEventListener('input', function() {
+                const value = discreteSwitch.checked ? Math.round(this.value) : this.value;
+                maxDisplay2.textContent = value;
+                maxInput2.value = value;
+                this.value = value;
+                debounceUpdate();
+            });
+
+            maxInput2.addEventListener('input', function() {
+                const value = discreteSwitch.checked ? Math.round(this.value) : this.value;
+                if (value >= 1 && value <= 50) {
+                    maxSlider2.value = value;
+                    maxDisplay2.textContent = value;
+                    this.value = value;
+                    debounceUpdate();
+                }
+            });
+        }
+    }
+
+    // Button event handlers
+    diceExampleBtn.addEventListener('click', function() {
+        setDistribution(1, 6, true);
+        this.classList.add('active');
+        setTimeout(() => this.classList.remove('active'), 200);
+    });
+
+    coinExampleBtn.addEventListener('click', function() {
+        setDistribution(0, 1, true);
+        this.classList.add('active');
+        setTimeout(() => this.classList.remove('active'), 200);
+    });
+
+    timeExampleBtn.addEventListener('click', function() {
+        setDistribution(0, 60, false);
+        this.classList.add('active');
+        setTimeout(() => this.classList.remove('active'), 200);
+    });
+
+    compareModeBtn.addEventListener('click', function() {
+        comparisonMode = !comparisonMode;
+        if (comparisonMode) {
+            comparisonControls.classList.remove('d-none');
+            this.classList.add('btn-warning');
+            this.classList.remove('btn-outline-warning');
+        } else {
+            comparisonControls.classList.add('d-none');
+            this.classList.remove('btn-warning');
+            this.classList.add('btn-outline-warning');
         }
         debounceUpdate();
     });
 
-    maxSlider.addEventListener('input', function() {
-        maxDisplay.textContent = this.value;
-        if (parseInt(this.value) <= parseInt(minSlider.value)) {
-            minSlider.value = parseInt(this.value) - 1;
-            minDisplay.textContent = minSlider.value;
+    simulationModeBtn.addEventListener('click', function() {
+        simulationMode = !simulationMode;
+        if (simulationMode) {
+            simulationPanel.style.display = 'block';
+            this.classList.add('btn-danger');
+            this.classList.remove('btn-outline-danger');
+        } else {
+            simulationPanel.style.display = 'none';
+            this.classList.remove('btn-danger');
+            this.classList.add('btn-outline-danger');
         }
+    });
+
+    resetAllBtn.addEventListener('click', function() {
+        setDistribution(0, 10, false);
+        comparisonMode = false;
+        simulationMode = false;
+        comparisonControls.classList.add('d-none');
+        simulationPanel.style.display = 'none';
+        compareModeBtn.classList.remove('btn-warning');
+        compareModeBtn.classList.add('btn-outline-warning');
+        simulationModeBtn.classList.remove('btn-danger');
+        simulationModeBtn.classList.add('btn-outline-danger');
+        showMean.checked = false;
+        showQuartiles.checked = false;
+        showProbabilities.checked = false;
+        showCDF.checked = false;
+        showGrid.checked = true;
+        probResult.classList.add('d-none');
+        simulationResults.classList.add('d-none');
+        this.classList.add('active');
+        setTimeout(() => this.classList.remove('active'), 200);
         debounceUpdate();
     });
 
-    discreteSwitch.addEventListener('change', function() {
+    // Discrete/Continuous switch
+    discreteSwitch.addEventListener('change', debounceUpdate);
+
+    // Checkbox event handlers
+    [showMean, showQuartiles, showProbabilities, showCDF, showGrid].forEach(checkbox => {
+        checkbox.addEventListener('change', debounceUpdate);
+    });
+
+    // Probability calculator
+    probType.addEventListener('change', function() {
+        if (this.value === 'between') {
+            probValue2Container.style.display = 'block';
+        } else {
+            probValue2Container.style.display = 'none';
+        }
+    });
+
+    calculateProbBtn.addEventListener('click', function() {
+        const a = parseFloat(minSlider.value);
+        const b = parseFloat(maxSlider.value);
+        const value1 = parseFloat(probValue1.value);
+        const value2 = parseFloat(probValue2.value);
+        const type = probType.value;
+        const isDiscrete = discreteSwitch.checked;
+
+        let probability, resultText;
+
+        switch(type) {
+            case 'less':
+                if (isDiscrete) {
+                    if (value1 <= a) {
+                        probability = 0;
+                    } else if (value1 > b) {
+                        probability = 1;
+                    } else {
+                        const n = Math.floor(b) - Math.floor(a) + 1;
+                        const count = Math.floor(value1) - Math.floor(a);
+                        probability = count / n;
+                    }
+                } else {
+                    if (value1 <= a) {
+                        probability = 0;
+                    } else if (value1 >= b) {
+                        probability = 1;
+                    } else {
+                        probability = (value1 - a) / (b - a);
+                    }
+                }
+                resultText = `P(X < ${value1}) = ${probability.toFixed(4)} (${(probability * 100).toFixed(2)}%)`;
+                break;
+                
+            case 'greater':
+                if (isDiscrete) {
+                    if (value1 >= b) {
+                        probability = 0;
+                    } else if (value1 < a) {
+                        probability = 1;
+                    } else {
+                        const n = Math.floor(b) - Math.floor(a) + 1;
+                        const count = Math.floor(b) - Math.floor(value1);
+                        probability = count / n;
+                    }
+                } else {
+                    if (value1 >= b) {
+                        probability = 0;
+                    } else if (value1 <= a) {
+                        probability = 1;
+                    } else {
+                        probability = (b - value1) / (b - a);
+                    }
+                }
+                resultText = `P(X > ${value1}) = ${probability.toFixed(4)} (${(probability * 100).toFixed(2)}%)`;
+                break;
+                
+            case 'between':
+                if (value1 >= value2) {
+                    resultText = 'Error: Value (a) must be less than Value (b)';
+                    break;
+                }
+                if (isDiscrete) {
+                    const n = Math.floor(b) - Math.floor(a) + 1;
+                    const lowerBound = Math.max(Math.ceil(value1), a);
+                    const upperBound = Math.min(Math.floor(value2), b);
+                    const count = Math.max(0, upperBound - lowerBound + 1);
+                    probability = count / n;
+                } else {
+                    const lowerBound = Math.max(value1, a);
+                    const upperBound = Math.min(value2, b);
+                    const range = Math.max(0, upperBound - lowerBound);
+                    probability = range / (b - a);
+                }
+                resultText = `P(${value1} ≤ X ≤ ${value2}) = ${probability.toFixed(4)} (${(probability * 100).toFixed(2)}%)`;
+                break;
+                
+            case 'equal':
+                if (isDiscrete) {
+                    if (value1 >= a && value1 <= b && Number.isInteger(value1)) {
+                        const n = Math.floor(b) - Math.floor(a) + 1;
+                        probability = 1 / n;
+                        resultText = `P(X = ${value1}) = ${probability.toFixed(4)} (${(probability * 100).toFixed(2)}%)`;
+                    } else {
+                        resultText = `P(X = ${value1}) = 0 (value not in domain or not integer)`;
+                    }
+                } else {
+                    resultText = 'P(X = value) = 0 for continuous distributions';
+                }
+                break;
+        }
+
+        probResultText.innerHTML = `<strong>${resultText}</strong>`;
+        probResult.classList.remove('d-none');
+    });
+
+    // Simulation functionality
+    simSamples.addEventListener('input', function() {
+        simSamplesValue.textContent = this.value;
+    });
+
+    simBins.addEventListener('input', function() {
+        simBinsValue.textContent = this.value;
+    });
+
+    runSimulationBtn.addEventListener('click', function() {
+        const a = parseFloat(minSlider.value);
+        const b = parseFloat(maxSlider.value);
+        const n = parseInt(simSamples.value);
+        const bins = parseInt(simBins.value);
+        const isDiscrete = discreteSwitch.checked;
+        
+        // Generate uniform random samples
+        let samples = [];
+        for (let i = 0; i < n; i++) {
+            if (isDiscrete) {
+                samples.push(Math.floor(Math.random() * (Math.floor(b) - Math.floor(a) + 1)) + Math.floor(a));
+            } else {
+                samples.push(Math.random() * (b - a) + a);
+            }
+        }
+        
+        // Calculate sample statistics
+        const sampleMean = samples.reduce((sum, x) => sum + x, 0) / n;
+        const sampleVariance = samples.reduce((sum, x) => sum + (x - sampleMean) ** 2, 0) / (n - 1);
+        
+        // Calculate theoretical statistics
+        const theorMean = (a + b) / 2;
+        let theorVariance;
+        if (isDiscrete) {
+            const numValues = Math.floor(b) - Math.floor(a) + 1;
+            theorVariance = ((numValues * numValues) - 1) / 12;
+        } else {
+            theorVariance = ((b - a) ** 2) / 12;
+        }
+        
+        // Display results
+        document.getElementById('simMean').textContent = sampleMean.toFixed(3);
+        document.getElementById('simVariance').textContent = sampleVariance.toFixed(3);
+        document.getElementById('theoreticalMean').textContent = theorMean.toFixed(3);
+        document.getElementById('theoreticalVariance').textContent = theorVariance.toFixed(3);
+        
+        simulationResults.classList.remove('d-none');
+        
+        this.classList.add('btn-success');
+        this.innerHTML = '<i class="fas fa-check me-1"></i>Simulation Complete!';
+        setTimeout(() => {
+            this.classList.remove('btn-success');
+            this.innerHTML = '<i class="fas fa-play me-1"></i>Run Simulation';
+        }, 2000);
+    });
+
+    // Utility function to set distribution parameters
+    function setDistribution(min, max, discrete) {
+        minSlider.value = min;
+        maxSlider.value = max;
+        minInput.value = min;
+        maxInput.value = max;
+        minDisplay.textContent = min;
+        maxDisplay.textContent = max;
+        discreteSwitch.checked = discrete;
         debounceUpdate();
-    });
+    }
 
-    diceButton.addEventListener('click', function() {
-        discreteSwitch.checked = true;
-        minSlider.value = 1;
-        maxSlider.value = 6;
-        minDisplay.textContent = '1';
-        maxDisplay.textContent = '6';
-        generatePlot();
-    });
+    // Global function for example buttons
+    window.setExample = function(type) {
+        switch(type) {
+            case 'dice':
+                setDistribution(1, 6, true);
+                break;
+            case 'card':
+                setDistribution(1, 13, true);
+                break;
+            case 'time':
+                setDistribution(0, 15, false);
+                break;
+            case 'random':
+                setDistribution(0, 1, false);
+                break;
+        }
+    };
 
-    // Generate initial plot
+    // Initialize
+    syncControls();
+    updateStats();
+    updateSliderSteps();
     generatePlot();
 });
 </script>

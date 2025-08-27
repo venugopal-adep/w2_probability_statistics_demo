@@ -5,54 +5,169 @@
 {% block content %}
 <div class="row">
     <div class="col-12">
-        <div class="card mb-4">
+        <div class="card mb-3">
             <div class="card-body">
                 <h1 class="display-5 mb-3">
-                    <i class="fas fa-coins text-success me-3"></i>
-                    Binomial Distribution
+                    <i class="fas fa-coins text-success me-2"></i>
+                    Binomial Distribution Interactive Explorer
                 </h1>
-                <p class="lead">The binomial distribution is the probability distribution of the number of successes of an experiment that is conducted multiple times and has only two possible outcomes.</p>
+                <p class="lead">Explore the binomial distribution with interactive visualizations, probability calculations, real-world simulations, and statistical analysis tools.</p>
+                
+                <!-- Quick Action Buttons -->
+                <div class="row g-2 mt-2">
+                    <div class="col-md-2">
+                        <button id="coinExample" class="btn btn-outline-primary btn-sm w-100">
+                            <i class="fas fa-coins me-1"></i>Coin Flips
+                        </button>
+                    </div>
+                    <div class="col-md-2">
+                        <button id="diceExample" class="btn btn-outline-info btn-sm w-100">
+                            <i class="fas fa-dice me-1"></i>Dice Rolls
+                        </button>
+                    </div>
+                    <div class="col-md-2">
+                        <button id="surveyExample" class="btn btn-outline-success btn-sm w-100">
+                            <i class="fas fa-poll me-1"></i>Survey
+                        </button>
+                    </div>
+                    <div class="col-md-2">
+                        <button id="compareMode" class="btn btn-outline-warning btn-sm w-100">
+                            <i class="fas fa-exchange-alt me-1"></i>Compare Two
+                        </button>
+                    </div>
+                    <div class="col-md-2">
+                        <button id="simulationMode" class="btn btn-outline-danger btn-sm w-100">
+                            <i class="fas fa-play me-1"></i>Simulation
+                        </button>
+                    </div>
+                    <div class="col-md-2">
+                        <button id="resetAll" class="btn btn-outline-secondary btn-sm w-100">
+                            <i class="fas fa-undo me-1"></i>Reset
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
+<!-- Main Control Panel -->
 <div class="row">
-    <div class="col-lg-9">
-        <div class="card mb-4">
+    <div class="col-lg-8">
+        <div class="card mb-3">
             <div class="card-body">
-                <h4><i class="fas fa-sliders-h text-primary me-2"></i>Interactive Binomial Distribution</h4>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4><i class="fas fa-sliders-h text-primary me-2"></i>Distribution Controls</h4>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="showGrid" checked>
+                        <label class="form-check-label" for="showGrid">Show Grid</label>
+                    </div>
+                </div>
                 
-                <div class="interactive-section">
+                <!-- Primary Distribution Controls -->
+                <div id="primaryControls" class="border p-3 rounded mb-3" style="border-color: #0d6efd !important;">
+                    <h6 class="text-primary mb-3">
+                        <i class="fas fa-chart-line me-1"></i>Primary Distribution
+                        <span id="primaryLabel" class="badge bg-primary ms-2">Binomial(10, 0.5)</span>
+                    </h6>
                     <div class="row">
                         <div class="col-md-6">
                             <label for="nTrials" class="form-label">Number of Trials (n):</label>
-                            <input type="range" class="form-range" id="nTrials" min="1" max="50" step="1" value="10">
-                            <div class="text-center">
+                            <div class="input-group">
+                                <input type="range" class="form-range" id="nTrials" min="1" max="100" step="1" value="10">
+                                <input type="number" class="form-control form-control-sm" id="nTrialsInput" min="1" max="100" step="1" value="10" style="max-width: 80px;">
+                            </div>
+                            <div class="text-center mt-1">
                                 <span id="nTrialsValue" class="badge bg-primary">10</span>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <label for="probability" class="form-label">Probability of Success (p):</label>
-                            <input type="range" class="form-range" id="probability" min="0.01" max="0.99" step="0.01" value="0.5">
-                            <div class="text-center">
+                            <div class="input-group">
+                                <input type="range" class="form-range" id="probability" min="0.01" max="0.99" step="0.01" value="0.5">
+                                <input type="number" class="form-control form-control-sm" id="probabilityInput" min="0.01" max="0.99" step="0.01" value="0.5" style="max-width: 80px;">
+                            </div>
+                            <div class="text-center mt-1">
                                 <span id="probabilityValue" class="badge bg-success">0.5</span>
                             </div>
                         </div>
                     </div>
-                    <div class="text-center mt-3">
-                        <button id="generateBinomialPlot" class="btn btn-primary">
-                            <i class="fas fa-chart-bar me-2"></i>Generate Plot
-                        </button>
-                        <button id="lotteryExample" class="btn btn-outline-warning ms-2">
-                            <i class="fas fa-ticket-alt me-2"></i>Lottery Example
-                        </button>
+                </div>
+
+                <!-- Comparison Controls (Hidden by default) -->
+                <div id="comparisonControls" class="border p-3 rounded mb-3 d-none" style="border-color: #dc3545 !important;">
+                    <h6 class="text-danger mb-3">
+                        <i class="fas fa-chart-line me-1"></i>Comparison Distribution
+                        <span id="comparisonLabel" class="badge bg-danger ms-2">Binomial(20, 0.3)</span>
+                    </h6>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="nTrials2" class="form-label">Number of Trials (n₂):</label>
+                            <div class="input-group">
+                                <input type="range" class="form-range" id="nTrials2" min="1" max="100" step="1" value="20">
+                                <input type="number" class="form-control form-control-sm" id="nTrials2Input" min="1" max="100" step="1" value="20" style="max-width: 80px;">
+                            </div>
+                            <div class="text-center mt-1">
+                                <span id="nTrials2Value" class="badge bg-danger">20</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="probability2" class="form-label">Probability of Success (p₂):</label>
+                            <div class="input-group">
+                                <input type="range" class="form-range" id="probability2" min="0.01" max="0.99" step="0.01" value="0.3">
+                                <input type="number" class="form-control form-control-sm" id="probability2Input" min="0.01" max="0.99" step="0.01" value="0.3" style="max-width: 80px;">
+                            </div>
+                            <div class="text-center mt-1">
+                                <span id="probability2Value" class="badge bg-warning">0.3</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div id="binomialPlotContainer" class="text-center mt-4">
+                <!-- Visualization Options -->
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="showMean">
+                            <label class="form-check-label" for="showMean">
+                                Show Mean
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="showStdDev">
+                            <label class="form-check-label" for="showStdDev">
+                                Show ±1σ, ±2σ
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="showNormalApprox">
+                            <label class="form-check-label" for="showNormalApprox">
+                                Normal Approximation
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="showCDF">
+                            <label class="form-check-label" for="showCDF">
+                                Show CDF
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Plot -->
+        <div class="card mb-3">
+            <div class="card-body">
+                <div id="plotContainer" class="text-center">
                     <img id="binomialPlot" src="" alt="Binomial Distribution Plot" class="img-fluid" style="display: none;">
-                    <div id="binomialLoadingSpinner" class="d-none">
+                    <div id="loadingSpinner" class="d-none">
                         <div class="spinner-border text-primary" role="status">
                             <span class="visually-hidden">Loading...</span>
                         </div>
@@ -61,35 +176,102 @@
             </div>
         </div>
 
-        <div class="card">
+        <!-- Probability Calculator -->
+        <div class="card mb-3">
             <div class="card-body">
-                <h4><i class="fas fa-coins text-warning me-2"></i>Coin Toss Simulation</h4>
-                <p>Simulate coin tosses to see how the binomial distribution emerges in practice!</p>
-                
-                <div class="interactive-section">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label for="numTosses" class="form-label">Number of Tosses:</label>
-                            <select class="form-select" id="numTosses">
-                                <option value="100">100 tosses</option>
-                                <option value="500" selected>500 tosses</option>
-                                <option value="1000">1000 tosses</option>
-                                <option value="2000">2000 tosses</option>
-                            </select>
+                <h5><i class="fas fa-calculator text-success me-2"></i>Probability Calculator</h5>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="probType" class="form-label">Calculate:</label>
+                        <select class="form-select" id="probType">
+                            <option value="exact">P(X = k)</option>
+                            <option value="atmost">P(X ≤ k)</option>
+                            <option value="atleast">P(X ≥ k)</option>
+                            <option value="between">P(a ≤ X ≤ b)</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="probValue1" class="form-label">Value (k/a):</label>
+                        <input type="number" class="form-control" id="probValue1" value="5" min="0" step="1">
+                    </div>
+                    <div class="col-md-3" id="probValue2Container" style="display: none;">
+                        <label for="probValue2" class="form-label">Value (b):</label>
+                        <input type="number" class="form-control" id="probValue2" value="8" min="0" step="1">
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">&nbsp;</label>
+                        <button id="calculateProb" class="btn btn-success w-100">Calculate</button>
+                    </div>
+                </div>
+                <div id="probResult" class="mt-3 p-3 bg-light rounded d-none">
+                    <h6>Result:</h6>
+                    <div id="probResultText"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Simulation Panel -->
+        <div class="card mb-3" id="simulationPanel" style="display: none;">
+            <div class="card-body">
+                <h5><i class="fas fa-play text-danger me-2"></i>Monte Carlo Simulation</h5>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="simExperiments" class="form-label">Number of Experiments:</label>
+                        <input type="range" class="form-range" id="simExperiments" min="100" max="10000" step="100" value="1000">
+                        <div class="text-center">
+                            <span id="simExperimentsValue" class="badge bg-info">1000</span>
                         </div>
-                        <div class="col-md-6 d-flex align-items-end">
-                            <button id="simulateCoinToss" class="btn btn-success w-100">
-                                <i class="fas fa-play me-2"></i>Simulate Coin Tosses
+                    </div>
+                    <div class="col-md-3">
+                        <label for="simBins" class="form-label">Histogram Bins:</label>
+                        <input type="range" class="form-range" id="simBins" min="10" max="50" step="5" value="20">
+                        <div class="text-center">
+                            <span id="simBinsValue" class="badge bg-secondary">20</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="simScenario" class="form-label">Scenario:</label>
+                        <select class="form-select" id="simScenario">
+                            <option value="coin">Coin Flips</option>
+                            <option value="drug">Drug Effectiveness</option>
+                            <option value="quality">Quality Control</option>
+                            <option value="survey">Survey Responses</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="d-grid gap-2">
+                            <label class="form-label">&nbsp;</label>
+                            <button id="runSimulation" class="btn btn-danger">
+                                <i class="fas fa-play me-1"></i>Run Simulation
                             </button>
                         </div>
                     </div>
                 </div>
-
-                <div id="simulationResults" class="mt-4" style="display: none;">
-                    <img id="simulationPlot" src="" alt="Coin Toss Simulation" class="img-fluid">
-                    <div id="simulationLoadingSpinner" class="d-none text-center">
-                        <div class="spinner-border text-success" role="status">
-                            <span class="visually-hidden">Loading...</span>
+                <div id="simulationResults" class="mt-3 d-none">
+                    <div class="row text-center">
+                        <div class="col-md-3">
+                            <div class="border rounded p-2">
+                                <small class="text-muted">Sample Mean</small>
+                                <div id="simMean" class="fw-bold"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="border rounded p-2">
+                                <small class="text-muted">Sample Variance</small>
+                                <div id="simVariance" class="fw-bold"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="border rounded p-2">
+                                <small class="text-muted">Theoretical Mean</small>
+                                <div id="theoreticalMean" class="fw-bold"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="border rounded p-2">
+                                <small class="text-muted">Theoretical Variance</small>
+                                <div id="theoreticalVariance" class="fw-bold"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -97,188 +279,145 @@
         </div>
     </div>
 
-    <div class="col-lg-3">
-        <div class="card mb-4">
+    <!-- Side Panel -->
+    <div class="col-lg-4">
+        <!-- Current Distribution Stats -->
+        <div class="card mb-3">
             <div class="card-body">
-                <h5><i class="fas fa-list-check text-info me-2"></i>Assumptions</h5>
-                <ol class="list-group list-group-numbered">
-                    <li class="list-group-item">There are only <strong>two possible outcomes</strong> (success or failure) for each trial</li>
-                    <li class="list-group-item">The <strong>number of trials is fixed</strong></li>
-                    <li class="list-group-item">The outcome of each trial is <strong>independent</strong></li>
-                    <li class="list-group-item">The <strong>probability of success</strong> is the same for each trial</li>
-                </ol>
-            </div>
-        </div>
-
-        <div class="card mb-4">
-            <div class="card-body">
-                <h5><i class="fas fa-calculator text-warning me-2"></i>Formulas</h5>
-                
-                <div class="formula mb-3">
-                    <h6>Probability Mass Function:</h6>
-                    <div class="text-center mb-2">
-                        <div class="bg-light p-3 rounded border" style="font-size: 1.1em; font-family: 'Times New Roman', serif;">
-                            <em>P</em>(<em>X</em> = <em>k</em>) = <em>C</em>(<em>n</em>,<em>k</em>) × <em>p</em><sup><em>k</em></sup> × (1-<em>p</em>)<sup>(<em>n</em>-<em>k</em>)</sup>
+                <h5><i class="fas fa-chart-bar text-info me-2"></i>Distribution Statistics</h5>
+                <div id="statsContainer">
+                    <div class="row text-center">
+                        <div class="col-6">
+                            <div class="border rounded p-2">
+                                <h6 class="text-primary mb-1">Mean (μ)</h6>
+                                <span id="statMean" class="h5">5.0</span>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="border rounded p-2">
+                                <h6 class="text-success mb-1">Variance (σ²)</h6>
+                                <span id="statVariance" class="h5">2.5</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="text-center">
-                        <small>where <em>C</em>(<em>n</em>,<em>k</em>) = 
-                            <span style="display: inline-block; text-align: center; font-family: 'Times New Roman', serif;">
-                                <span style="display: block; border-bottom: 1px solid black; padding-bottom: 2px;"><em>n</em>!</span>
-                                <span style="display: block; padding-top: 2px;"><em>k</em>!(<em>n</em>-<em>k</em>)!</span>
-                            </span>
-                        </small>
+                    <div class="row text-center mt-2">
+                        <div class="col-6">
+                            <div class="border rounded p-2">
+                                <h6 class="text-warning mb-1">Std Dev (σ)</h6>
+                                <span id="statStd" class="h5">1.58</span>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="border rounded p-2">
+                                <h6 class="text-info mb-1">Mode</h6>
+                                <span id="statMode" class="h5">5</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
-                <div class="mb-2">
-                    <strong>Mean:</strong> <span style="font-family: 'Times New Roman', serif;"><em>μ</em> = <em>n</em> × <em>p</em></span>
-                </div>
-                <div class="mb-2">
-                    <strong>Variance:</strong> <span style="font-family: 'Times New Roman', serif;"><em>σ</em>² = <em>n</em> × <em>p</em> × (1-<em>p</em>)</span>
-                </div>
-                <div class="mb-2">
-                    <strong>Standard Deviation:</strong> <span style="font-family: 'Times New Roman', serif;"><em>σ</em> = √(<em>n</em> × <em>p</em> × (1-<em>p</em>))</span>
-                </div>
             </div>
         </div>
 
-        <div class="card mb-4">
+        <!-- Conditions Checker -->
+        <div class="card mb-3">
             <div class="card-body">
-                <h5><i class="fas fa-info-circle text-primary me-2"></i>Special Case</h5>
-                <div class="alert alert-info">
-                    <strong>Bernoulli Distribution:</strong><br>
-                    If n = 1, the binomial distribution becomes the Bernoulli distribution.
-                </div>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-body">
-                <h5><i class="fas fa-lightbulb text-success me-2"></i>Real Examples</h5>
-                <ul class="list-unstyled">
-                    <li class="mb-2">
-                        <i class="fas fa-coins text-primary me-2"></i>
-                        <strong>Coin tosses</strong> - heads vs tails
+                <h5><i class="fas fa-check-circle text-success me-2"></i>Binomial Conditions</h5>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span><i class="fas fa-check text-success me-2"></i>Fixed number of trials</span>
+                        <span class="badge bg-success">✓</span>
                     </li>
-                    <li class="mb-2">
-                        <i class="fas fa-industry text-warning me-2"></i>
-                        <strong>Quality control</strong> - defective vs non-defective
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span><i class="fas fa-check text-success me-2"></i>Two outcomes only</span>
+                        <span class="badge bg-success">✓</span>
                     </li>
-                    <li class="mb-2">
-                        <i class="fas fa-ticket-alt text-info me-2"></i>
-                        <strong>Lottery tickets</strong> - winning vs losing
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span><i class="fas fa-check text-success me-2"></i>Independent trials</span>
+                        <span class="badge bg-success">✓</span>
                     </li>
-                    <li class="mb-2">
-                        <i class="fas fa-user-check text-success me-2"></i>
-                        <strong>Survey responses</strong> - yes vs no
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span><i class="fas fa-check text-success me-2"></i>Constant probability</span>
+                        <span class="badge bg-success">✓</span>
                     </li>
                 </ul>
             </div>
         </div>
-    </div>
-</div>
 
-<div class="row mt-4">
-    <div class="col-12">
-        <div class="card">
+        <!-- Normal Approximation Guide -->
+        <div class="card mb-3">
             <div class="card-body">
-                <h4><i class="fas fa-calculator text-primary me-2"></i>Binomial Distribution Formulas</h4>
-                <div class="row">
-                    <div class="col-lg-6">
-                        <h5>Probability Mass Function</h5>
-                        <div class="formula mb-3">
-                            <div class="text-center mb-3">
-                                <div class="bg-light p-4 rounded border" style="font-size: 1.4em; font-family: 'Times New Roman', serif;">
-                                    <em>P</em>(<em>X</em> = <em>k</em>) = <em>C</em>(<em>n</em>,<em>k</em>) × <em>p</em><sup><em>k</em></sup> × (1-<em>p</em>)<sup>(<em>n</em>-<em>k</em>)</sup>
-                                </div>
-                            </div>
-                            <div class="text-center mb-3">
-                                <div class="bg-light p-3 rounded border" style="font-size: 1.2em; font-family: 'Times New Roman', serif;">
-                                    where <em>C</em>(<em>n</em>,<em>k</em>) = 
-                                    <span style="display: inline-block; text-align: center;">
-                                        <span style="display: block; border-bottom: 1px solid black; padding-bottom: 2px;"><em>n</em>!</span>
-                                        <span style="display: block; padding-top: 2px;"><em>k</em>!(<em>n</em>-<em>k</em>)!</span>
-                                    </span>
-                                </div>
-                            </div>
-                            <p><strong>Parameters:</strong></p>
-                            <ul class="small">
-                                <li><strong>n</strong> = number of independent trials</li>
-                                <li><strong>k</strong> = number of successes (0 ≤ k ≤ n)</li>
-                                <li><strong>p</strong> = probability of success on each trial</li>
-                                <li><strong>C(n,k)</strong> = binomial coefficient ("n choose k")</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <h5>Statistical Properties</h5>
-                        <div class="formula">
-                            <div class="mb-3">
-                                <h6><strong>Mean (Expected Value):</strong></h6>
-                                <div class="text-center bg-light p-3 rounded border" style="font-size: 1.3em; font-family: 'Times New Roman', serif;">
-                                    <em>μ</em> = <em>n</em> × <em>p</em>
-                                </div>
-                            </div>
-                            
-                            <div class="mb-3">
-                                <h6><strong>Variance:</strong></h6>
-                                <div class="text-center bg-light p-3 rounded border" style="font-size: 1.3em; font-family: 'Times New Roman', serif;">
-                                    <em>σ</em>² = <em>n</em> × <em>p</em> × (1-<em>p</em>)
-                                </div>
-                            </div>
-                            
-                            <div class="mb-3">
-                                <h6><strong>Standard Deviation:</strong></h6>
-                                <div class="text-center bg-light p-3 rounded border" style="font-size: 1.3em; font-family: 'Times New Roman', serif;">
-                                    <em>σ</em> = √(<em>n</em> × <em>p</em> × (1-<em>p</em>))
-                                </div>
-                            </div>
-                            
-                            <div class="alert alert-info mb-0">
-                                <h6><i class="fas fa-info-circle me-1"></i>Key Insights:</h6>
-                                <ul class="mb-0 small">
-                                    <li>The mean is the expected number of successes</li>
-                                    <li>Variance is maximized when p = 0.5</li>
-                                    <li>As n increases, shape approaches normal distribution</li>
-                                </ul>
-                            </div>
-                        </div>
+                <h5><i class="fas fa-bell text-warning me-2"></i>Normal Approximation</h5>
+                <div class="alert alert-info">
+                    <h6>Rule of Thumb:</h6>
+                    <p class="mb-2">Use normal approximation when:</p>
+                    <ul class="mb-2">
+                        <li><strong>np ≥ 5</strong> <span id="npCheck" class="badge bg-secondary">5.0</span></li>
+                        <li><strong>n(1-p) ≥ 5</strong> <span id="nqCheck" class="badge bg-secondary">5.0</span></li>
+                    </ul>
+                    <div id="normalApproxStatus" class="text-center">
+                        <span class="badge bg-success">Normal approximation is appropriate</span>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
 
-<div class="row mt-4">
-    <div class="col-12">
+        <!-- Real-World Examples -->
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5><i class="fas fa-lightbulb text-success me-2"></i>Real-World Examples</h5>
+                <div class="row g-2">
+                    <div class="col-12">
+                        <button class="btn btn-outline-primary btn-sm w-100" onclick="setExample('coin')">
+                            <i class="fas fa-coins me-1"></i>Coin Flips (n=20, p=0.5)
+                        </button>
+                    </div>
+                    <div class="col-12">
+                        <button class="btn btn-outline-info btn-sm w-100" onclick="setExample('drug')">
+                            <i class="fas fa-pills me-1"></i>Drug Effectiveness (n=50, p=0.8)
+                        </button>
+                    </div>
+                    <div class="col-12">
+                        <button class="btn btn-outline-success btn-sm w-100" onclick="setExample('quality')">
+                            <i class="fas fa-industry me-1"></i>Quality Control (n=100, p=0.05)
+                        </button>
+                    </div>
+                    <div class="col-12">
+                        <button class="btn btn-outline-warning btn-sm w-100" onclick="setExample('survey')">
+                            <i class="fas fa-poll me-1"></i>Survey Response (n=30, p=0.7)
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mathematical Formulas -->
         <div class="card">
             <div class="card-body">
-                <h4><i class="fas fa-graduation-cap text-primary me-2"></i>Example Problem</h4>
-                <div class="row">
-                    <div class="col-lg-8">
-                        <p><strong>Problem:</strong> Suppose you have purchased 10 lottery tickets and the possible outcomes are winning the lottery or not winning the lottery. If the probability of winning each ticket is 0.1, what is the probability of winning exactly 6 lottery tickets?</p>
-                        
-                        <div class="formula">
-                            <p><strong>Solution:</strong></p>
-                            <ul>
-                                <li>n = 10 (number of trials)</li>
-                                <li>k = 6 (number of successes)</li>
-                                <li>p = 0.1 (probability of success)</li>
-                            </ul>
-                            <p>P(X = 6) = C(10,6) × (0.1)^6 × (0.9)^4</p>
-                            <p>P(X = 6) = 210 × 0.000001 × 0.6561 ≈ 0.000138</p>
-                        </div>
+                <h5><i class="fas fa-calculator text-warning me-2"></i>Key Formulas</h5>
+                
+                <div class="mb-3">
+                    <h6 class="text-primary">Probability Mass Function:</h6>
+                    <div class="bg-light p-2 rounded text-center" style="font-size: 0.9em;">
+                        P(X = k) = C(n,k) × p^k × (1-p)^(n-k)
                     </div>
-                    <div class="col-lg-4">
-                        <div class="text-center">
-                            <button id="solveLotteryProblem" class="btn btn-info">
-                                <i class="fas fa-calculator me-2"></i>
-                                Visualize This Problem
-                            </button>
-                        </div>
+                </div>
+
+                <div class="mb-3">
+                    <h6 class="text-success">Mean & Variance:</h6>
+                    <div class="bg-light p-2 rounded mb-1">
+                        <strong>Mean:</strong> μ = np
                     </div>
+                    <div class="bg-light p-2 rounded">
+                        <strong>Variance:</strong> σ² = np(1-p)
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <h6 class="text-warning">Normal Approximation:</h6>
+                    <div class="bg-light p-2 rounded text-center" style="font-size: 0.9em;">
+                        X ~ N(np, np(1-p))
+                    </div>
+                    <small class="text-muted">with continuity correction</small>
                 </div>
             </div>
         </div>
@@ -289,29 +428,120 @@
 {% block scripts %}
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // Get all the DOM elements
     const nTrialsSlider = document.getElementById('nTrials');
     const probabilitySlider = document.getElementById('probability');
+    const nTrialsInput = document.getElementById('nTrialsInput');
+    const probabilityInput = document.getElementById('probabilityInput');
     const nTrialsValue = document.getElementById('nTrialsValue');
     const probabilityValue = document.getElementById('probabilityValue');
-    const lotteryButton = document.getElementById('lotteryExample');
+    
+    // Comparison controls
+    const nTrials2Slider = document.getElementById('nTrials2');
+    const probability2Slider = document.getElementById('probability2');
+    const nTrials2Input = document.getElementById('nTrials2Input');
+    const probability2Input = document.getElementById('probability2Input');
+    const nTrials2Value = document.getElementById('nTrials2Value');
+    const probability2Value = document.getElementById('probability2Value');
+    
+    // UI elements
     const plotImage = document.getElementById('binomialPlot');
-    const loadingSpinner = document.getElementById('binomialLoadingSpinner');
+    const loadingSpinner = document.getElementById('loadingSpinner');
+    const comparisonControls = document.getElementById('comparisonControls');
+    const primaryLabel = document.getElementById('primaryLabel');
+    const comparisonLabel = document.getElementById('comparisonLabel');
+    const simulationPanel = document.getElementById('simulationPanel');
     
-    // Coin toss simulation elements
-    const numTossesSelect = document.getElementById('numTosses');
-    const simulateButton = document.getElementById('simulateCoinToss');
+    // Buttons
+    const coinExampleBtn = document.getElementById('coinExample');
+    const diceExampleBtn = document.getElementById('diceExample');
+    const surveyExampleBtn = document.getElementById('surveyExample');
+    const compareModeBtn = document.getElementById('compareMode');
+    const simulationModeBtn = document.getElementById('simulationMode');
+    const resetAllBtn = document.getElementById('resetAll');
+    
+    // Checkboxes and options
+    const showMean = document.getElementById('showMean');
+    const showStdDev = document.getElementById('showStdDev');
+    const showNormalApprox = document.getElementById('showNormalApprox');
+    const showCDF = document.getElementById('showCDF');
+    const showGrid = document.getElementById('showGrid');
+    
+    // Probability calculator
+    const probType = document.getElementById('probType');
+    const probValue1 = document.getElementById('probValue1');
+    const probValue2 = document.getElementById('probValue2');
+    const probValue2Container = document.getElementById('probValue2Container');
+    const calculateProbBtn = document.getElementById('calculateProb');
+    const probResult = document.getElementById('probResult');
+    const probResultText = document.getElementById('probResultText');
+    
+    // Simulation controls
+    const simExperiments = document.getElementById('simExperiments');
+    const simExperimentsValue = document.getElementById('simExperimentsValue');
+    const simBins = document.getElementById('simBins');
+    const simBinsValue = document.getElementById('simBinsValue');
+    const simScenario = document.getElementById('simScenario');
+    const runSimulationBtn = document.getElementById('runSimulation');
     const simulationResults = document.getElementById('simulationResults');
-    const simulationPlot = document.getElementById('simulationPlot');
-    const simulationSpinner = document.getElementById('simulationLoadingSpinner');
     
-    // Problem solver
-    const solveProblemButton = document.getElementById('solveLotteryProblem');
+    // Stats display
+    const statMean = document.getElementById('statMean');
+    const statVariance = document.getElementById('statVariance');
+    const statStd = document.getElementById('statStd');
+    const statMode = document.getElementById('statMode');
+    const npCheck = document.getElementById('npCheck');
+    const nqCheck = document.getElementById('nqCheck');
+    const normalApproxStatus = document.getElementById('normalApproxStatus');
 
     let updateTimeout;
     let isInitialLoad = true;
+    let comparisonMode = false;
+    let simulationMode = false;
 
-    function generateBinomialPlot() {
-        // Only show spinner on initial load
+    // Utility functions
+    function updateStats() {
+        const n = parseInt(nTrialsSlider.value);
+        const p = parseFloat(probabilitySlider.value);
+        
+        const mean = n * p;
+        const variance = n * p * (1 - p);
+        const std = Math.sqrt(variance);
+        const mode = Math.floor((n + 1) * p);
+        
+        statMean.textContent = mean.toFixed(2);
+        statVariance.textContent = variance.toFixed(2);
+        statStd.textContent = std.toFixed(2);
+        statMode.textContent = mode;
+        
+        // Normal approximation checks
+        const np = n * p;
+        const nq = n * (1 - p);
+        
+        npCheck.textContent = np.toFixed(1);
+        nqCheck.textContent = nq.toFixed(1);
+        
+        // Update normal approximation status
+        if (np >= 5 && nq >= 5) {
+            normalApproxStatus.innerHTML = '<span class="badge bg-success">Normal approximation is appropriate</span>';
+            npCheck.className = 'badge bg-success';
+            nqCheck.className = 'badge bg-success';
+        } else {
+            normalApproxStatus.innerHTML = '<span class="badge bg-warning">Normal approximation not recommended</span>';
+            npCheck.className = np >= 5 ? 'badge bg-success' : 'badge bg-danger';
+            nqCheck.className = nq >= 5 ? 'badge bg-success' : 'badge bg-danger';
+        }
+        
+        // Update labels
+        primaryLabel.textContent = `Binomial(${n}, ${p})`;
+        if (comparisonMode) {
+            const n2 = parseInt(nTrials2Slider.value);
+            const p2 = parseFloat(probability2Slider.value);
+            comparisonLabel.textContent = `Binomial(${n2}, ${p2})`;
+        }
+    }
+
+    function generatePlot() {
         if (isInitialLoad) {
             loadingSpinner.classList.remove('d-none');
             plotImage.style.display = 'none';
@@ -319,79 +549,360 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const n = nTrialsSlider.value;
         const p = probabilitySlider.value;
+        
+        let url = `/generate_binomial_plot?n=${n}&p=${p}`;
+        url += `&show_mean=${showMean.checked}`;
+        url += `&show_stddev=${showStdDev.checked}`;
+        url += `&show_normal=${showNormalApprox.checked}`;
+        url += `&show_cdf=${showCDF.checked}`;
+        url += `&show_grid=${showGrid.checked}`;
+        
+        if (comparisonMode) {
+            const n2 = nTrials2Slider.value;
+            const p2 = probability2Slider.value;
+            url += `&comparison=true&n2=${n2}&p2=${p2}`;
+        }
 
-        fetch(`/generate_binomial_plot?n=${n}&p=${p}`)
-            .then(response => response.json())
-            .then(data => {
-                plotImage.src = 'data:image/png;base64,' + data.plot;
-                plotImage.style.display = 'block';
-                if (isInitialLoad) {
-                    loadingSpinner.classList.add('d-none');
-                    isInitialLoad = false;
+        fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
                 }
+                return response.json();
             })
-            .catch(error => {
-                console.error('Error:', error);
-                if (isInitialLoad) {
-                    loadingSpinner.classList.add('d-none');
-                    isInitialLoad = false;
-                }
-            });
-    }
+            .then(data => {
+                if (data.plot) {
+                    plotImage.src = 'data:image/png;base64,' + data.plot;
+                    plotImage.style.display = 'block';
+                    plotImage.onload = function() {
+                        if (isInitialLoad) {
+                            loadingSpinner.classList.add('d-none');
+                            isInitialLoad = false;
+                        }
+                    };
+                    plotImage.onerror = function() {
 
     function debounceUpdate() {
+        updateStats();
         clearTimeout(updateTimeout);
-        updateTimeout = setTimeout(generateBinomialPlot, 200); // Reduced to 200ms for faster response
+        updateTimeout = setTimeout(generatePlot, 200);
     }
 
-    nTrialsSlider.addEventListener('input', function() {
-        nTrialsValue.textContent = this.value;
-        debounceUpdate();
-    });
+    // Sync sliders with number inputs
+    function syncControls() {
+        nTrialsSlider.addEventListener('input', function() {
+            nTrialsValue.textContent = this.value;
+            nTrialsInput.value = this.value;
+            debounceUpdate();
+        });
 
-    probabilitySlider.addEventListener('input', function() {
-        probabilityValue.textContent = this.value;
-        debounceUpdate();
-    });
+        nTrialsInput.addEventListener('input', function() {
+            if (this.value >= 1 && this.value <= 100) {
+                nTrialsSlider.value = this.value;
+                nTrialsValue.textContent = this.value;
+                debounceUpdate();
+            }
+        });
 
-    lotteryButton.addEventListener('click', function() {
-        nTrialsSlider.value = 10;
-        probabilitySlider.value = 0.1;
-        nTrialsValue.textContent = '10';
-        probabilityValue.textContent = '0.1';
-        generateBinomialPlot();
-    });
+        probabilitySlider.addEventListener('input', function() {
+            probabilityValue.textContent = this.value;
+            probabilityInput.value = this.value;
+            debounceUpdate();
+        });
 
-    solveProblemButton.addEventListener('click', function() {
-        nTrialsSlider.value = 10;
-        probabilitySlider.value = 0.1;
-        nTrialsValue.textContent = '10';
-        probabilityValue.textContent = '0.1';
-        generateBinomialPlot();
-    });
+        probabilityInput.addEventListener('input', function() {
+            if (this.value >= 0.01 && this.value <= 0.99) {
+                probabilitySlider.value = this.value;
+                probabilityValue.textContent = this.value;
+                debounceUpdate();
+            }
+        });
 
-    simulateButton.addEventListener('click', function() {
-        simulationSpinner.classList.remove('d-none');
-        simulationResults.style.display = 'block';
-        simulationPlot.style.display = 'none';
-
-        const nTosses = numTossesSelect.value;
-
-        fetch(`/coin_toss_simulation?n_tosses=${nTosses}`)
-            .then(response => response.json())
-            .then(data => {
-                simulationPlot.src = 'data:image/png;base64,' + data.plot;
-                simulationPlot.style.display = 'block';
-                simulationSpinner.classList.add('d-none');
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                simulationSpinner.classList.add('d-none');
+        // Comparison controls
+        if (nTrials2Slider) {
+            nTrials2Slider.addEventListener('input', function() {
+                nTrials2Value.textContent = this.value;
+                nTrials2Input.value = this.value;
+                debounceUpdate();
             });
+
+            nTrials2Input.addEventListener('input', function() {
+                if (this.value >= 1 && this.value <= 100) {
+                    nTrials2Slider.value = this.value;
+                    nTrials2Value.textContent = this.value;
+                    debounceUpdate();
+                }
+            });
+
+            probability2Slider.addEventListener('input', function() {
+                probability2Value.textContent = this.value;
+                probability2Input.value = this.value;
+                debounceUpdate();
+            });
+
+            probability2Input.addEventListener('input', function() {
+                if (this.value >= 0.01 && this.value <= 0.99) {
+                    probability2Slider.value = this.value;
+                    probability2Value.textContent = this.value;
+                    debounceUpdate();
+                }
+            });
+        }
+    }
+
+    // Button event handlers
+    coinExampleBtn.addEventListener('click', function() {
+        setDistribution(20, 0.5);
+        this.classList.add('active');
+        setTimeout(() => this.classList.remove('active'), 200);
     });
 
-    // Generate initial plot
-    generateBinomialPlot();
+    diceExampleBtn.addEventListener('click', function() {
+        setDistribution(10, 0.167); // P(rolling a 6) = 1/6
+        this.classList.add('active');
+        setTimeout(() => this.classList.remove('active'), 200);
+    });
+
+    surveyExampleBtn.addEventListener('click', function() {
+        setDistribution(30, 0.7);
+        this.classList.add('active');
+        setTimeout(() => this.classList.remove('active'), 200);
+    });
+
+    compareModeBtn.addEventListener('click', function() {
+        comparisonMode = !comparisonMode;
+        if (comparisonMode) {
+            comparisonControls.classList.remove('d-none');
+            this.classList.add('btn-warning');
+            this.classList.remove('btn-outline-warning');
+        } else {
+            comparisonControls.classList.add('d-none');
+            this.classList.remove('btn-warning');
+            this.classList.add('btn-outline-warning');
+        }
+        debounceUpdate();
+    });
+
+    simulationModeBtn.addEventListener('click', function() {
+        simulationMode = !simulationMode;
+        if (simulationMode) {
+            simulationPanel.style.display = 'block';
+            this.classList.add('btn-danger');
+            this.classList.remove('btn-outline-danger');
+        } else {
+            simulationPanel.style.display = 'none';
+            this.classList.remove('btn-danger');
+            this.classList.add('btn-outline-danger');
+        }
+    });
+
+    resetAllBtn.addEventListener('click', function() {
+        setDistribution(10, 0.5);
+        comparisonMode = false;
+        simulationMode = false;
+        comparisonControls.classList.add('d-none');
+        simulationPanel.style.display = 'none';
+        compareModeBtn.classList.remove('btn-warning');
+        compareModeBtn.classList.add('btn-outline-warning');
+        simulationModeBtn.classList.remove('btn-danger');
+        simulationModeBtn.classList.add('btn-outline-danger');
+        showMean.checked = false;
+        showStdDev.checked = false;
+        showNormalApprox.checked = false;
+        showCDF.checked = false;
+        showGrid.checked = true;
+        probResult.classList.add('d-none');
+        simulationResults.classList.add('d-none');
+        this.classList.add('active');
+        setTimeout(() => this.classList.remove('active'), 200);
+        debounceUpdate();
+    });
+
+    // Checkbox event handlers
+    [showMean, showStdDev, showNormalApprox, showCDF, showGrid].forEach(checkbox => {
+        checkbox.addEventListener('change', debounceUpdate);
+    });
+
+    // Probability calculator
+    probType.addEventListener('change', function() {
+        if (this.value === 'between') {
+            probValue2Container.style.display = 'block';
+        } else {
+            probValue2Container.style.display = 'none';
+        }
+    });
+
+    calculateProbBtn.addEventListener('click', function() {
+        const n = parseInt(nTrialsSlider.value);
+        const p = parseFloat(probabilitySlider.value);
+        const k = parseInt(probValue1.value);
+        const k2 = parseInt(probValue2.value);
+        const type = probType.value;
+
+        // Binomial coefficient function
+        function binomialCoeff(n, k) {
+            if (k > n || k < 0) return 0;
+            if (k === 0 || k === n) return 1;
+            
+            let result = 1;
+            for (let i = 0; i < Math.min(k, n - k); i++) {
+                result = result * (n - i) / (i + 1);
+            }
+            return result;
+        }
+
+        // Binomial PMF function
+        function binomialPMF(n, k, p) {
+            return binomialCoeff(n, k) * Math.pow(p, k) * Math.pow(1 - p, n - k);
+        }
+
+        // Binomial CDF function
+        function binomialCDF(n, k, p) {
+            let sum = 0;
+            for (let i = 0; i <= k; i++) {
+                sum += binomialPMF(n, i, p);
+            }
+            return sum;
+        }
+
+        let probability, resultText;
+
+        switch(type) {
+            case 'exact':
+                if (k < 0 || k > n) {
+                    resultText = 'Error: k must be between 0 and n';
+                    break;
+                }
+                probability = binomialPMF(n, k, p);
+                resultText = `P(X = ${k}) = ${probability.toFixed(6)} (${(probability * 100).toFixed(4)}%)`;
+                break;
+                
+            case 'atmost':
+                if (k < 0) {
+                    probability = 0;
+                } else if (k >= n) {
+                    probability = 1;
+                } else {
+                    probability = binomialCDF(n, k, p);
+                }
+                resultText = `P(X ≤ ${k}) = ${probability.toFixed(6)} (${(probability * 100).toFixed(4)}%)`;
+                break;
+                
+            case 'atleast':
+                if (k <= 0) {
+                    probability = 1;
+                } else if (k > n) {
+                    probability = 0;
+                } else {
+                    probability = 1 - binomialCDF(n, k - 1, p);
+                }
+                resultText = `P(X ≥ ${k}) = ${probability.toFixed(6)} (${(probability * 100).toFixed(4)}%)`;
+                break;
+                
+            case 'between':
+                if (k >= k2) {
+                    resultText = 'Error: First value must be less than second value';
+                    break;
+                }
+                if (k < 0 || k2 > n) {
+                    resultText = 'Error: Values must be between 0 and n';
+                    break;
+                }
+                const lowerCDF = k > 0 ? binomialCDF(n, k - 1, p) : 0;
+                const upperCDF = binomialCDF(n, k2, p);
+                probability = upperCDF - lowerCDF;
+                resultText = `P(${k} ≤ X ≤ ${k2}) = ${probability.toFixed(6)} (${(probability * 100).toFixed(4)}%)`;
+                break;
+        }
+
+        probResultText.innerHTML = `<strong>${resultText}</strong>`;
+        probResult.classList.remove('d-none');
+    });
+
+    // Simulation functionality
+    simExperiments.addEventListener('input', function() {
+        simExperimentsValue.textContent = this.value;
+    });
+
+    simBins.addEventListener('input', function() {
+        simBinsValue.textContent = this.value;
+    });
+
+    runSimulationBtn.addEventListener('click', function() {
+        const n = parseInt(nTrialsSlider.value);
+        const p = parseFloat(probabilitySlider.value);
+        const numExperiments = parseInt(simExperiments.value);
+        const scenario = simScenario.value;
+        
+        // Generate binomial random samples
+        let samples = [];
+        for (let i = 0; i < numExperiments; i++) {
+            let successes = 0;
+            for (let j = 0; j < n; j++) {
+                if (Math.random() < p) {
+                    successes++;
+                }
+            }
+            samples.push(successes);
+        }
+        
+        // Calculate sample statistics
+        const sampleMean = samples.reduce((sum, x) => sum + x, 0) / numExperiments;
+        const sampleVariance = samples.reduce((sum, x) => sum + (x - sampleMean) ** 2, 0) / (numExperiments - 1);
+        
+        // Calculate theoretical statistics
+        const theorMean = n * p;
+        const theorVariance = n * p * (1 - p);
+        
+        // Display results
+        document.getElementById('simMean').textContent = sampleMean.toFixed(3);
+        document.getElementById('simVariance').textContent = sampleVariance.toFixed(3);
+        document.getElementById('theoreticalMean').textContent = theorMean.toFixed(3);
+        document.getElementById('theoreticalVariance').textContent = theorVariance.toFixed(3);
+        
+        simulationResults.classList.remove('d-none');
+        
+        this.classList.add('btn-success');
+        this.innerHTML = '<i class="fas fa-check me-1"></i>Simulation Complete!';
+        setTimeout(() => {
+            this.classList.remove('btn-success');
+            this.innerHTML = '<i class="fas fa-play me-1"></i>Run Simulation';
+        }, 2000);
+    });
+
+    // Utility function to set distribution parameters
+    function setDistribution(n, p) {
+        nTrialsSlider.value = n;
+        probabilitySlider.value = p;
+        nTrialsInput.value = n;
+        probabilityInput.value = p;
+        nTrialsValue.textContent = n;
+        probabilityValue.textContent = p;
+        debounceUpdate();
+    }
+
+    // Global function for example buttons
+    window.setExample = function(type) {
+        switch(type) {
+            case 'coin':
+                setDistribution(20, 0.5);
+                break;
+            case 'drug':
+                setDistribution(50, 0.8);
+                break;
+            case 'quality':
+                setDistribution(100, 0.05);
+                break;
+            case 'survey':
+                setDistribution(30, 0.7);
+                break;
+        }
+    };
+
+    // Initialize
+    syncControls();
+    updateStats();
+    generatePlot();
 });
 </script>
 {% endblock %}

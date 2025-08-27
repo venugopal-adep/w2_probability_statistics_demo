@@ -5,49 +5,159 @@
 {% block content %}
 <div class="row">
     <div class="col-12">
-        <div class="card mb-2"> <!-- Reduced margin -->
+        <div class="card mb-3">
             <div class="card-body">
-                <h1 class="display-5 mb-2"> <!-- Reduced margin -->
+                <h1 class="display-5 mb-3">
                     <i class="fas fa-bell text-warning me-2"></i>
-                    Normal Distribution
+                    Normal Distribution Interactive Explorer
                 </h1>
-                <p class="lead">The normal distribution is a continuous probability distribution that is symmetric to the mean. Also known as a bell curve.</p>
+                <p class="lead">Explore the normal distribution with interactive visualizations, probability calculations, and real-time comparisons.</p>
+                
+                <!-- Quick Action Buttons -->
+                <div class="row g-2 mt-2">
+                    <div class="col-md-2">
+                        <button id="standardNormal" class="btn btn-outline-primary btn-sm w-100">
+                            <i class="fas fa-bullseye me-1"></i>Standard Normal
+                        </button>
+                    </div>
+                    <div class="col-md-2">
+                        <button id="heightExample" class="btn btn-outline-info btn-sm w-100">
+                            <i class="fas fa-ruler-vertical me-1"></i>Height Example
+                        </button>
+                    </div>
+                    <div class="col-md-2">
+                        <button id="iqExample" class="btn btn-outline-success btn-sm w-100">
+                            <i class="fas fa-brain me-1"></i>IQ Example
+                        </button>
+                    </div>
+                    <div class="col-md-2">
+                        <button id="compareMode" class="btn btn-outline-warning btn-sm w-100">
+                            <i class="fas fa-exchange-alt me-1"></i>Compare Two
+                        </button>
+                    </div>
+                    <div class="col-md-2">
+                        <button id="samplingMode" class="btn btn-outline-danger btn-sm w-100">
+                            <i class="fas fa-dice me-1"></i>Sampling
+                        </button>
+                    </div>
+                    <div class="col-md-2">
+                        <button id="resetAll" class="btn btn-outline-secondary btn-sm w-100">
+                            <i class="fas fa-undo me-1"></i>Reset
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
+<!-- Main Control Panel -->
 <div class="row">
-    <div class="col-lg-9">
-        <div class="card">
+    <div class="col-lg-8">
+        <div class="card mb-3">
             <div class="card-body">
-                <h4><i class="fas fa-sliders-h text-primary me-2"></i>Interactive Normal Distribution</h4>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4><i class="fas fa-sliders-h text-primary me-2"></i>Distribution Controls</h4>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="showGrid" checked>
+                        <label class="form-check-label" for="showGrid">Show Grid</label>
+                    </div>
+                </div>
                 
-                <div class="interactive-section">
+                <!-- Primary Distribution Controls -->
+                <div id="primaryControls" class="border p-3 rounded mb-3" style="border-color: #0d6efd !important;">
+                    <h6 class="text-primary mb-3">
+                        <i class="fas fa-chart-line me-1"></i>Primary Distribution
+                        <span id="primaryLabel" class="badge bg-primary ms-2">Normal(0, 1)</span>
+                    </h6>
                     <div class="row">
                         <div class="col-md-6">
                             <label for="mean" class="form-label">Mean (μ):</label>
-                            <input type="range" class="form-range" id="mean" min="-5" max="5" step="0.1" value="0">
-                            <div class="text-center">
+                            <div class="input-group">
+                                <input type="range" class="form-range" id="mean" min="-10" max="10" step="0.1" value="0">
+                                <input type="number" class="form-control form-control-sm" id="meanInput" min="-10" max="10" step="0.1" value="0" style="max-width: 80px;">
+                            </div>
+                            <div class="text-center mt-1">
                                 <span id="meanValue" class="badge bg-primary">0</span>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <label for="std" class="form-label">Standard Deviation (σ):</label>
-                            <input type="range" class="form-range" id="std" min="0.1" max="3" step="0.1" value="1">
-                            <div class="text-center">
+                            <div class="input-group">
+                                <input type="range" class="form-range" id="std" min="0.1" max="5" step="0.1" value="1">
+                                <input type="number" class="form-control form-control-sm" id="stdInput" min="0.1" max="5" step="0.1" value="1" style="max-width: 80px;">
+                            </div>
+                            <div class="text-center mt-1">
                                 <span id="stdValue" class="badge bg-success">1</span>
                             </div>
                         </div>
                     </div>
-                    <div class="text-center mt-2"> <!-- Reduced margin -->
-                        <button id="showEmpiricalRule" class="btn btn-outline-info btn-sm"> <!-- Smaller button -->
-                            <i class="fas fa-info-circle me-1"></i>Show Empirical Rule
-                        </button>
+                </div>
+
+                <!-- Comparison Controls (Hidden by default) -->
+                <div id="comparisonControls" class="border p-3 rounded mb-3 d-none" style="border-color: #dc3545 !important;">
+                    <h6 class="text-danger mb-3">
+                        <i class="fas fa-chart-line me-1"></i>Comparison Distribution
+                        <span id="comparisonLabel" class="badge bg-danger ms-2">Normal(0, 2)</span>
+                    </h6>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="mean2" class="form-label">Mean (μ₂):</label>
+                            <div class="input-group">
+                                <input type="range" class="form-range" id="mean2" min="-10" max="10" step="0.1" value="0">
+                                <input type="number" class="form-control form-control-sm" id="mean2Input" min="-10" max="10" step="0.1" value="0" style="max-width: 80px;">
+                            </div>
+                            <div class="text-center mt-1">
+                                <span id="mean2Value" class="badge bg-danger">0</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="std2" class="form-label">Standard Deviation (σ₂):</label>
+                            <div class="input-group">
+                                <input type="range" class="form-range" id="std2" min="0.1" max="5" step="0.1" value="2">
+                                <input type="number" class="form-control form-control-sm" id="std2Input" min="0.1" max="5" step="0.1" value="2" style="max-width: 80px;">
+                            </div>
+                            <div class="text-center mt-1">
+                                <span id="std2Value" class="badge bg-warning">2</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div id="plotContainer" class="plot-container text-center mt-2"> <!-- Reduced margin -->
+                <!-- Visualization Options -->
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="showEmpiricalRule">
+                            <label class="form-check-label" for="showEmpiricalRule">
+                                Show Empirical Rule
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="showPercentiles">
+                            <label class="form-check-label" for="showPercentiles">
+                                Show Percentiles
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="showZScores">
+                            <label class="form-check-label" for="showZScores">
+                                Show Z-Scores
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Plot -->
+        <div class="card mb-3">
+            <div class="card-body">
+                <div id="plotContainer" class="text-center">
                     <img id="normalPlot" src="" alt="Normal Distribution Plot" class="img-fluid" style="display: none;">
                     <div id="loadingSpinner" class="d-none">
                         <div class="spinner-border text-primary" role="status">
@@ -57,125 +167,254 @@
                 </div>
             </div>
         </div>
+
+        <!-- Probability Calculator -->
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5><i class="fas fa-calculator text-success me-2"></i>Probability Calculator</h5>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="probType" class="form-label">Calculate:</label>
+                        <select class="form-select" id="probType">
+                            <option value="less">P(X < value)</option>
+                            <option value="greater">P(X > value)</option>
+                            <option value="between">P(a < X < b)</option>
+                            <option value="equal">P(X = value) ≈ 0</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="probValue1" class="form-label">Value (a):</label>
+                        <input type="number" class="form-control" id="probValue1" value="0" step="0.1">
+                    </div>
+                    <div class="col-md-3" id="probValue2Container" style="display: none;">
+                        <label for="probValue2" class="form-label">Value (b):</label>
+                        <input type="number" class="form-control" id="probValue2" value="1" step="0.1">
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">&nbsp;</label>
+                        <button id="calculateProb" class="btn btn-success w-100">Calculate</button>
+                    </div>
+                </div>
+                <div id="probResult" class="mt-3 p-3 bg-light rounded d-none">
+                    <h6>Result:</h6>
+                    <div id="probResultText"></div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="col-lg-3">
-        <div class="card mb-2"> <!-- Reduced margin -->
+    <!-- Side Panel -->
+    <div class="col-lg-4">
+        <!-- Current Distribution Stats -->
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5><i class="fas fa-chart-bar text-info me-2"></i>Distribution Statistics</h5>
+                <div id="statsContainer">
+                    <div class="row text-center">
+                        <div class="col-6">
+                            <div class="border rounded p-2">
+                                <h6 class="text-primary mb-1">Mean (μ)</h6>
+                                <span id="statMean" class="h5">0</span>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="border rounded p-2">
+                                <h6 class="text-success mb-1">Std Dev (σ)</h6>
+                                <span id="statStd" class="h5">1</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row text-center mt-2">
+                        <div class="col-6">
+                            <div class="border rounded p-2">
+                                <h6 class="text-warning mb-1">Variance (σ²)</h6>
+                                <span id="statVariance" class="h5">1</span>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="border rounded p-2">
+                                <h6 class="text-info mb-1">Skewness</h6>
+                                <span id="statSkewness" class="h5">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Properties -->
+        <div class="card mb-3">
             <div class="card-body">
                 <h5><i class="fas fa-list-ul text-info me-2"></i>Properties</h5>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">
-                        <i class="fas fa-check text-success me-2"></i>
-                        Zero skewness
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span><i class="fas fa-check text-success me-2"></i>Symmetric</span>
+                        <span class="badge bg-success">✓</span>
                     </li>
-                    <li class="list-group-item">
-                        <i class="fas fa-check text-success me-2"></i>
-                        Mean = Median = Mode
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span><i class="fas fa-check text-success me-2"></i>Bell-shaped</span>
+                        <span class="badge bg-success">✓</span>
                     </li>
-                    <li class="list-group-item">
-                        <i class="fas fa-check text-success me-2"></i>
-                        If μ = 0, σ = 1: <strong>standard normal</strong>
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span><i class="fas fa-check text-success me-2"></i>Unimodal</span>
+                        <span class="badge bg-success">✓</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span><i class="fas fa-infinity text-primary me-2"></i>Domain: (-∞, ∞)</span>
+                        <span class="badge bg-primary">∞</span>
                     </li>
                 </ul>
             </div>
         </div>
 
-        <div class="card mb-2"> <!-- Reduced margin -->
+        <!-- Empirical Rule -->
+        <div class="card mb-3">
             <div class="card-body">
                 <h5><i class="fas fa-ruler text-warning me-2"></i>Empirical Rule</h5>
-                <div class="mb-1"> <!-- Reduced margin -->
-                    <span class="badge bg-danger me-2">68.27%</span>
-                    <small>within ±1σ</small>
+                <div class="mb-2">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span><span class="badge bg-danger me-2">68.27%</span>within μ ± 1σ</span>
+                        <span id="range1sigma" class="text-muted small"></span>
+                    </div>
                 </div>
-                <div class="mb-1"> <!-- Reduced margin -->
-                    <span class="badge bg-primary me-2">95.45%</span>
-                    <small>within ±2σ</small>
+                <div class="mb-2">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span><span class="badge bg-primary me-2">95.45%</span>within μ ± 2σ</span>
+                        <span id="range2sigma" class="text-muted small"></span>
+                    </div>
                 </div>
-                <div class="mb-1"> <!-- Reduced margin -->
-                    <span class="badge bg-secondary me-2">99.73%</span>
-                    <small>within ±3σ</small>
+                <div class="mb-2">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span><span class="badge bg-secondary me-2">99.73%</span>within μ ± 3σ</span>
+                        <span id="range3sigma" class="text-muted small"></span>
+                    </div>
                 </div>
             </div>
         </div>
 
+        <!-- Examples and Applications -->
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5><i class="fas fa-lightbulb text-success me-2"></i>Real-World Examples</h5>
+                <div class="row g-2">
+                    <div class="col-12">
+                        <button class="btn btn-outline-info btn-sm w-100" onclick="setExample('height')">
+                            <i class="fas fa-ruler-vertical me-1"></i>Human Height (μ=170cm, σ=10cm)
+                        </button>
+                    </div>
+                    <div class="col-12">
+                        <button class="btn btn-outline-success btn-sm w-100" onclick="setExample('iq')">
+                            <i class="fas fa-brain me-1"></i>IQ Scores (μ=100, σ=15)
+                        </button>
+                    </div>
+                    <div class="col-12">
+                        <button class="btn btn-outline-warning btn-sm w-100" onclick="setExample('sat')">
+                            <i class="fas fa-graduation-cap me-1"></i>SAT Scores (μ=1050, σ=200)
+                        </button>
+                    </div>
+                    <div class="col-12">
+                        <button class="btn btn-outline-danger btn-sm w-100" onclick="setExample('temperature')">
+                            <i class="fas fa-thermometer-half me-1"></i>Temperature (μ=20°C, σ=5°C)
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Random Sampling -->
         <div class="card">
             <div class="card-body">
-                <h5><i class="fas fa-lightbulb text-success me-2"></i>Examples</h5>
-                <ul class="list-unstyled">
-                    <li class="mb-1"> <!-- Reduced margin -->
-                        <i class="fas fa-ruler-vertical text-primary me-2"></i>
-                        <strong>Height</strong> of adults
-                    </li>
-                    <li class="mb-1"> <!-- Reduced margin -->
-                        <i class="fas fa-brain text-info me-2"></i>
-                        <strong>IQ scores</strong>
-                    </li>
-                    <li class="mb-1"> <!-- Reduced margin -->
-                        <i class="fas fa-thermometer-half text-warning me-2"></i>
-                        <strong>Temperature</strong>
-                    </li>
-                    <li class="mb-1"> <!-- Reduced margin -->
-                        <i class="fas fa-chart-line text-success me-2"></i>
-                        <strong>Stock returns</strong>
-                    </li>
-                </ul>
+                <h5><i class="fas fa-dice text-danger me-2"></i>Random Sampling</h5>
+                <div class="mb-3">
+                    <label for="sampleSize" class="form-label">Sample Size:</label>
+                    <input type="range" class="form-range" id="sampleSize" min="10" max="1000" step="10" value="100">
+                    <div class="text-center">
+                        <span id="sampleSizeValue" class="badge bg-info">100</span>
+                    </div>
+                </div>
+                <div class="d-grid gap-2">
+                    <button id="generateSample" class="btn btn-outline-danger">
+                        <i class="fas fa-random me-1"></i>Generate Sample
+                    </button>
+                    <button id="showSampleStats" class="btn btn-outline-info btn-sm">
+                        <i class="fas fa-chart-bar me-1"></i>Show Sample Statistics
+                    </button>
+                </div>
+                <div id="sampleResults" class="mt-3 d-none">
+                    <h6>Sample Statistics:</h6>
+                    <div class="row text-center">
+                        <div class="col-6">
+                            <small class="text-muted">Sample Mean</small>
+                            <div id="sampleMean" class="fw-bold"></div>
+                        </div>
+                        <div class="col-6">
+                            <small class="text-muted">Sample Std</small>
+                            <div id="sampleStd" class="fw-bold"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-<div class="row mt-2"> <!-- Reduced margin -->
+<!-- Formula Section -->
+<div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <h4><i class="fas fa-calculator text-primary me-2"></i>Probability Density Function</h4>
-                <div class="formula">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="text-center mb-2"> <!-- Reduced margin -->
-                                <div class="bg-light p-3 rounded border" style="font-size: 1.2em;"> <!-- Reduced font size and padding -->
-                                    <span style="font-family: 'Times New Roman', serif;">
-                                        <em>f</em>(<em>x</em>) = 
-                                        <span style="display: inline-block; text-align: center;">
-                                            <span style="display: block; border-bottom: 1px solid black; padding-bottom: 2px;">1</span>
-                                            <span style="display: block; padding-top: 2px;">σ√(2π)</span>
-                                        </span>
-                                        × <em>e</em><sup>-½((x-μ)/σ)²</sup>
+                <h4><i class="fas fa-calculator text-primary me-2"></i>Mathematical Foundation</h4>
+                
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h6>Probability Density Function (PDF):</h6>
+                        <div class="text-center mb-3">
+                            <div class="bg-light p-3 rounded border" style="font-size: 1.3em;">
+                                <span style="font-family: 'Times New Roman', serif;">
+                                    <em>f</em>(<em>x</em>) = 
+                                    <span style="display: inline-block; text-align: center;">
+                                        <span style="display: block; border-bottom: 1px solid black; padding-bottom: 2px;">1</span>
+                                        <span style="display: block; padding-top: 2px;">σ√(2π)</span>
                                     </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="bg-light p-2 rounded border"> <!-- Reduced padding -->
-                                <h6><strong>Z-score Transform:</strong></h6>
-                                <div class="text-center mb-1" style="font-size: 1.1em; font-family: 'Times New Roman', serif;"> <!-- Reduced font size -->
-                                    <em>Z</em> = <span style="display: inline-block; text-align: center;">
-                                        <span style="display: block; border-bottom: 1px solid black; padding-bottom: 2px;">X - μ</span>
-                                        <span style="display: block; padding-top: 2px;">σ</span>
-                                    </span>
-                                </div>
-                                <p class="small mb-0">Standardizes to μ=0, σ=1</p>
+                                    × <em>e</em><sup>-½((x-μ)/σ)²</sup>
+                                </span>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="row mt-2"> <!-- Reduced margin -->
-                        <div class="col-md-6">
-                            <p><strong>Parameters:</strong></p>
-                            <ul class="small mb-0"> <!-- Smaller text, no margin -->
-                                <li><strong>μ</strong> (mu) = mean</li>
-                                <li><strong>σ</strong> (sigma) = standard deviation</li>
-                                <li><strong>π</strong> ≈ 3.14159, <strong>e</strong> ≈ 2.71828</li>
+                    <div class="col-lg-6">
+                        <h6>Standard Normal Transform:</h6>
+                        <div class="text-center mb-3">
+                            <div class="bg-light p-3 rounded border" style="font-size: 1.3em;">
+                                <span style="font-family: 'Times New Roman', serif;">
+                                    <em>Z</em> = <span style="display: inline-block; text-align: center;">
+                                        <span style="display: block; border-bottom: 1px solid black; padding-bottom: 2px;">X - μ</span>
+                                        <span style="display: block; padding-top: 2px;">σ</span>
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="alert alert-info">
+                            <h6><i class="fas fa-info-circle me-1"></i>Key Properties:</h6>
+                            <ul class="mb-0">
+                                <li><strong>Mean:</strong> μ</li>
+                                <li><strong>Variance:</strong> σ²</li>
+                                <li><strong>Standard Deviation:</strong> σ</li>
+                                <li><strong>Skewness:</strong> 0 (perfectly symmetric)</li>
+                                <li><strong>Kurtosis:</strong> 3 (mesokurtic)</li>
                             </ul>
                         </div>
-                        <div class="col-md-6">
-                            <div class="alert alert-info mb-0"> <!-- No bottom margin -->
-                                <h6><i class="fas fa-info-circle me-1"></i>Formula Components:</h6>
-                                <ul class="mb-0 small">
-                                    <li><strong>1/(σ√(2π))</strong> - Normalization</li>
-                                    <li><strong>e^(-½((x-μ)/σ)²)</strong> - Bell shape</li>
-                                </ul>
-                            </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="alert alert-success">
+                            <h6><i class="fas fa-lightbulb me-1"></i>Central Limit Theorem:</h6>
+                            <p class="mb-1">For large sample sizes, the sampling distribution of the mean approaches a normal distribution, regardless of the population distribution.</p>
+                            <small class="text-muted">This makes the normal distribution fundamental to statistical inference.</small>
                         </div>
                     </div>
                 </div>
@@ -188,19 +427,101 @@
 {% block scripts %}
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // Get all the DOM elements
     const meanSlider = document.getElementById('mean');
     const stdSlider = document.getElementById('std');
+    const meanInput = document.getElementById('meanInput');
+    const stdInput = document.getElementById('stdInput');
     const meanValue = document.getElementById('meanValue');
     const stdValue = document.getElementById('stdValue');
-    const empiricalButton = document.getElementById('showEmpiricalRule');
+    
+    // Comparison controls
+    const mean2Slider = document.getElementById('mean2');
+    const std2Slider = document.getElementById('std2');
+    const mean2Input = document.getElementById('mean2Input');
+    const std2Input = document.getElementById('std2Input');
+    const mean2Value = document.getElementById('mean2Value');
+    const std2Value = document.getElementById('std2Value');
+    
+    // UI elements
     const plotImage = document.getElementById('normalPlot');
     const loadingSpinner = document.getElementById('loadingSpinner');
+    const comparisonControls = document.getElementById('comparisonControls');
+    const primaryLabel = document.getElementById('primaryLabel');
+    const comparisonLabel = document.getElementById('comparisonLabel');
+    
+    // Buttons
+    const standardNormalBtn = document.getElementById('standardNormal');
+    const heightExampleBtn = document.getElementById('heightExample');
+    const iqExampleBtn = document.getElementById('iqExample');
+    const compareModeBtn = document.getElementById('compareMode');
+    const samplingModeBtn = document.getElementById('samplingMode');
+    const resetAllBtn = document.getElementById('resetAll');
+    
+    // Checkboxes and options
+    const showEmpiricalRule = document.getElementById('showEmpiricalRule');
+    const showPercentiles = document.getElementById('showPercentiles');
+    const showZScores = document.getElementById('showZScores');
+    const showGrid = document.getElementById('showGrid');
+    
+    // Probability calculator
+    const probType = document.getElementById('probType');
+    const probValue1 = document.getElementById('probValue1');
+    const probValue2 = document.getElementById('probValue2');
+    const probValue2Container = document.getElementById('probValue2Container');
+    const calculateProbBtn = document.getElementById('calculateProb');
+    const probResult = document.getElementById('probResult');
+    const probResultText = document.getElementById('probResultText');
+    
+    // Sampling
+    const sampleSize = document.getElementById('sampleSize');
+    const sampleSizeValue = document.getElementById('sampleSizeValue');
+    const generateSampleBtn = document.getElementById('generateSample');
+    const showSampleStatsBtn = document.getElementById('showSampleStats');
+    const sampleResults = document.getElementById('sampleResults');
+    const sampleMean = document.getElementById('sampleMean');
+    const sampleStd = document.getElementById('sampleStd');
+    
+    // Stats display
+    const statMean = document.getElementById('statMean');
+    const statStd = document.getElementById('statStd');
+    const statVariance = document.getElementById('statVariance');
+    const statSkewness = document.getElementById('statSkewness');
+    const range1sigma = document.getElementById('range1sigma');
+    const range2sigma = document.getElementById('range2sigma');
+    const range3sigma = document.getElementById('range3sigma');
 
     let updateTimeout;
     let isInitialLoad = true;
+    let comparisonMode = false;
+    let currentSample = null;
+
+    // Utility functions
+    function updateStats() {
+        const mean = parseFloat(meanSlider.value);
+        const std = parseFloat(stdSlider.value);
+        const variance = std * std;
+        
+        statMean.textContent = mean.toFixed(2);
+        statStd.textContent = std.toFixed(2);
+        statVariance.textContent = variance.toFixed(2);
+        statSkewness.textContent = '0';
+        
+        // Update empirical rule ranges
+        range1sigma.textContent = `[${(mean - std).toFixed(1)}, ${(mean + std).toFixed(1)}]`;
+        range2sigma.textContent = `[${(mean - 2*std).toFixed(1)}, ${(mean + 2*std).toFixed(1)}]`;
+        range3sigma.textContent = `[${(mean - 3*std).toFixed(1)}, ${(mean + 3*std).toFixed(1)}]`;
+        
+        // Update labels
+        primaryLabel.textContent = `Normal(${mean}, ${std})`;
+        if (comparisonMode) {
+            const mean2 = parseFloat(mean2Slider.value);
+            const std2 = parseFloat(std2Slider.value);
+            comparisonLabel.textContent = `Normal(${mean2}, ${std2})`;
+        }
+    }
 
     function generatePlot() {
-        // Only show spinner on initial load
         if (isInitialLoad) {
             loadingSpinner.classList.remove('d-none');
             plotImage.style.display = 'none';
@@ -208,8 +529,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const mean = meanSlider.value;
         const std = stdSlider.value;
+        
+        let url = `/generate_normal_plot?mean=${mean}&std=${std}`;
+        url += `&show_empirical=${showEmpiricalRule.checked}`;
+        url += `&show_percentiles=${showPercentiles.checked}`;
+        url += `&show_zscores=${showZScores.checked}`;
+        url += `&show_grid=${showGrid.checked}`;
+        
+        if (comparisonMode) {
+            const mean2 = mean2Slider.value;
+            const std2 = std2Slider.value;
+            url += `&comparison=true&mean2=${mean2}&std2=${std2}`;
+        }
 
-        fetch(`/generate_normal_plot?mean=${mean}&std=${std}`)
+        fetch(url)
             .then(response => response.json())
             .then(data => {
                 plotImage.src = 'data:image/png;base64,' + data.plot;
@@ -229,30 +562,286 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function debounceUpdate() {
+        updateStats();
         clearTimeout(updateTimeout);
-        updateTimeout = setTimeout(generatePlot, 200); // Reduced to 200ms for faster response
+        updateTimeout = setTimeout(generatePlot, 200);
     }
 
-    meanSlider.addEventListener('input', function() {
-        meanValue.textContent = this.value;
+    // Sync sliders with number inputs
+    function syncControls() {
+        meanSlider.addEventListener('input', function() {
+            meanValue.textContent = this.value;
+            meanInput.value = this.value;
+            debounceUpdate();
+        });
+
+        meanInput.addEventListener('input', function() {
+            if (this.value >= -10 && this.value <= 10) {
+                meanSlider.value = this.value;
+                meanValue.textContent = this.value;
+                debounceUpdate();
+            }
+        });
+
+        stdSlider.addEventListener('input', function() {
+            stdValue.textContent = this.value;
+            stdInput.value = this.value;
+            debounceUpdate();
+        });
+
+        stdInput.addEventListener('input', function() {
+            if (this.value >= 0.1 && this.value <= 5) {
+                stdSlider.value = this.value;
+                stdValue.textContent = this.value;
+                debounceUpdate();
+            }
+        });
+
+        // Comparison controls
+        if (mean2Slider) {
+            mean2Slider.addEventListener('input', function() {
+                mean2Value.textContent = this.value;
+                mean2Input.value = this.value;
+                debounceUpdate();
+            });
+
+            mean2Input.addEventListener('input', function() {
+                if (this.value >= -10 && this.value <= 10) {
+                    mean2Slider.value = this.value;
+                    mean2Value.textContent = this.value;
+                    debounceUpdate();
+                }
+            });
+
+            std2Slider.addEventListener('input', function() {
+                std2Value.textContent = this.value;
+                std2Input.value = this.value;
+                debounceUpdate();
+            });
+
+            std2Input.addEventListener('input', function() {
+                if (this.value >= 0.1 && this.value <= 5) {
+                    std2Slider.value = this.value;
+                    std2Value.textContent = this.value;
+                    debounceUpdate();
+                }
+            });
+        }
+    }
+
+    // Button event handlers
+    standardNormalBtn.addEventListener('click', function() {
+        setDistribution(0, 1);
+        this.classList.add('active');
+        setTimeout(() => this.classList.remove('active'), 200);
+    });
+
+    heightExampleBtn.addEventListener('click', function() {
+        setDistribution(170, 10);
+        this.classList.add('active');
+        setTimeout(() => this.classList.remove('active'), 200);
+    });
+
+    iqExampleBtn.addEventListener('click', function() {
+        setDistribution(100, 15);
+        this.classList.add('active');
+        setTimeout(() => this.classList.remove('active'), 200);
+    });
+
+    compareModeBtn.addEventListener('click', function() {
+        comparisonMode = !comparisonMode;
+        if (comparisonMode) {
+            comparisonControls.classList.remove('d-none');
+            this.classList.add('btn-warning');
+            this.classList.remove('btn-outline-warning');
+        } else {
+            comparisonControls.classList.add('d-none');
+            this.classList.remove('btn-warning');
+            this.classList.add('btn-outline-warning');
+        }
         debounceUpdate();
     });
 
-    stdSlider.addEventListener('input', function() {
-        stdValue.textContent = this.value;
+    resetAllBtn.addEventListener('click', function() {
+        setDistribution(0, 1);
+        comparisonMode = false;
+        comparisonControls.classList.add('d-none');
+        compareModeBtn.classList.remove('btn-warning');
+        compareModeBtn.classList.add('btn-outline-warning');
+        showEmpiricalRule.checked = false;
+        showPercentiles.checked = false;
+        showZScores.checked = false;
+        showGrid.checked = true;
+        probResult.classList.add('d-none');
+        sampleResults.classList.add('d-none');
+        this.classList.add('active');
+        setTimeout(() => this.classList.remove('active'), 200);
         debounceUpdate();
     });
 
-    empiricalButton.addEventListener('click', function() {
-        meanSlider.value = 0;
-        stdSlider.value = 1;
-        meanValue.textContent = '0';
-        stdValue.textContent = '1';
-        generatePlot();
+    // Checkbox event handlers
+    [showEmpiricalRule, showPercentiles, showZScores, showGrid].forEach(checkbox => {
+        checkbox.addEventListener('change', debounceUpdate);
     });
 
-    // Generate initial plot
+    // Probability calculator
+    probType.addEventListener('change', function() {
+        if (this.value === 'between') {
+            probValue2Container.style.display = 'block';
+        } else {
+            probValue2Container.style.display = 'none';
+        }
+    });
+
+    calculateProbBtn.addEventListener('click', function() {
+        const mean = parseFloat(meanSlider.value);
+        const std = parseFloat(stdSlider.value);
+        const value1 = parseFloat(probValue1.value);
+        const value2 = parseFloat(probValue2.value);
+        const type = probType.value;
+
+        // Calculate z-scores
+        const z1 = (value1 - mean) / std;
+        const z2 = (value2 - mean) / std;
+
+        let probability, resultText;
+
+        // Approximate normal CDF using error function
+        function normalCDF(z) {
+            return 0.5 * (1 + erf(z / Math.sqrt(2)));
+        }
+
+        function erf(x) {
+            // Approximation of error function
+            const a1 =  0.254829592;
+            const a2 = -0.284496736;
+            const a3 =  1.421413741;
+            const a4 = -1.453152027;
+            const a5 =  1.061405429;
+            const p  =  0.3275911;
+
+            const sign = x < 0 ? -1 : 1;
+            x = Math.abs(x);
+
+            const t = 1.0 / (1.0 + p * x);
+            const y = 1.0 - (((((a5 * t + a4) * t) + a3) * t + a2) * t + a1) * t * Math.exp(-x * x);
+
+            return sign * y;
+        }
+
+        switch(type) {
+            case 'less':
+                probability = normalCDF(z1);
+                resultText = `P(X < ${value1}) = ${probability.toFixed(4)} (${(probability * 100).toFixed(2)}%)`;
+                break;
+            case 'greater':
+                probability = 1 - normalCDF(z1);
+                resultText = `P(X > ${value1}) = ${probability.toFixed(4)} (${(probability * 100).toFixed(2)}%)`;
+                break;
+            case 'between':
+                if (value1 >= value2) {
+                    resultText = 'Error: Value (a) must be less than Value (b)';
+                    break;
+                }
+                probability = normalCDF(z2) - normalCDF(z1);
+                resultText = `P(${value1} < X < ${value2}) = ${probability.toFixed(4)} (${(probability * 100).toFixed(2)}%)`;
+                break;
+            case 'equal':
+                resultText = 'P(X = value) ≈ 0 for continuous distributions';
+                break;
+        }
+
+        probResultText.innerHTML = `
+            <strong>${resultText}</strong><br>
+            <small class="text-muted">
+                Z-score(s): ${z1.toFixed(3)}${type === 'between' ? `, ${z2.toFixed(3)}` : ''}
+            </small>
+        `;
+        probResult.classList.remove('d-none');
+    });
+
+    // Sampling functionality
+    sampleSize.addEventListener('input', function() {
+        sampleSizeValue.textContent = this.value;
+    });
+
+    generateSampleBtn.addEventListener('click', function() {
+        const n = parseInt(sampleSize.value);
+        const mean = parseFloat(meanSlider.value);
+        const std = parseFloat(stdSlider.value);
+        
+        // Generate normal random samples using Box-Muller transform
+        currentSample = [];
+        for (let i = 0; i < n; i += 2) {
+            const u1 = Math.random();
+            const u2 = Math.random();
+            
+            const z0 = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
+            const z1 = Math.sqrt(-2 * Math.log(u1)) * Math.sin(2 * Math.PI * u2);
+            
+            currentSample.push(mean + std * z0);
+            if (i + 1 < n) {
+                currentSample.push(mean + std * z1);
+            }
+        }
+        
+        this.classList.add('btn-success');
+        this.innerHTML = '<i class="fas fa-check me-1"></i>Sample Generated!';
+        setTimeout(() => {
+            this.classList.remove('btn-success');
+            this.innerHTML = '<i class="fas fa-random me-1"></i>Generate Sample';
+        }, 1000);
+        
+        showSampleStatsBtn.disabled = false;
+    });
+
+    showSampleStatsBtn.addEventListener('click', function() {
+        if (!currentSample) return;
+        
+        const n = currentSample.length;
+        const meanSample = currentSample.reduce((a, b) => a + b, 0) / n;
+        const variance = currentSample.reduce((a, b) => a + (b - meanSample) ** 2, 0) / (n - 1);
+        const stdSample = Math.sqrt(variance);
+        
+        sampleMean.textContent = meanSample.toFixed(3);
+        sampleStd.textContent = stdSample.toFixed(3);
+        sampleResults.classList.remove('d-none');
+    });
+
+    // Utility function to set distribution parameters
+    function setDistribution(mean, std) {
+        meanSlider.value = mean;
+        stdSlider.value = std;
+        meanInput.value = mean;
+        stdInput.value = std;
+        meanValue.textContent = mean;
+        stdValue.textContent = std;
+        debounceUpdate();
+    }
+
+    // Global function for example buttons
+    window.setExample = function(type) {
+        switch(type) {
+            case 'height':
+                setDistribution(170, 10);
+                break;
+            case 'iq':
+                setDistribution(100, 15);
+                break;
+            case 'sat':
+                setDistribution(1050, 200);
+                break;
+            case 'temperature':
+                setDistribution(20, 5);
+                break;
+        }
+    };
+
+    // Initialize
+    syncControls();
+    updateStats();
     generatePlot();
+    showSampleStatsBtn.disabled = true;
 });
 </script>
 {% endblock %}

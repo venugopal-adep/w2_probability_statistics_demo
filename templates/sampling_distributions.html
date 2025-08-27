@@ -1,200 +1,49 @@
 {% extends "base.html" %}
 
-{% block title %}Sampling Distributions{% endblock %}
+{% block title %}Sampling Distributions - Probability Distributions{% endblock %}
 
 {% block content %}
-<div class="container mt-4">
-    <h1 class="text-center mb-4 text-primary">Sampling Distributions</h1>
-    
-    <!-- Introduction Section -->
-    <div class="row mb-5">
-        <div class="col-lg-12">
-            <div class="card border-primary">
-                <div class="card-header bg-primary text-white">
-                    <h3 class="mb-0">What is the need for sampling?</h3>
-                </div>
-                <div class="card-body">
-                    <p class="lead">Given the limited resources and time, it is not always possible to study the entire population. That's why we choose a sample out of the population to make inferences about the population.</p>
-                    
-                    <div class="alert alert-info">
-                        <strong>Example:</strong> Suppose a new drug is manufactured and it needs to be tested for adverse side effects on a country's population. It is almost impossible to conduct a research study that involves everyone.
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- What are Sampling Distributions Section -->
-    <div class="row mb-5">
-        <div class="col-lg-12">
-            <div class="card border-success">
-                <div class="card-header bg-success text-white">
-                    <h3 class="mb-0">What are Sampling Distributions?</h3>
-                </div>
-                <div class="card-body">
-                    <p class="lead">It is a distribution of a particular sample statistic obtained from all possible samples drawn from a specific population.</p>
-                    
-                    <div class="row mt-4">
-                        <div class="col-md-6">
-                            <div class="card bg-light">
-                                <div class="card-body text-center">
-                                    <h5 class="card-title text-primary">Population Distribution</h5>
-                                    <div class="distribution-visual bg-secondary text-white p-3 rounded mb-3">
-                                        <i class="fas fa-chart-area fa-3x"></i>
-                                        <p class="mt-2 mb-0">Original population with parameter μ</p>
-                                    </div>
-                                    <p class="small text-muted">The entire population we want to study</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="card bg-light">
-                                <div class="card-body text-center">
-                                    <h5 class="card-title text-info">Sampling Distribution</h5>
-                                    <div class="distribution-visual bg-info text-white p-3 rounded mb-3">
-                                        <i class="fas fa-chart-line fa-3x"></i>
-                                        <p class="mt-2 mb-0">Distribution of sample means</p>
-                                    </div>
-                                    <p class="small text-muted">Distribution of statistics from all possible samples</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Key Concepts Section -->
-    <div class="row mb-5">
-        <div class="col-lg-12">
-            <div class="card border-warning">
-                <div class="card-header bg-warning text-dark">
-                    <h3 class="mb-0">Key Concepts of Sampling Distributions</h3>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="card h-100">
-                                <div class="card-body">
-                                    <h5 class="card-title text-primary">
-                                        <i class="fas fa-sample"></i> Sample Size (n)
-                                    </h5>
-                                    <p>The number of observations in each sample. Larger sample sizes lead to more precise estimates.</p>
-                                    <div class="alert alert-light">
-                                        <strong>Effect:</strong> As n increases, the sampling distribution becomes narrower and more normal.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="card h-100">
-                                <div class="card-body">
-                                    <h5 class="card-title text-success">
-                                        <i class="fas fa-chart-bar"></i> Standard Error
-                                    </h5>
-                                    <p>The standard deviation of the sampling distribution. Measures the variability of sample statistics.</p>
-                                    <div class="alert alert-light">
-                                        <strong>Formula:</strong> SE = σ/√n<br>
-                                        Where σ is the population standard deviation
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Properties Section -->
-    <div class="row mb-5">
-        <div class="col-lg-12">
-            <div class="card border-info">
-                <div class="card-header bg-info text-white">
-                    <h3 class="mb-0">Properties of Sampling Distributions</h3>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="text-center p-3 border rounded bg-light">
-                                <i class="fas fa-balance-scale fa-2x text-primary mb-2"></i>
-                                <h5>Unbiased</h5>
-                                <p class="small">The mean of the sampling distribution equals the population parameter</p>
-                                <code>E[X̄] = μ</code>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="text-center p-3 border rounded bg-light">
-                                <i class="fas fa-compress-alt fa-2x text-success mb-2"></i>
-                                <h5>Less Variable</h5>
-                                <p class="small">Standard error decreases as sample size increases</p>
-                                <code>SE = σ/√n</code>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="text-center p-3 border rounded bg-light">
-                                <i class="fas fa-chart-bell fa-2x text-warning mb-2"></i>
-                                <h5>Approaches Normal</h5>
-                                <p class="small">Becomes normal as sample size increases (CLT)</p>
-                                <code>n ≥ 30</code>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Interactive Simulation Section -->
-    <div class="row mb-5">
-        <div class="col-lg-12">
-            <div class="card border-dark">
-                <div class="card-header bg-dark text-white">
-                    <h3 class="mb-0">
-                        <i class="fas fa-play-circle"></i> Sampling Distribution Simulation
-                    </h3>
-                </div>
-                <div class="card-body">
-                    <p class="text-muted">This simulation demonstrates how sample means distribute around the population mean.</p>
-                    
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h5>Population Parameters</h5>
-                            <div class="form-group">
-                                <label>Population Mean (μ):</label>
-                                <input type="range" class="form-control-range" id="popMean" min="0" max="10" value="5" step="0.5">
-                                <span id="popMeanValue">5</span>
-                            </div>
-                            <div class="form-group">
-                                <label>Population Std Dev (σ):</label>
-                                <input type="range" class="form-control-range" id="popStd" min="0.5" max="3" value="1.5" step="0.1">
-                                <span id="popStdValue">1.5</span>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <h5>Sample Parameters</h5>
-                            <div class="form-group">
-                                <label>Sample Size (n):</label>
-                                <input type="range" class="form-control-range" id="sampleSize" min="5" max="50" value="10" step="5">
-                                <span id="sampleSizeValue">10</span>
-                            </div>
-                            <div class="form-group">
-                                <label>Number of Samples:</label>
-                                <input type="range" class="form-control-range" id="numSamples" min="100" max="1000" value="500" step="100">
-                                <span id="numSamplesValue">500</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="text-center mt-3">
-                        <button class="btn btn-primary btn-lg" onclick="runSamplingSimulation()">
-                            <i class="fas fa-play"></i> Run Simulation
+<div class="row">
+    <div class="col-12">
+        <div class="card mb-3">
+            <div class="card-body">
+                <h1 class="display-5 mb-3">
+                    <i class="fas fa-random text-primary me-2"></i>
+                    Sampling Distributions Interactive Explorer
+                </h1>
+                <p class="lead">Explore sampling distributions with interactive simulations, Central Limit Theorem demonstrations, and real-time statistical analysis.</p>
+                
+                <!-- Quick Action Buttons -->
+                <div class="row g-2 mt-2">
+                    <div class="col-md-2">
+                        <button id="normalPopulation" class="btn btn-outline-primary btn-sm w-100">
+                            <i class="fas fa-bell me-1"></i>Normal Pop
                         </button>
                     </div>
-                    
-                    <div id="samplingPlot" class="mt-4 text-center">
-                        <!-- Simulation results will appear here -->
+                    <div class="col-md-2">
+                        <button id="uniformPopulation" class="btn btn-outline-info btn-sm w-100">
+                            <i class="fas fa-chart-bar me-1"></i>Uniform Pop
+                        </button>
+                    </div>
+                    <div class="col-md-2">
+                        <button id="skewedPopulation" class="btn btn-outline-success btn-sm w-100">
+                            <i class="fas fa-chart-line me-1"></i>Skewed Pop
+                        </button>
+                    </div>
+                    <div class="col-md-2">
+                        <button id="compareSizes" class="btn btn-outline-warning btn-sm w-100">
+                            <i class="fas fa-exchange-alt me-1"></i>Compare Sizes
+                        </button>
+                    </div>
+                    <div class="col-md-2">
+                        <button id="cltDemo" class="btn btn-outline-danger btn-sm w-100">
+                            <i class="fas fa-magic me-1"></i>CLT Demo
+                        </button>
+                    </div>
+                    <div class="col-md-2">
+                        <button id="resetAll" class="btn btn-outline-secondary btn-sm w-100">
+                            <i class="fas fa-undo me-1"></i>Reset
+                        </button>
                     </div>
                 </div>
             </div>
@@ -202,49 +51,978 @@
     </div>
 </div>
 
-<script>
-// Update slider values
-document.getElementById('popMean').oninput = function() {
-    document.getElementById('popMeanValue').textContent = this.value;
-}
-document.getElementById('popStd').oninput = function() {
-    document.getElementById('popStdValue').textContent = this.value;
-}
-document.getElementById('sampleSize').oninput = function() {
-    document.getElementById('sampleSizeValue').textContent = this.value;
-}
-document.getElementById('numSamples').oninput = function() {
-    document.getElementById('numSamplesValue').textContent = this.value;
-}
+<!-- Main Control Panel -->
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card mb-3">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4><i class="fas fa-sliders-h text-primary me-2"></i>Population & Sampling Controls</h4>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="showGrid" checked>
+                        <label class="form-check-label" for="showGrid">Show Grid</label>
+                    </div>
+                </div>
+                
+                <!-- Population Distribution Controls -->
+                <div id="populationControls" class="border p-3 rounded mb-3" style="border-color: #0d6efd !important;">
+                    <h6 class="text-primary mb-3">
+                        <i class="fas fa-chart-area me-1"></i>Population Distribution
+                        <span id="populationLabel" class="badge bg-primary ms-2">Normal(50, 10)</span>
+                    </h6>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="distributionType" class="form-label">Distribution Type:</label>
+                            <select class="form-select" id="distributionType">
+                                <option value="normal">Normal</option>
+                                <option value="uniform">Uniform</option>
+                                <option value="exponential">Exponential</option>
+                                <option value="gamma">Gamma (Skewed)</option>
+                                <option value="bimodal">Bimodal</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="popMean" class="form-label">Population Mean (μ):</label>
+                            <div class="input-group">
+                                <input type="range" class="form-range" id="popMean" min="10" max="90" step="5" value="50">
+                                <input type="number" class="form-control form-control-sm" id="popMeanInput" min="10" max="90" step="5" value="50" style="max-width: 80px;">
+                            </div>
+                            <div class="text-center mt-1">
+                                <span id="popMeanValue" class="badge bg-primary">50</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="popStd" class="form-label">Population Std Dev (σ):</label>
+                            <div class="input-group">
+                                <input type="range" class="form-range" id="popStd" min="2" max="20" step="1" value="10">
+                                <input type="number" class="form-control form-control-sm" id="popStdInput" min="2" max="20" step="1" value="10" style="max-width: 80px;">
+                            </div>
+                            <div class="text-center mt-1">
+                                <span id="popStdValue" class="badge bg-success">10</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-function runSamplingSimulation() {
-    const button = document.querySelector('button[onclick="runSamplingSimulation()"]');
-    button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Running...';
-    button.disabled = true;
-    
-    const popMean = document.getElementById('popMean').value;
-    const popStd = document.getElementById('popStd').value;
-    const sampleSize = document.getElementById('sampleSize').value;
-    const numSamples = document.getElementById('numSamples').value;
-    
-    // Simulate sampling distribution (placeholder - in real app would call backend)
-    setTimeout(() => {
-        const plotDiv = document.getElementById('samplingPlot');
-        plotDiv.innerHTML = `
-            <div class="alert alert-success">
-                <h5>Simulation Results:</h5>
-                <p><strong>Population Mean (μ):</strong> ${popMean}</p>
-                <p><strong>Population Std Dev (σ):</strong> ${popStd}</p>
-                <p><strong>Sample Size (n):</strong> ${sampleSize}</p>
-                <p><strong>Number of Samples:</strong> ${numSamples}</p>
-                <p><strong>Expected Standard Error:</strong> ${(popStd / Math.sqrt(sampleSize)).toFixed(3)}</p>
-                <p class="text-muted"><em>In a full implementation, this would show an interactive plot of the sampling distribution.</em></p>
+                <!-- Sampling Controls -->
+                <div id="samplingControls" class="border p-3 rounded mb-3" style="border-color: #198754 !important;">
+                    <h6 class="text-success mb-3">
+                        <i class="fas fa-sample me-1"></i>Sampling Parameters
+                        <span id="samplingLabel" class="badge bg-success ms-2">n=30, samples=1000</span>
+                    </h6>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="sampleSize" class="form-label">Sample Size (n):</label>
+                            <div class="input-group">
+                                <input type="range" class="form-range" id="sampleSize" min="5" max="100" step="5" value="30">
+                                <input type="number" class="form-control form-control-sm" id="sampleSizeInput" min="5" max="100" step="5" value="30" style="max-width: 80px;">
+                            </div>
+                            <div class="text-center mt-1">
+                                <span id="sampleSizeValue" class="badge bg-warning">30</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="numSamples" class="form-label">Number of Samples:</label>
+                            <div class="input-group">
+                                <input type="range" class="form-range" id="numSamples" min="100" max="5000" step="100" value="1000">
+                                <input type="number" class="form-control form-control-sm" id="numSamplesInput" min="100" max="5000" step="100" value="1000" style="max-width: 80px;">
+                            </div>
+                            <div class="text-center mt-1">
+                                <span id="numSamplesValue" class="badge bg-info">1000</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Comparison Controls (Hidden by default) -->
+                <div id="comparisonControls" class="border p-3 rounded mb-3 d-none" style="border-color: #dc3545 !important;">
+                    <h6 class="text-danger mb-3">
+                        <i class="fas fa-chart-line me-1"></i>Comparison Sampling
+                        <span id="comparisonLabel" class="badge bg-danger ms-2">n=10 vs n=50</span>
+                    </h6>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="sampleSize2" class="form-label">Sample Size 2 (n₂):</label>
+                            <div class="input-group">
+                                <input type="range" class="form-range" id="sampleSize2" min="5" max="100" step="5" value="10">
+                                <input type="number" class="form-control form-control-sm" id="sampleSize2Input" min="5" max="100" step="5" value="10" style="max-width: 80px;">
+                            </div>
+                            <div class="text-center mt-1">
+                                <span id="sampleSize2Value" class="badge bg-danger">10</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="sampleSize3" class="form-label">Sample Size 3 (n₃):</label>
+                            <div class="input-group">
+                                <input type="range" class="form-range" id="sampleSize3" min="5" max="100" step="5" value="50">
+                                <input type="number" class="form-control form-control-sm" id="sampleSize3Input" min="5" max="100" step="5" value="50" style="max-width: 80px;">
+                            </div>
+                            <div class="text-center mt-1">
+                                <span id="sampleSize3Value" class="badge bg-warning">50</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Visualization Options -->
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="showPopulation" checked>
+                            <label class="form-check-label" for="showPopulation">
+                                Show Population
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="showSampling" checked>
+                            <label class="form-check-label" for="showSampling">
+                                Show Sampling Dist
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="showNormalOverlay">
+                            <label class="form-check-label" for="showNormalOverlay">
+                                Normal Overlay
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="showAnimation">
+                            <label class="form-check-label" for="showAnimation">
+                                Show Animation
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-3">
+                    <button id="runSimulation" class="btn btn-outline-success btn-lg">
+                        <i class="fas fa-play me-2"></i>Run Simulation
+                    </button>
+                </div>
             </div>
-        `;
+        </div>
+
+        <!-- Main Plot -->
+        <div class="card mb-3">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-chart-area text-primary me-2"></i>Sampling Distribution Visualization</h5>
+            </div>
+            <div class="card-body">
+                <div id="plotContainer" class="text-center" style="min-height: 400px; position: relative;">
+                    <img id="samplingPlot" src="" alt="Sampling Distribution Plot" class="img-fluid" style="display: none; max-width: 100%; height: auto;">
+                    <div id="loadingSpinner" class="d-flex justify-content-center align-items-center" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <span class="ms-2">Generating plot...</span>
+                    </div>
+                    <div id="plotPlaceholder" class="d-flex justify-content-center align-items-center text-muted" style="height: 300px; border: 2px dashed #dee2e6; border-radius: 8px;">
+                        <div class="text-center">
+                            <i class="fas fa-chart-area fa-3x mb-3"></i>
+                            <h5>Click "Run Simulation" to generate plot</h5>
+                            <p class="mb-0">Adjust parameters above and run simulation to see results</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CLT Demo Panel -->
+        <div class="card mb-3" id="cltPanel" style="display: none;">
+            <div class="card-body">
+                <h5><i class="fas fa-magic text-danger me-2"></i>Central Limit Theorem Demonstration</h5>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="cltSampleSizes" class="form-label">Sample Sizes to Compare:</label>
+                        <select class="form-select" id="cltSampleSizes" multiple>
+                            <option value="5" selected>n = 5</option>
+                            <option value="10" selected>n = 10</option>
+                            <option value="30" selected>n = 30</option>
+                            <option value="50">n = 50</option>
+                            <option value="100">n = 100</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="cltDistribution" class="form-label">Population Shape:</label>
+                        <select class="form-select" id="cltDistribution">
+                            <option value="uniform">Uniform (Flat)</option>
+                            <option value="exponential">Exponential (Highly Skewed)</option>
+                            <option value="bimodal">Bimodal (Two Peaks)</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="d-grid gap-2">
+                            <label class="form-label">&nbsp;</label>
+                            <button id="runCLTDemo" class="btn btn-danger">
+                                <i class="fas fa-magic me-1"></i>Run CLT Demo
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Standard Error Calculator -->
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5><i class="fas fa-calculator text-info me-2"></i>Standard Error Calculator</h5>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="sePopStd" class="form-label">Population Std Dev (σ):</label>
+                        <input type="number" class="form-control" id="sePopStd" value="10" min="0.1" step="0.1">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="seSampleSize" class="form-label">Sample Size (n):</label>
+                        <input type="number" class="form-control" id="seSampleSize" value="30" min="1" step="1">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Standard Error:</label>
+                        <div class="form-control bg-light" id="standardErrorResult">1.826</div>
+                    </div>
+                </div>
+                <div class="mt-3 p-3 bg-light rounded">
+                    <h6>Formula: SE = σ / √n</h6>
+                    <p class="mb-0 text-muted">The standard error measures how much sample means vary from the population mean. As sample size increases, standard error decreases.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Side Panel -->
+    <div class="col-lg-4">
+        <!-- Current Statistics -->
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5><i class="fas fa-chart-bar text-info me-2"></i>Current Statistics</h5>
+                <div id="statsContainer">
+                    <div class="row text-center">
+                        <div class="col-6">
+                            <div class="border rounded p-2">
+                                <h6 class="text-primary mb-1">Pop Mean (μ)</h6>
+                                <span id="statPopMean" class="h5">50.0</span>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="border rounded p-2">
+                                <h6 class="text-success mb-1">Pop Std (σ)</h6>
+                                <span id="statPopStd" class="h5">10.0</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row text-center mt-2">
+                        <div class="col-6">
+                            <div class="border rounded p-2">
+                                <h6 class="text-warning mb-1">Sample Size</h6>
+                                <span id="statSampleSize" class="h5">30</span>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="border rounded p-2">
+                                <h6 class="text-info mb-1">Std Error</h6>
+                                <span id="statStdError" class="h5">1.83</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sampling Distribution Properties -->
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5><i class="fas fa-info-circle text-primary me-2"></i>Sampling Distribution Properties</h5>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span><i class="fas fa-balance-scale text-success me-2"></i>Unbiased</span>
+                        <span class="badge bg-success">E[X̄] = μ</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span><i class="fas fa-compress-alt text-info me-2"></i>Less Variable</span>
+                        <span class="badge bg-info">SE = σ/√n</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span><i class="fas fa-bell text-warning me-2"></i>Approaches Normal</span>
+                        <span class="badge bg-warning" id="normalityBadge">n ≥ 30</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Central Limit Theorem Guide -->
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5><i class="fas fa-magic text-danger me-2"></i>Central Limit Theorem</h5>
+                <div class="alert alert-info">
+                    <h6>Key Points:</h6>
+                    <ul class="mb-2">
+                        <li>Sample means approach normal distribution</li>
+                        <li>Works for <strong>any</strong> population shape</li>
+                        <li>Larger n = more normal shape</li>
+                        <li>Standard error = σ/√n</li>
+                    </ul>
+                    <div id="cltStatus" class="text-center">
+                        <span class="badge bg-success" id="cltBadge">CLT applies (n=30)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Population Types Guide -->
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5><i class="fas fa-shapes text-success me-2"></i>Population Types</h5>
+                <div class="row g-2">
+                    <div class="col-12">
+                        <button class="btn btn-outline-primary btn-sm w-100" onclick="setPopulation('normal')">
+                            <i class="fas fa-bell me-1"></i>Normal - Symmetric Bell
+                        </button>
+                    </div>
+                    <div class="col-12">
+                        <button class="btn btn-outline-info btn-sm w-100" onclick="setPopulation('uniform')">
+                            <i class="fas fa-chart-bar me-1"></i>Uniform - Flat Rectangle
+                        </button>
+                    </div>
+                    <div class="col-12">
+                        <button class="btn btn-outline-warning btn-sm w-100" onclick="setPopulation('exponential')">
+                            <i class="fas fa-chart-line me-1"></i>Exponential - Right Skewed
+                        </button>
+                    </div>
+                    <div class="col-12">
+                        <button class="btn btn-outline-success btn-sm w-100" onclick="setPopulation('gamma')">
+                            <i class="fas fa-mountain me-1"></i>Gamma - Moderately Skewed
+                        </button>
+                    </div>
+                    <div class="col-12">
+                        <button class="btn btn-outline-danger btn-sm w-100" onclick="setPopulation('bimodal')">
+                            <i class="fas fa-wave-square me-1"></i>Bimodal - Two Peaks
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sample Size Effects -->
+        <div class="card">
+            <div class="card-body">
+                <h5><i class="fas fa-resize-alt text-warning me-2"></i>Sample Size Effects</h5>
+                
+                <div class="mb-3">
+                    <h6 class="text-primary">Standard Error Formula:</h6>
+                    <div class="bg-light p-2 rounded text-center" style="font-size: 1.1em;">
+                        SE = σ / √n
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <h6 class="text-success">As Sample Size Increases:</h6>
+                    <ul class="small">
+                        <li>Standard error <strong>decreases</strong></li>
+                        <li>Sampling distribution becomes <strong>narrower</strong></li>
+                        <li>Sample means cluster closer to μ</li>
+                        <li>Shape becomes more <strong>normal</strong></li>
+                    </ul>
+                </div>
+
+                <div class="row text-center">
+                    <div class="col-6">
+                        <div class="border rounded p-2">
+                            <small class="text-muted">n = 5</small>
+                            <div id="se5" class="fw-bold">4.47</div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="border rounded p-2">
+                            <small class="text-muted">n = 100</small>
+                            <div id="se100" class="fw-bold">1.00</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Get all the DOM elements
+    const distributionType = document.getElementById('distributionType');
+    const popMeanSlider = document.getElementById('popMean');
+    const popStdSlider = document.getElementById('popStd');
+    const popMeanInput = document.getElementById('popMeanInput');
+    const popStdInput = document.getElementById('popStdInput');
+    const popMeanValue = document.getElementById('popMeanValue');
+    const popStdValue = document.getElementById('popStdValue');
+    
+    // Sampling controls
+    const sampleSizeSlider = document.getElementById('sampleSize');
+    const numSamplesSlider = document.getElementById('numSamples');
+    const sampleSizeInput = document.getElementById('sampleSizeInput');
+    const numSamplesInput = document.getElementById('numSamplesInput');
+    const sampleSizeValue = document.getElementById('sampleSizeValue');
+    const numSamplesValue = document.getElementById('numSamplesValue');
+    
+    // Comparison controls
+    const sampleSize2Slider = document.getElementById('sampleSize2');
+    const sampleSize3Slider = document.getElementById('sampleSize3');
+    const sampleSize2Input = document.getElementById('sampleSize2Input');
+    const sampleSize3Input = document.getElementById('sampleSize3Input');
+    const sampleSize2Value = document.getElementById('sampleSize2Value');
+    const sampleSize3Value = document.getElementById('sampleSize3Value');
+    
+    // UI elements
+    const plotImage = document.getElementById('samplingPlot');
+    const loadingSpinner = document.getElementById('loadingSpinner');
+    const comparisonControls = document.getElementById('comparisonControls');
+    const populationLabel = document.getElementById('populationLabel');
+    const samplingLabel = document.getElementById('samplingLabel');
+    const comparisonLabel = document.getElementById('comparisonLabel');
+    const cltPanel = document.getElementById('cltPanel');
+    
+    // Buttons
+    const normalPopulationBtn = document.getElementById('normalPopulation');
+    const uniformPopulationBtn = document.getElementById('uniformPopulation');
+    const skewedPopulationBtn = document.getElementById('skewedPopulation');
+    const compareSizesBtn = document.getElementById('compareSizes');
+    const cltDemoBtn = document.getElementById('cltDemo');
+    const resetAllBtn = document.getElementById('resetAll');
+    const runSimulationBtn = document.getElementById('runSimulation');
+    const runCLTDemoBtn = document.getElementById('runCLTDemo');
+    
+    // Checkboxes and options
+    const showPopulation = document.getElementById('showPopulation');
+    const showSampling = document.getElementById('showSampling');
+    const showNormalOverlay = document.getElementById('showNormalOverlay');
+    const showAnimation = document.getElementById('showAnimation');
+    const showGrid = document.getElementById('showGrid');
+    
+    // Standard Error Calculator
+    const sePopStd = document.getElementById('sePopStd');
+    const seSampleSize = document.getElementById('seSampleSize');
+    const standardErrorResult = document.getElementById('standardErrorResult');
+    
+    // Stats display
+    const statPopMean = document.getElementById('statPopMean');
+    const statPopStd = document.getElementById('statPopStd');
+    const statSampleSize = document.getElementById('statSampleSize');
+    const statStdError = document.getElementById('statStdError');
+    const normalityBadge = document.getElementById('normalityBadge');
+    const cltBadge = document.getElementById('cltBadge');
+    const se5 = document.getElementById('se5');
+    const se100 = document.getElementById('se100');
+
+    let updateTimeout;
+    let isInitialLoad = true;
+    let comparisonMode = false;
+    let cltMode = false;
+
+    // Utility functions
+    function updateStats() {
+        const mean = parseFloat(popMeanSlider.value);
+        const std = parseFloat(popStdSlider.value);
+        const n = parseInt(sampleSizeSlider.value);
+        const numSamples = parseInt(numSamplesSlider.value);
         
-        button.innerHTML = '<i class="fas fa-play"></i> Run Simulation';
-        button.disabled = false;
-    }, 1500);
-}
+        const standardError = std / Math.sqrt(n);
+        
+        statPopMean.textContent = mean.toFixed(1);
+        statPopStd.textContent = std.toFixed(1);
+        statSampleSize.textContent = n;
+        statStdError.textContent = standardError.toFixed(2);
+        
+        // Update labels
+        const distType = distributionType.value;
+        let distLabel = '';
+        switch(distType) {
+            case 'normal':
+                distLabel = `Normal(${mean}, ${std})`;
+                break;
+            case 'uniform':
+                distLabel = `Uniform(${mean-std*1.73:.0f}, ${mean+std*1.73:.0f})`;
+                break;
+            case 'exponential':
+                distLabel = `Exponential(λ=${(1/mean).toFixed(2)})`;
+                break;
+            case 'gamma':
+                distLabel = `Gamma(α=2, β=${(std/2).toFixed(1)})`;
+                break;
+            case 'bimodal':
+                distLabel = `Bimodal(μ=${mean}, σ=${std})`;
+                break;
+        }
+        
+        populationLabel.textContent = distLabel;
+        samplingLabel.textContent = `n=${n}, samples=${numSamples}`;
+        
+        if (comparisonMode) {
+            const n2 = parseInt(sampleSize2Slider.value);
+            const n3 = parseInt(sampleSize3Slider.value);
+            comparisonLabel.textContent = `n=${n} vs n=${n2} vs n=${n3}`;
+        }
+        
+        // Update CLT status
+        if (n >= 30) {
+            normalityBadge.textContent = 'n ≥ 30 ✓';
+            normalityBadge.className = 'badge bg-success';
+            cltBadge.textContent = `CLT applies (n=${n})`;
+            cltBadge.className = 'badge bg-success';
+        } else {
+            normalityBadge.textContent = `n < 30 (${n})`;
+            normalityBadge.className = 'badge bg-warning';
+            cltBadge.textContent = `CLT may not apply (n=${n})`;
+            cltBadge.className = 'badge bg-warning';
+        }
+        
+        // Update sample size effect examples
+        se5.textContent = (std / Math.sqrt(5)).toFixed(2);
+        se100.textContent = (std / Math.sqrt(100)).toFixed(2);
+    }
+
+    function updateStandardError() {
+        const sigma = parseFloat(sePopStd.value);
+        const n = parseInt(seSampleSize.value);
+        const se = sigma / Math.sqrt(n);
+        standardErrorResult.textContent = se.toFixed(3);
+    }
+
+    function generatePlot() {
+        // Hide placeholder and show loading spinner
+        const plotPlaceholder = document.getElementById('plotPlaceholder');
+        plotPlaceholder.style.display = 'none';
+        loadingSpinner.style.display = 'flex';
+        plotImage.style.display = 'none';
+
+        const distType = distributionType.value;
+        const mean = popMeanSlider.value;
+        const std = popStdSlider.value;
+        const n = sampleSizeSlider.value;
+        const numSamples = numSamplesSlider.value;
+        
+        let url = `/generate_sampling_plot?distribution=${distType}&mean=${mean}&std=${std}&sample_size=${n}&num_samples=${numSamples}`;
+        url += `&show_population=${showPopulation.checked}`;
+        url += `&show_sampling=${showSampling.checked}`;
+        url += `&show_normal=${showNormalOverlay.checked}`;
+        url += `&show_grid=${showGrid.checked}`;
+        
+        if (comparisonMode) {
+            const n2 = sampleSize2Slider.value;
+            const n3 = sampleSize3Slider.value;
+            url += `&comparison=true&n2=${n2}&n3=${n3}`;
+        }
+        
+        if (cltMode) {
+            const selectedSizes = Array.from(document.getElementById('cltSampleSizes').selectedOptions).map(o => o.value);
+            const cltDist = document.getElementById('cltDistribution').value;
+            url += `&clt_mode=true&clt_sizes=${selectedSizes.join(',')}&clt_distribution=${cltDist}`;
+        }
+
+        console.log('Fetching URL:', url);
+
+        fetch(url)
+            .then(response => {
+                console.log('Response status:', response.status);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Data received:', data ? 'Yes' : 'No');
+                if (data && data.plot) {
+                    // Hide loading spinner and show image
+                    loadingSpinner.style.display = 'none';
+                    plotImage.src = 'data:image/png;base64,' + data.plot;
+                    plotImage.style.display = 'block';
+                    isInitialLoad = false;
+                    console.log('Plot loaded successfully');
+                } else {
+                    throw new Error('No plot data received');
+                }
+            })
+            .catch(error => {
+                console.error('Error generating plot:', error);
+                loadingSpinner.style.display = 'none';
+                plotPlaceholder.style.display = 'flex';
+                isInitialLoad = false;
+                
+                // Show error message in placeholder
+                plotPlaceholder.innerHTML = `
+                    <div class="text-center text-danger">
+                        <i class="fas fa-exclamation-triangle fa-3x mb-3"></i>
+                        <h5>Error generating plot</h5>
+                        <p class="mb-0">Error: ${error.message}</p>
+                        <button class="btn btn-outline-primary mt-2" onclick="location.reload()">
+                            <i class="fas fa-refresh me-1"></i>Reload Page
+                        </button>
+                    </div>
+                `;
+            });
+    }
+
+    function debounceUpdate() {
+        updateStats();
+        updateStandardError();
+        clearTimeout(updateTimeout);
+        updateTimeout = setTimeout(generatePlot, 300);
+    }
+
+    // Sync sliders with number inputs
+    function syncControls() {
+        // Population controls
+        popMeanSlider.addEventListener('input', function() {
+            popMeanValue.textContent = this.value;
+            popMeanInput.value = this.value;
+            debounceUpdate();
+        });
+
+        popMeanInput.addEventListener('input', function() {
+            if (this.value >= 10 && this.value <= 90) {
+                popMeanSlider.value = this.value;
+                popMeanValue.textContent = this.value;
+                debounceUpdate();
+            }
+        });
+
+        popStdSlider.addEventListener('input', function() {
+            popStdValue.textContent = this.value;
+            popStdInput.value = this.value;
+            debounceUpdate();
+        });
+
+        popStdInput.addEventListener('input', function() {
+            if (this.value >= 2 && this.value <= 20) {
+                popStdSlider.value = this.value;
+                popStdValue.textContent = this.value;
+                debounceUpdate();
+            }
+        });
+
+        // Sampling controls
+        sampleSizeSlider.addEventListener('input', function() {
+            sampleSizeValue.textContent = this.value;
+            sampleSizeInput.value = this.value;
+            seSampleSize.value = this.value;
+            debounceUpdate();
+        });
+
+        sampleSizeInput.addEventListener('input', function() {
+            if (this.value >= 5 && this.value <= 100) {
+                sampleSizeSlider.value = this.value;
+                sampleSizeValue.textContent = this.value;
+                seSampleSize.value = this.value;
+                debounceUpdate();
+            }
+        });
+
+        numSamplesSlider.addEventListener('input', function() {
+            numSamplesValue.textContent = this.value;
+            numSamplesInput.value = this.value;
+            debounceUpdate();
+        });
+
+        numSamplesInput.addEventListener('input', function() {
+            if (this.value >= 100 && this.value <= 5000) {
+                numSamplesSlider.value = this.value;
+                numSamplesValue.textContent = this.value;
+                debounceUpdate();
+            }
+        });
+
+        // Comparison controls
+        if (sampleSize2Slider) {
+            sampleSize2Slider.addEventListener('input', function() {
+                sampleSize2Value.textContent = this.value;
+                sampleSize2Input.value = this.value;
+                debounceUpdate();
+            });
+
+            sampleSize2Input.addEventListener('input', function() {
+                if (this.value >= 5 && this.value <= 100) {
+                    sampleSize2Slider.value = this.value;
+                    sampleSize2Value.textContent = this.value;
+                    debounceUpdate();
+                }
+            });
+
+            sampleSize3Slider.addEventListener('input', function() {
+                sampleSize3Value.textContent = this.value;
+                sampleSize3Input.value = this.value;
+                debounceUpdate();
+            });
+
+            sampleSize3Input.addEventListener('input', function() {
+                if (this.value >= 5 && this.value <= 100) {
+                    sampleSize3Slider.value = this.value;
+                    sampleSize3Value.textContent = this.value;
+                    debounceUpdate();
+                }
+            });
+        }
+
+        // Standard Error Calculator
+        sePopStd.addEventListener('input', function() {
+            popStdSlider.value = this.value;
+            popStdInput.value = this.value;
+            popStdValue.textContent = this.value;
+            updateStandardError();
+            debounceUpdate();
+        });
+
+        seSampleSize.addEventListener('input', function() {
+            sampleSizeSlider.value = this.value;
+            sampleSizeInput.value = this.value;
+            sampleSizeValue.textContent = this.value;
+            updateStandardError();
+            debounceUpdate();
+        });
+    }
+
+    // Button event handlers
+    normalPopulationBtn.addEventListener('click', function() {
+        setPopulation('normal');
+        this.classList.add('active');
+        setTimeout(() => this.classList.remove('active'), 200);
+    });
+
+    uniformPopulationBtn.addEventListener('click', function() {
+        setPopulation('uniform');
+        this.classList.add('active');
+        setTimeout(() => this.classList.remove('active'), 200);
+    });
+
+    skewedPopulationBtn.addEventListener('click', function() {
+        setPopulation('exponential');
+        this.classList.add('active');
+        setTimeout(() => this.classList.remove('active'), 200);
+    });
+
+    compareSizesBtn.addEventListener('click', function() {
+        comparisonMode = !comparisonMode;
+        cltMode = false;
+        if (comparisonMode) {
+            comparisonControls.classList.remove('d-none');
+            cltPanel.style.display = 'none';
+            this.classList.add('btn-warning');
+            this.classList.remove('btn-outline-warning');
+            cltDemoBtn.classList.remove('btn-danger');
+            cltDemoBtn.classList.add('btn-outline-danger');
+        } else {
+            comparisonControls.classList.add('d-none');
+            this.classList.remove('btn-warning');
+            this.classList.add('btn-outline-warning');
+        }
+        debounceUpdate();
+    });
+
+    cltDemoBtn.addEventListener('click', function() {
+        cltMode = !cltMode;
+        comparisonMode = false;
+        if (cltMode) {
+            cltPanel.style.display = 'block';
+            comparisonControls.classList.add('d-none');
+            this.classList.add('btn-danger');
+            this.classList.remove('btn-outline-danger');
+            compareSizesBtn.classList.remove('btn-warning');
+            compareSizesBtn.classList.add('btn-outline-warning');
+        } else {
+            cltPanel.style.display = 'none';
+            this.classList.remove('btn-danger');
+            this.classList.add('btn-outline-danger');
+        }
+    });
+
+    resetAllBtn.addEventListener('click', function() {
+        setPopulation('normal');
+        sampleSizeSlider.value = 30;
+        numSamplesSlider.value = 1000;
+        sampleSizeInput.value = 30;
+        numSamplesInput.value = 1000;
+        sampleSizeValue.textContent = 30;
+        numSamplesValue.textContent = 1000;
+        
+        comparisonMode = false;
+        cltMode = false;
+        comparisonControls.classList.add('d-none');
+        cltPanel.style.display = 'none';
+        compareSizesBtn.classList.remove('btn-warning');
+        compareSizesBtn.classList.add('btn-outline-warning');
+        cltDemoBtn.classList.remove('btn-danger');
+        cltDemoBtn.classList.add('btn-outline-danger');
+        
+        showPopulation.checked = true;
+        showSampling.checked = true;
+        showNormalOverlay.checked = false;
+        showAnimation.checked = false;
+        showGrid.checked = true;
+        
+        this.classList.add('active');
+        setTimeout(() => this.classList.remove('active'), 200);
+        debounceUpdate();
+    });
+
+    runSimulationBtn.addEventListener('click', function() {
+        // Prevent multiple clicks
+        if (this.disabled) return;
+        
+        this.disabled = true;
+        this.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Running Simulation...';
+        
+        // Force immediate plot generation without debounce
+        const distType = distributionType.value;
+        const mean = popMeanSlider.value;
+        const std = popStdSlider.value;
+        const n = sampleSizeSlider.value;
+        const numSamples = numSamplesSlider.value;
+        
+        let url = `/generate_sampling_plot?distribution=${distType}&mean=${mean}&std=${std}&sample_size=${n}&num_samples=${numSamples}`;
+        url += `&show_population=${showPopulation.checked}`;
+        url += `&show_sampling=${showSampling.checked}`;
+        url += `&show_normal=${showNormalOverlay.checked}`;
+        url += `&show_grid=${showGrid.checked}`;
+        
+        if (comparisonMode) {
+            const n2 = sampleSize2Slider.value;
+            const n3 = sampleSize3Slider.value;
+            url += `&comparison=true&n2=${n2}&n3=${n3}`;
+        }
+        
+        if (cltMode) {
+            const selectedSizes = Array.from(document.getElementById('cltSampleSizes').selectedOptions).map(o => o.value);
+            const cltDist = document.getElementById('cltDistribution').value;
+            url += `&clt_mode=true&clt_sizes=${selectedSizes.join(',')}&clt_distribution=${cltDist}`;
+        }
+
+        // Show loading spinner
+        loadingSpinner.classList.remove('d-none');
+        plotImage.style.display = 'none';
+
+        fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.plot) {
+                    plotImage.src = 'data:image/png;base64,' + data.plot;
+                    plotImage.style.display = 'block';
+                    loadingSpinner.classList.add('d-none');
+                    
+                    // Success feedback
+                    this.innerHTML = '<i class="fas fa-check me-2"></i>Simulation Complete!';
+                    this.classList.add('btn-success');
+                    this.classList.remove('btn-outline-success');
+                    
+                    setTimeout(() => {
+                        this.innerHTML = '<i class="fas fa-play me-2"></i>Run Simulation';
+                        this.classList.remove('btn-success');
+                        this.classList.add('btn-outline-success');
+                        this.disabled = false;
+                    }, 2000);
+                } else {
+                    throw new Error('No plot data received');
+                }
+            })
+            .catch(error => {
+                console.error('Error generating plot:', error);
+                loadingSpinner.classList.add('d-none');
+                
+                // Error feedback
+                this.innerHTML = '<i class="fas fa-exclamation-triangle me-2"></i>Error - Try Again';
+                this.classList.add('btn-danger');
+                this.classList.remove('btn-outline-success');
+                
+                setTimeout(() => {
+                    this.innerHTML = '<i class="fas fa-play me-2"></i>Run Simulation';
+                    this.classList.remove('btn-danger');
+                    this.classList.add('btn-outline-success');
+                    this.disabled = false;
+                }, 3000);
+            });
+    });
+
+    runCLTDemoBtn.addEventListener('click', function() {
+        this.disabled = true;
+        this.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i>Running...';
+        
+        cltMode = true;
+        generatePlot();
+        
+        setTimeout(() => {
+            this.disabled = false;
+            this.innerHTML = '<i class="fas fa-magic me-1"></i>Run CLT Demo';
+            this.classList.add('btn-success');
+            this.innerHTML = '<i class="fas fa-check me-1"></i>Demo Complete!';
+            setTimeout(() => {
+                this.innerHTML = '<i class="fas fa-magic me-1"></i>Run CLT Demo';
+                this.classList.remove('btn-success');
+            }, 2000);
+        }, 2000);
+    });
+
+    // Distribution type change handler
+    distributionType.addEventListener('change', function() {
+        const distType = this.value;
+        
+        // Adjust default parameters based on distribution type
+        switch(distType) {
+            case 'uniform':
+                popMeanSlider.value = 50;
+                popStdSlider.value = 8;
+                break;
+            case 'exponential':
+                popMeanSlider.value = 30;
+                popStdSlider.value = 15;
+                break;
+            case 'gamma':
+                popMeanSlider.value = 40;
+                popStdSlider.value = 12;
+                break;
+            case 'bimodal':
+                popMeanSlider.value = 50;
+                popStdSlider.value = 10;
+                break;
+            default: // normal
+                popMeanSlider.value = 50;
+                popStdSlider.value = 10;
+        }
+        
+        popMeanInput.value = popMeanSlider.value;
+        popStdInput.value = popStdSlider.value;
+        popMeanValue.textContent = popMeanSlider.value;
+        popStdValue.textContent = popStdSlider.value;
+        sePopStd.value = popStdSlider.value;
+        
+        debounceUpdate();
+    });
+
+    // Checkbox event handlers
+    [showPopulation, showSampling, showNormalOverlay, showAnimation, showGrid].forEach(checkbox => {
+        checkbox.addEventListener('change', debounceUpdate);
+    });
+
+    // Utility function to set population type
+    function setPopulation(type) {
+        distributionType.value = type;
+        distributionType.dispatchEvent(new Event('change'));
+    }
+
+    // Global function for population buttons
+    window.setPopulation = setPopulation;
+
+    // Initialize
+    syncControls();
+    updateStats();
+    updateStandardError();
+    generatePlot();
+});
 </script>
 {% endblock %}
