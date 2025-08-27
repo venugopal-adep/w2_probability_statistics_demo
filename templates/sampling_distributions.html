@@ -1,0 +1,250 @@
+{% extends "base.html" %}
+
+{% block title %}Sampling Distributions{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="text-center mb-4 text-primary">Sampling Distributions</h1>
+    
+    <!-- Introduction Section -->
+    <div class="row mb-5">
+        <div class="col-lg-12">
+            <div class="card border-primary">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">What is the need for sampling?</h3>
+                </div>
+                <div class="card-body">
+                    <p class="lead">Given the limited resources and time, it is not always possible to study the entire population. That's why we choose a sample out of the population to make inferences about the population.</p>
+                    
+                    <div class="alert alert-info">
+                        <strong>Example:</strong> Suppose a new drug is manufactured and it needs to be tested for adverse side effects on a country's population. It is almost impossible to conduct a research study that involves everyone.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- What are Sampling Distributions Section -->
+    <div class="row mb-5">
+        <div class="col-lg-12">
+            <div class="card border-success">
+                <div class="card-header bg-success text-white">
+                    <h3 class="mb-0">What are Sampling Distributions?</h3>
+                </div>
+                <div class="card-body">
+                    <p class="lead">It is a distribution of a particular sample statistic obtained from all possible samples drawn from a specific population.</p>
+                    
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <div class="card bg-light">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title text-primary">Population Distribution</h5>
+                                    <div class="distribution-visual bg-secondary text-white p-3 rounded mb-3">
+                                        <i class="fas fa-chart-area fa-3x"></i>
+                                        <p class="mt-2 mb-0">Original population with parameter μ</p>
+                                    </div>
+                                    <p class="small text-muted">The entire population we want to study</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card bg-light">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title text-info">Sampling Distribution</h5>
+                                    <div class="distribution-visual bg-info text-white p-3 rounded mb-3">
+                                        <i class="fas fa-chart-line fa-3x"></i>
+                                        <p class="mt-2 mb-0">Distribution of sample means</p>
+                                    </div>
+                                    <p class="small text-muted">Distribution of statistics from all possible samples</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Key Concepts Section -->
+    <div class="row mb-5">
+        <div class="col-lg-12">
+            <div class="card border-warning">
+                <div class="card-header bg-warning text-dark">
+                    <h3 class="mb-0">Key Concepts of Sampling Distributions</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title text-primary">
+                                        <i class="fas fa-sample"></i> Sample Size (n)
+                                    </h5>
+                                    <p>The number of observations in each sample. Larger sample sizes lead to more precise estimates.</p>
+                                    <div class="alert alert-light">
+                                        <strong>Effect:</strong> As n increases, the sampling distribution becomes narrower and more normal.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title text-success">
+                                        <i class="fas fa-chart-bar"></i> Standard Error
+                                    </h5>
+                                    <p>The standard deviation of the sampling distribution. Measures the variability of sample statistics.</p>
+                                    <div class="alert alert-light">
+                                        <strong>Formula:</strong> SE = σ/√n<br>
+                                        Where σ is the population standard deviation
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Properties Section -->
+    <div class="row mb-5">
+        <div class="col-lg-12">
+            <div class="card border-info">
+                <div class="card-header bg-info text-white">
+                    <h3 class="mb-0">Properties of Sampling Distributions</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="text-center p-3 border rounded bg-light">
+                                <i class="fas fa-balance-scale fa-2x text-primary mb-2"></i>
+                                <h5>Unbiased</h5>
+                                <p class="small">The mean of the sampling distribution equals the population parameter</p>
+                                <code>E[X̄] = μ</code>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="text-center p-3 border rounded bg-light">
+                                <i class="fas fa-compress-alt fa-2x text-success mb-2"></i>
+                                <h5>Less Variable</h5>
+                                <p class="small">Standard error decreases as sample size increases</p>
+                                <code>SE = σ/√n</code>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="text-center p-3 border rounded bg-light">
+                                <i class="fas fa-chart-bell fa-2x text-warning mb-2"></i>
+                                <h5>Approaches Normal</h5>
+                                <p class="small">Becomes normal as sample size increases (CLT)</p>
+                                <code>n ≥ 30</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Interactive Simulation Section -->
+    <div class="row mb-5">
+        <div class="col-lg-12">
+            <div class="card border-dark">
+                <div class="card-header bg-dark text-white">
+                    <h3 class="mb-0">
+                        <i class="fas fa-play-circle"></i> Sampling Distribution Simulation
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <p class="text-muted">This simulation demonstrates how sample means distribute around the population mean.</p>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>Population Parameters</h5>
+                            <div class="form-group">
+                                <label>Population Mean (μ):</label>
+                                <input type="range" class="form-control-range" id="popMean" min="0" max="10" value="5" step="0.5">
+                                <span id="popMeanValue">5</span>
+                            </div>
+                            <div class="form-group">
+                                <label>Population Std Dev (σ):</label>
+                                <input type="range" class="form-control-range" id="popStd" min="0.5" max="3" value="1.5" step="0.1">
+                                <span id="popStdValue">1.5</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <h5>Sample Parameters</h5>
+                            <div class="form-group">
+                                <label>Sample Size (n):</label>
+                                <input type="range" class="form-control-range" id="sampleSize" min="5" max="50" value="10" step="5">
+                                <span id="sampleSizeValue">10</span>
+                            </div>
+                            <div class="form-group">
+                                <label>Number of Samples:</label>
+                                <input type="range" class="form-control-range" id="numSamples" min="100" max="1000" value="500" step="100">
+                                <span id="numSamplesValue">500</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mt-3">
+                        <button class="btn btn-primary btn-lg" onclick="runSamplingSimulation()">
+                            <i class="fas fa-play"></i> Run Simulation
+                        </button>
+                    </div>
+                    
+                    <div id="samplingPlot" class="mt-4 text-center">
+                        <!-- Simulation results will appear here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Update slider values
+document.getElementById('popMean').oninput = function() {
+    document.getElementById('popMeanValue').textContent = this.value;
+}
+document.getElementById('popStd').oninput = function() {
+    document.getElementById('popStdValue').textContent = this.value;
+}
+document.getElementById('sampleSize').oninput = function() {
+    document.getElementById('sampleSizeValue').textContent = this.value;
+}
+document.getElementById('numSamples').oninput = function() {
+    document.getElementById('numSamplesValue').textContent = this.value;
+}
+
+function runSamplingSimulation() {
+    const button = document.querySelector('button[onclick="runSamplingSimulation()"]');
+    button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Running...';
+    button.disabled = true;
+    
+    const popMean = document.getElementById('popMean').value;
+    const popStd = document.getElementById('popStd').value;
+    const sampleSize = document.getElementById('sampleSize').value;
+    const numSamples = document.getElementById('numSamples').value;
+    
+    // Simulate sampling distribution (placeholder - in real app would call backend)
+    setTimeout(() => {
+        const plotDiv = document.getElementById('samplingPlot');
+        plotDiv.innerHTML = `
+            <div class="alert alert-success">
+                <h5>Simulation Results:</h5>
+                <p><strong>Population Mean (μ):</strong> ${popMean}</p>
+                <p><strong>Population Std Dev (σ):</strong> ${popStd}</p>
+                <p><strong>Sample Size (n):</strong> ${sampleSize}</p>
+                <p><strong>Number of Samples:</strong> ${numSamples}</p>
+                <p><strong>Expected Standard Error:</strong> ${(popStd / Math.sqrt(sampleSize)).toFixed(3)}</p>
+                <p class="text-muted"><em>In a full implementation, this would show an interactive plot of the sampling distribution.</em></p>
+            </div>
+        `;
+        
+        button.innerHTML = '<i class="fas fa-play"></i> Run Simulation';
+        button.disabled = false;
+    }, 1500);
+}
+</script>
+{% endblock %}

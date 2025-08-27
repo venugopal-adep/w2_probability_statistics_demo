@@ -1,0 +1,285 @@
+{% extends "base.html" %}
+
+{% block title %}Central Limit Theorem - Probability Distributions{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card mb-2">
+            <div class="card-body">
+                <h1 class="display-5 mb-2">
+                    <i class="fas fa-balance-scale text-primary me-2"></i>
+                    Central Limit Theorem
+                </h1>
+                <div class="alert alert-primary text-center">
+                    <h5 class="mb-2">
+                        <i class="fas fa-quote-left me-2"></i>
+                        The sampling distribution of the sample means will approach normal distribution as the sample size gets bigger, no matter what the shape of the population distribution is.
+                    </h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-9">
+        <div class="card mb-2">
+            <div class="card-body">
+                <h4><i class="fas fa-check-circle text-success me-2"></i>CLT Assumptions</h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card h-100 border-primary">
+                            <div class="card-body">
+                                <h6><i class="fas fa-random text-primary me-2"></i>Random Sampling</h6>
+                                <p class="small mb-0">Data must be randomly sampled.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card h-100 border-success">
+                            <div class="card-body">
+                                <h6><i class="fas fa-unlink text-success me-2"></i>Independence</h6>
+                                <p class="small mb-0">Sample values must be independent of each other.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-6">
+                        <div class="card h-100 border-warning">
+                            <div class="card-body">
+                                <h6><i class="fas fa-layer-group text-warning me-2"></i>Same Distribution</h6>
+                                <p class="small mb-0">Samples should come from the same distribution.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card h-100 border-info">
+                            <div class="card-body">
+                                <h6><i class="fas fa-expand-arrows-alt text-info me-2"></i>Large Sample Size</h6>
+                                <p class="small mb-0">Sample size must be sufficiently large (≥30).</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h4><i class="fas fa-chart-area text-success me-2"></i>Interactive CLT Demonstration</h4>
+                <div class="interactive-section">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="cltPopDist" class="form-label">Population Distribution:</label>
+                            <select class="form-select" id="cltPopDist">
+                                <option value="uniform">Uniform (Flat)</option>
+                                <option value="exponential">Exponential (Skewed)</option>
+                                <option value="bimodal">Bimodal (Two Peaks)</option>
+                                <option value="normal">Normal (Bell Curve)</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="cltSampleSize" class="form-label">Sample Size (n):</label>
+                            <input type="range" class="form-range" id="cltSampleSize" min="2" max="100" step="2" value="30">
+                            <div class="text-center">
+                                <span id="cltSampleSizeValue" class="badge bg-primary">30</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="cltNumSamples" class="form-label">Number of Samples:</label>
+                            <input type="range" class="form-range" id="cltNumSamples" min="100" max="2000" step="100" value="1000">
+                            <div class="text-center">
+                                <span id="cltNumSamplesValue" class="badge bg-success">1000</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center mt-2">
+                        <button id="generateCLTDemo" class="btn btn-primary">
+                            <i class="fas fa-play me-2"></i>Demonstrate CLT
+                        </button>
+                        <button id="cltAnimation" class="btn btn-outline-info ms-2">
+                            <i class="fas fa-video me-2"></i>Watch Sample Size Growth
+                        </button>
+                    </div>
+                </div>
+
+                <div id="cltPlotContainer" class="plot-container text-center mt-2">
+                    <img id="cltPlot" src="" alt="CLT Demonstration Plot" class="img-fluid" style="display: none;">
+                    <div id="cltLoadingSpinner" class="d-none">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3">
+        <div class="card mb-2">
+            <div class="card-body">
+                <h5><i class="fas fa-bullseye text-primary me-2"></i>Key Properties</h5>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <i class="fas fa-bell text-primary me-2"></i>
+                        <strong>Shape:</strong> Always becomes normal
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fas fa-crosshairs text-success me-2"></i>
+                        <strong>Mean:</strong> μ_x̄ = μ
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fas fa-arrows-alt-h text-warning me-2"></i>
+                        <strong>Std Error:</strong> σ_x̄ = σ/√n
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fas fa-expand text-info me-2"></i>
+                        <strong>As n↑:</strong> Distribution becomes narrower
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card mb-2">
+            <div class="card-body">
+                <h5><i class="fas fa-magic text-warning me-2"></i>The Magic Number</h5>
+                <div class="text-center">
+                    <div class="display-4 text-primary">30</div>
+                    <p class="small mb-0">Sample size ≥ 30 typically ensures CLT applies, regardless of population shape</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h5><i class="fas fa-lightbulb text-success me-2"></i>Why It Matters</h5>
+                <ul class="small">
+                    <li class="mb-1">Allows us to make inferences about any population</li>
+                    <li class="mb-1">Forms basis of hypothesis testing</li>
+                    <li class="mb-1">Enables confidence intervals</li>
+                    <li class="mb-0">Works regardless of population shape!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-2">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4><i class="fas fa-calculator text-primary me-2"></i>Central Limit Theorem Formulas</h4>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h5>Sampling Distribution of Sample Means</h5>
+                        <div class="formula">
+                            <div class="text-center mb-3">
+                                <div class="bg-light p-3 rounded border" style="font-size: 1.3em; font-family: 'Times New Roman', serif;">
+                                    <em>X̄</em> ~ N(<em>μ</em>, <span style="display: inline-block; text-align: center;">
+                                        <span style="display: block; border-bottom: 1px solid black; padding-bottom: 2px;"><em>σ</em></span>
+                                        <span style="display: block; padding-top: 2px;">√<em>n</em></span>
+                                    </span>)
+                                </div>
+                            </div>
+                            <p class="small"><strong>Interpretation:</strong> Sample means follow a normal distribution with mean μ and standard error σ/√n</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <h5>Standardization (Z-Score)</h5>
+                        <div class="formula">
+                            <div class="text-center mb-3">
+                                <div class="bg-light p-3 rounded border" style="font-size: 1.3em; font-family: 'Times New Roman', serif;">
+                                    <em>Z</em> = <span style="display: inline-block; text-align: center;">
+                                        <span style="display: block; border-bottom: 1px solid black; padding-bottom: 2px;"><em>X̄</em> - <em>μ</em></span>
+                                        <span style="display: block; padding-top: 2px;"><em>σ</em>/√<em>n</em></span>
+                                    </span>
+                                </div>
+                            </div>
+                            <p class="small"><strong>Use:</strong> Convert sample means to standard normal distribution for probability calculations</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="alert alert-info mt-3">
+                    <h6><i class="fas fa-info-circle me-1"></i>Remember:</h6>
+                    <ul class="mb-0 small">
+                        <li>μ = population mean (unknown parameter we want to estimate)</li>
+                        <li>σ = population standard deviation</li>
+                        <li>n = sample size</li>
+                        <li>X̄ = sample mean (our estimator)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const cltPopDistSelect = document.getElementById('cltPopDist');
+    const cltSampleSizeSlider = document.getElementById('cltSampleSize');
+    const cltNumSamplesSlider = document.getElementById('cltNumSamples');
+    const cltSampleSizeValue = document.getElementById('cltSampleSizeValue');
+    const cltNumSamplesValue = document.getElementById('cltNumSamplesValue');
+    const generateCLTButton = document.getElementById('generateCLTDemo');
+    const animationButton = document.getElementById('cltAnimation');
+    const plotImage = document.getElementById('cltPlot');
+    const loadingSpinner = document.getElementById('cltLoadingSpinner');
+
+    cltSampleSizeSlider.addEventListener('input', function() {
+        cltSampleSizeValue.textContent = this.value;
+    });
+
+    cltNumSamplesSlider.addEventListener('input', function() {
+        cltNumSamplesValue.textContent = this.value;
+    });
+
+    generateCLTButton.addEventListener('click', function() {
+        loadingSpinner.classList.remove('d-none');
+        plotImage.style.display = 'none';
+
+        const popDist = cltPopDistSelect.value;
+        const sampleSize = cltSampleSizeSlider.value;
+        const numSamples = cltNumSamplesSlider.value;
+
+        fetch(`/generate_clt_demonstration?pop_dist=${popDist}&sample_size=${sampleSize}&num_samples=${numSamples}`)
+            .then(response => response.json())
+            .then(data => {
+                plotImage.src = 'data:image/png;base64,' + data.plot;
+                plotImage.style.display = 'block';
+                loadingSpinner.classList.add('d-none');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                loadingSpinner.classList.add('d-none');
+            });
+    });
+
+    animationButton.addEventListener('click', function() {
+        loadingSpinner.classList.remove('d-none');
+        plotImage.style.display = 'none';
+
+        const popDist = cltPopDistSelect.value;
+
+        fetch(`/generate_clt_animation?pop_dist=${popDist}`)
+            .then(response => response.json())
+            .then(data => {
+                plotImage.src = 'data:image/png;base64,' + data.plot;
+                plotImage.style.display = 'block';
+                loadingSpinner.classList.add('d-none');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                loadingSpinner.classList.add('d-none');
+            });
+    });
+
+    // Generate initial plot
+    generateCLTButton.click();
+});
+</script>
+{% endblock %}

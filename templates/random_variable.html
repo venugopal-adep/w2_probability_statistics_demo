@@ -1,0 +1,1263 @@
+{% extends "base.html" %}
+
+{% block title %}Random Variables - Probability Distributions{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card mb-4">
+            <div class="card-body">
+                <h1 class="display-5 mb-3 animate-fade-in">
+                    <i class="fas fa-dice text-primary me-3 rotate-on-hover"></i>
+                    Random Variables
+                </h1>
+                <p class="lead">A random variable is a function that assigns a numerical value to each outcome of an experiment. It assumes different values with different probability.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 mb-4">
+        <div class="card h-100 hover-lift">
+            <div class="card-body">
+                <h4 class="text-primary">
+                    <i class="fas fa-list-ol me-2"></i>
+                    Discrete Random Variable
+                </h4>
+                <p>It can take only a finite number of values.</p>
+                
+                <div class="formula mb-3">
+                    <strong>Example:</strong> Number of employees getting promoted in an organization.
+                </div>
+
+                <h5>Interactive Example: Coin Tosses</h5>
+                <p>Let X be the random variable representing the number of heads in two coin tosses.</p>
+                
+                <!-- Interactive Coin Toss Simulator -->
+                <div class="coin-simulator bg-light p-3 rounded mb-3">
+                    <div class="text-center mb-3">
+                        <button id="tossCoinBtn" class="btn btn-primary btn-lg">
+                            <i class="fas fa-play me-2"></i>Simulate Coin Tosses
+                        </button>
+                        <button id="resetCoinBtn" class="btn btn-outline-secondary ms-2">Reset</button>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-6 text-center">
+                            <h6>Coin 1</h6>
+                            <div id="coin1" class="coin mx-auto">
+                                <div class="coin-inner">
+                                    <div class="coin-front">H</div>
+                                    <div class="coin-back">T</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 text-center">
+                            <h6>Coin 2</h6>
+                            <div id="coin2" class="coin mx-auto">
+                                <div class="coin-inner">
+                                    <div class="coin-front">H</div>
+                                    <div class="coin-back">T</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="tossResults" class="text-center">
+                        <h6>Results:</h6>
+                        <div id="outcomeDisplay" class="badge bg-info p-2 mb-2">Click "Simulate" to start</div>
+                        <div id="xValueDisplay" class="badge bg-success p-2">X = ?</div>
+                    </div>
+                    
+                    <div id="probabilityTracker" class="mt-3">
+                        <h6>Probability Tracking (after multiple tosses):</h6>
+                        <div class="row text-center">
+                            <div class="col-4">
+                                <div class="probability-box" data-value="0">
+                                    <div class="prob-value">X = 0</div>
+                                    <div class="prob-count">0 times</div>
+                                    <div class="prob-percentage">0%</div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="probability-box" data-value="1">
+                                    <div class="prob-value">X = 1</div>
+                                    <div class="prob-count">0 times</div>
+                                    <div class="prob-percentage">0%</div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="probability-box" data-value="2">
+                                    <div class="prob-value">X = 2</div>
+                                    <div class="prob-count">0 times</div>
+                                    <div class="prob-percentage">0%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="interactive-section">
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <h6>Possible Outcomes:</h6>
+                            <div class="d-flex justify-content-around mb-3">
+                                <span class="badge bg-secondary p-2 outcome-badge" data-outcome="HH">HH</span>
+                                <span class="badge bg-secondary p-2 outcome-badge" data-outcome="HT">HT</span>
+                                <span class="badge bg-secondary p-2 outcome-badge" data-outcome="TH">TH</span>
+                                <span class="badge bg-secondary p-2 outcome-badge" data-outcome="TT">TT</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-12">
+                            <h6>Random Variable X (Number of Heads):</h6>
+                            <table class="table table-sm table-interactive">
+                                <thead>
+                                    <tr>
+                                        <th>Outcome</th>
+                                        <th>X Value</th>
+                                        <th>Probability</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="table-row" data-x-value="0">
+                                        <td>TT</td>
+                                        <td class="fw-bold">0</td>
+                                        <td>1/4 = 0.25</td>
+                                    </tr>
+                                    <tr class="table-row" data-x-value="1">
+                                        <td>HT, TH</td>
+                                        <td class="fw-bold">1</td>
+                                        <td>2/4 = 0.50</td>
+                                    </tr>
+                                    <tr class="table-row" data-x-value="2">
+                                        <td>HH</td>
+                                        <td class="fw-bold">2</td>
+                                        <td>1/4 = 0.25</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <!-- Discrete Distribution Visualization -->
+                    <div class="mt-3">
+                        <h6>Probability Mass Function (PMF) Visualization:</h6>
+                        <div id="discreteChart" class="chart-container">
+                            <svg width="100%" height="200" viewBox="0 0 400 200">
+                                <g id="discreteBars"></g>
+                                <g id="discreteLabels"></g>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-3">
+                    <h6>More Examples:</h6>
+                    <ul class="list-unstyled">
+                        <li class="animate-slide-in" style="animation-delay: 0.1s;"><i class="fas fa-check text-success me-2"></i>Number of students in a class</li>
+                        <li class="animate-slide-in" style="animation-delay: 0.2s;"><i class="fas fa-check text-success me-2"></i>Number of cars in a parking lot</li>
+                        <li class="animate-slide-in" style="animation-delay: 0.3s;"><i class="fas fa-check text-success me-2"></i>Score on a test (if integer values)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 mb-4">
+        <div class="card h-100 hover-lift">
+            <div class="card-body">
+                <h4 class="text-success">
+                    <i class="fas fa-wave-square me-2"></i>
+                    Continuous Random Variable
+                </h4>
+                <p>It can take uncountable number of values in a given range.</p>
+                
+                <div class="formula mb-3">
+                    <strong>Example:</strong> Speed of an aircraft.
+                </div>
+
+                <h5>Interactive Example: Height Distribution</h5>
+                <p>Let X be the random variable representing the height of adults.</p>
+                
+                <!-- Interactive Continuous Distribution -->
+                <div class="continuous-simulator bg-light p-3 rounded mb-3">
+                    <div class="text-center mb-3">
+                        <h6>Normal Distribution Parameters:</h6>
+                        <div class="row">
+                            <div class="col-6">
+                                <label for="meanSlider" class="form-label">Mean (μ): <span id="meanValue">170</span> cm</label>
+                                <input type="range" class="form-range" id="meanSlider" min="150" max="190" value="170">
+                            </div>
+                            <div class="col-6">
+                                <label for="stdSlider" class="form-label">Std Dev (σ): <span id="stdValue">10</span> cm</label>
+                                <input type="range" class="form-range" id="stdSlider" min="5" max="20" value="10">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="continuousChart" class="chart-container mb-3">
+                        <svg width="100%" height="250" viewBox="0 0 500 250">
+                            <defs>
+                                <linearGradient id="normalGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#28a745;stop-opacity:0.8" />
+                                    <stop offset="100%" style="stop-color:#28a745;stop-opacity:0.1" />
+                                </linearGradient>
+                            </defs>
+                            <g id="continuousCurve"></g>
+                            <g id="continuousArea"></g>
+                            <g id="continuousLabels"></g>
+                        </svg>
+                    </div>
+                    
+                    <div class="probability-calculator">
+                        <h6>Probability Calculator:</h6>
+                        <div class="row">
+                            <div class="col-6">
+                                <label for="lowerBound" class="form-label">Lower bound:</label>
+                                <input type="number" class="form-control form-control-sm" id="lowerBound" value="160" min="120" max="220">
+                            </div>
+                            <div class="col-6">
+                                <label for="upperBound" class="form-label">Upper bound:</label>
+                                <input type="number" class="form-control form-control-sm" id="upperBound" value="180" min="120" max="220">
+                            </div>
+                        </div>
+                        <div class="text-center mt-2">
+                            <div id="probabilityResult" class="badge bg-primary p-2">P(160 ≤ X ≤ 180) = 0.683</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="interactive-section">
+                    <div class="mb-3">
+                        <h6>Characteristics:</h6>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item animate-slide-in" style="animation-delay: 0.1s;">Can take any value in a continuous range</li>
+                            <li class="list-group-item animate-slide-in" style="animation-delay: 0.2s;">Probability of any exact value is 0</li>
+                            <li class="list-group-item animate-slide-in" style="animation-delay: 0.3s;">We calculate probability over intervals</li>
+                            <li class="list-group-item animate-slide-in" style="animation-delay: 0.4s;">Uses Probability Density Function (PDF)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="mt-3">
+                    <h6>More Examples:</h6>
+                    <ul class="list-unstyled">
+                        <li class="animate-slide-in" style="animation-delay: 0.1s;"><i class="fas fa-check text-success me-2"></i>Temperature measurements</li>
+                        <li class="animate-slide-in" style="animation-delay: 0.2s;"><i class="fas fa-check text-success me-2"></i>Time to complete a task</li>
+                        <li class="animate-slide-in" style="animation-delay: 0.3s;"><i class="fas fa-check text-success me-2"></i>Weight of a person</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Interactive Comparison Section -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4><i class="fas fa-balance-scale text-info me-2"></i>Interactive Comparison</h4>
+                <p>Compare discrete and continuous random variables side by side:</p>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="comparison-box discrete-box">
+                            <h5 class="text-primary">Discrete Example</h5>
+                            <div id="discreteComparison" class="chart-container">
+                                <svg width="100%" height="200" viewBox="0 0 300 200">
+                                    <g id="discreteCompBars"></g>
+                                    <g id="discreteCompLabels"></g>
+                                </svg>
+                            </div>
+                            <div class="text-center mt-2">
+                                <small class="text-muted">Click bars to see probabilities</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="comparison-box continuous-box">
+                            <h5 class="text-success">Continuous Example</h5>
+                            <div id="continuousComparison" class="chart-container">
+                                <svg width="100%" height="200" viewBox="0 0 300 200">
+                                    <g id="continuousCompCurve"></g>
+                                    <g id="continuousCompArea"></g>
+                                    <g id="continuousCompLabels"></g>
+                                </svg>
+                            </div>
+                            <div class="text-center mt-2">
+                                <small class="text-muted">Hover over curve to see density</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card mb-4 hover-lift">
+            <div class="card-body">
+                <h4><i class="fas fa-sitemap text-primary me-2"></i>Relationship Overview</h4>
+                
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="d-flex justify-content-center align-items-center" style="min-height: 300px;">
+                            <div class="text-center">
+                                <!-- Random Variable Box -->
+                                <div class="card border-primary mb-4 animate-bounce" style="width: 200px; margin: 0 auto;">
+                                    <div class="card-body bg-primary text-white">
+                                        <h6 class="card-title mb-0">Random Variable</h6>
+                                    </div>
+                                </div>
+                                
+                                <!-- Branches -->
+                                <div class="row justify-content-center">
+                                    <div class="col-6">
+                                        <div class="text-center">
+                                            <div class="mb-2">
+                                                <i class="fas fa-arrow-down text-primary animate-pulse" style="font-size: 2rem;"></i>
+                                            </div>
+                                            <div class="card border-info hover-scale">
+                                                <div class="card-body bg-info text-white p-2">
+                                                    <small><strong>Discrete</strong></small>
+                                                </div>
+                                            </div>
+                                            <div class="mt-2">
+                                                <i class="fas fa-arrow-down text-info animate-pulse" style="animation-delay: 0.5s;"></i>
+                                            </div>
+                                            <div class="card border-secondary mt-1 hover-scale">
+                                                <div class="card-body bg-secondary text-white p-2">
+                                                    <small>Probability Mass Function</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="text-center">
+                                            <div class="mb-2">
+                                                <i class="fas fa-arrow-down text-primary animate-pulse" style="font-size: 2rem; animation-delay: 0.25s;"></i>
+                                            </div>
+                                            <div class="card border-success hover-scale">
+                                                <div class="card-body bg-success text-white p-2">
+                                                    <small><strong>Continuous</strong></small>
+                                                </div>
+                                            </div>
+                                            <div class="mt-2">
+                                                <i class="fas fa-arrow-down text-success animate-pulse" style="animation-delay: 0.75s;"></i>
+                                            </div>
+                                            <div class="card border-warning mt-1 hover-scale">
+                                                <div class="card-body bg-warning text-dark p-2">
+                                                    <small>Probability Density Function</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card bg-light hover-lift">
+                            <div class="card-body">
+                                <h6>Key Differences:</h6>
+                                <table class="table table-sm table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Aspect</th>
+                                            <th>Discrete</th>
+                                            <th>Continuous</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="table-row-hover">
+                                            <td><small>Values</small></td>
+                                            <td><small>Countable</small></td>
+                                            <td><small>Uncountable</small></td>
+                                        </tr>
+                                        <tr class="table-row-hover">
+                                            <td><small>Function</small></td>
+                                            <td><small>PMF</small></td>
+                                            <td><small>PDF</small></td>
+                                        </tr>
+                                        <tr class="table-row-hover">
+                                            <td><small>P(X=x)</small></td>
+                                            <td><small>> 0</small></td>
+                                            <td><small>= 0</small></td>
+                                        </tr>
+                                        <tr class="table-row-hover">
+                                            <td><small>Calculation</small></td>
+                                            <td><small>Sum</small></td>
+                                            <td><small>Integral</small></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card hover-lift">
+            <div class="card-body">
+                <h5><i class="fas fa-calculator text-info me-2"></i>Probability Mass Function (PMF)</h5>
+                <p class="small">For discrete random variables</p>
+                
+                <div class="formula">
+                    <div class="text-center mb-2">
+                        <strong class="formula-text">P(X = x)</strong>
+                    </div>
+                    <p class="small">Provides the probability for each value of the random variable.</p>
+                </div>
+                
+                <div class="bg-light p-2 rounded hover-highlight">
+                    <h6>Properties:</h6>
+                    <ul class="small mb-0">
+                        <li class="animate-fade-in" style="animation-delay: 0.1s;">0 ≤ P(X = x) ≤ 1</li>
+                        <li class="animate-fade-in" style="animation-delay: 0.2s;">Σ P(X = x) = 1</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card hover-lift">
+            <div class="card-body">
+                <h5><i class="fas fa-chart-area text-warning me-2"></i>Probability Density Function (PDF)</h5>
+                <p class="small">For continuous random variables</p>
+                
+                <div class="formula">
+                    <div class="text-center mb-2">
+                        <strong class="formula-text">f(x)</strong>
+                    </div>
+                    <p class="small">Determines the probability within a given interval.</p>
+                </div>
+                
+                <div class="bg-light p-2 rounded hover-highlight">
+                    <h6>Properties:</h6>
+                    <ul class="small mb-0">
+                        <li class="animate-fade-in" style="animation-delay: 0.1s;">f(x) ≥ 0</li>
+                        <li class="animate-fade-in" style="animation-delay: 0.2s;">∫ f(x) dx = 1</li>
+                        <li class="animate-fade-in" style="animation-delay: 0.3s;">P(a ≤ X ≤ b) = ∫[a to b] f(x) dx</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Animation and interaction variables
+    let coinTossCount = 0;
+    let outcomes = {0: 0, 1: 0, 2: 0};
+    let isAnimating = false;
+
+    // Coin toss simulator
+    const tossCoinBtn = document.getElementById('tossCoinBtn');
+    const resetCoinBtn = document.getElementById('resetCoinBtn');
+    const coin1 = document.getElementById('coin1');
+    const coin2 = document.getElementById('coin2');
+    const outcomeDisplay = document.getElementById('outcomeDisplay');
+    const xValueDisplay = document.getElementById('xValueDisplay');
+
+    tossCoinBtn.addEventListener('click', function() {
+        if (isAnimating) return;
+        
+        isAnimating = true;
+        tossCoinBtn.disabled = true;
+        
+        // Generate random outcomes
+        const result1 = Math.random() < 0.5 ? 'H' : 'T';
+        const result2 = Math.random() < 0.5 ? 'H' : 'T';
+        
+        // Animate coins
+        animateCoin(coin1, result1);
+        animateCoin(coin2, result2);
+        
+        setTimeout(() => {
+            const outcome = result1 + result2;
+            const xValue = (result1 === 'H' ? 1 : 0) + (result2 === 'H' ? 1 : 0);
+            
+            outcomeDisplay.textContent = `Outcome: ${outcome}`;
+            outcomeDisplay.className = `badge bg-info p-2 mb-2 animate-pulse`;
+            
+            xValueDisplay.textContent = `X = ${xValue}`;
+            xValueDisplay.className = `badge bg-success p-2 animate-bounce`;
+            
+            // Update probability tracking
+            coinTossCount++;
+            outcomes[xValue]++;
+            updateProbabilityTracking();
+            
+            // Highlight corresponding table row
+            highlightTableRow(xValue);
+            
+            isAnimating = false;
+            tossCoinBtn.disabled = false;
+        }, 1500);
+    });
+
+    resetCoinBtn.addEventListener('click', function() {
+        coinTossCount = 0;
+        outcomes = {0: 0, 1: 0, 2: 0};
+        updateProbabilityTracking();
+        outcomeDisplay.textContent = 'Click "Simulate" to start';
+        outcomeDisplay.className = 'badge bg-info p-2 mb-2';
+        xValueDisplay.textContent = 'X = ?';
+        xValueDisplay.className = 'badge bg-success p-2';
+        
+        // Reset coin positions
+        coin1.style.transform = 'rotateY(0deg)';
+        coin2.style.transform = 'rotateY(0deg)';
+        
+        // Remove table highlights
+        document.querySelectorAll('.table-row').forEach(row => {
+            row.classList.remove('table-success', 'animate-glow');
+        });
+    });
+
+    function animateCoin(coin, result) {
+        coin.style.transition = 'transform 1.5s cubic-bezier(0.4, 0.0, 0.2, 1)';
+        const rotations = 720 + (Math.random() * 360); // 2+ full rotations
+        
+        if (result === 'H') {
+            coin.style.transform = `rotateY(${rotations}deg)`;
+        } else {
+            coin.style.transform = `rotateY(180deg)`;
+        }
+        
+        // Add bouncing effect
+        setTimeout(() => {
+            coin.style.animation = 'coinBounce 0.5s ease-out';
+            setTimeout(() => {
+                coin.style.animation = '';
+            }, 500);
+        }, 1000);
+    }
+
+    function updateProbabilityTracking() {
+        for (let value = 0; value <= 2; value++) {
+            const box = document.querySelector(`[data-value="${value}"]`);
+            const count = outcomes[value];
+            const percentage = coinTossCount > 0 ? ((count / coinTossCount) * 100).toFixed(1) : 0;
+            
+            box.querySelector('.prob-count').textContent = `${count} times`;
+            box.querySelector('.prob-percentage').textContent = `${percentage}%`;
+            
+            // Add visual feedback
+            if (count > 0) {
+                box.classList.add('animate-pulse');
+                setTimeout(() => box.classList.remove('animate-pulse'), 1000);
+            }
+        }
+    }
+
+    function highlightTableRow(xValue) {
+        // Remove previous highlights
+        document.querySelectorAll('.table-row').forEach(row => {
+            row.classList.remove('table-success', 'animate-glow');
+        });
+        
+        // Highlight current row
+        const targetRow = document.querySelector(`[data-x-value="${xValue}"]`);
+        if (targetRow) {
+            targetRow.classList.add('table-success', 'animate-glow');
+        }
+    }
+
+    // Discrete PMF Chart
+    function createDiscretePMF() {
+        const svg = d3.select('#discreteBars').selectAll('*').remove();
+        const container = d3.select('#discreteChart svg');
+        const width = 400;
+        const height = 200;
+        const margin = {top: 20, right: 20, bottom: 40, left: 40};
+
+        const data = [
+            {x: 0, prob: 0.25, label: 'X=0'},
+            {x: 1, prob: 0.50, label: 'X=1'},
+            {x: 2, prob: 0.25, label: 'X=2'}
+        ];
+
+        const xScale = d3.scaleBand()
+            .domain(data.map(d => d.x))
+            .range([margin.left, width - margin.right])
+            .padding(0.2);
+
+        const yScale = d3.scaleLinear()
+            .domain([0, 0.6])
+            .range([height - margin.bottom, margin.top]);
+
+        // Bars
+        d3.select('#discreteBars')
+            .selectAll('rect')
+            .data(data)
+            .enter()
+            .append('rect')
+            .attr('x', d => xScale(d.x))
+            .attr('y', height - margin.bottom)
+            .attr('width', xScale.bandwidth())
+            .attr('height', 0)
+            .attr('fill', '#007bff')
+            .attr('opacity', 0.8)
+            .on('mouseover', function(event, d) {
+                d3.select(this).attr('fill', '#0056b3');
+                showTooltip(event, `P(X=${d.x}) = ${d.prob}`);
+            })
+            .on('mouseout', function(event, d) {
+                d3.select(this).attr('fill', '#007bff');
+                hideTooltip();
+            })
+            .transition()
+            .duration(1000)
+            .delay((d, i) => i * 200)
+            .attr('y', d => yScale(d.prob))
+            .attr('height', d => height - margin.bottom - yScale(d.prob));
+
+        // Labels
+        d3.select('#discreteLabels')
+            .selectAll('text')
+            .data(data)
+            .enter()
+            .append('text')
+            .attr('x', d => xScale(d.x) + xScale.bandwidth() / 2)
+            .attr('y', height - margin.bottom + 15)
+            .attr('text-anchor', 'middle')
+            .attr('font-size', '12px')
+            .text(d => d.label);
+
+        // Y-axis labels
+        const yTicks = [0, 0.25, 0.5];
+        d3.select('#discreteLabels')
+            .selectAll('.y-tick')
+            .data(yTicks)
+            .enter()
+            .append('text')
+            .attr('class', 'y-tick')
+            .attr('x', margin.left - 10)
+            .attr('y', d => yScale(d))
+            .attr('text-anchor', 'end')
+            .attr('font-size', '10px')
+            .text(d => d);
+    }
+
+    // Continuous Distribution
+    function createContinuousDistribution() {
+        const mean = parseFloat(document.getElementById('meanSlider').value);
+        const std = parseFloat(document.getElementById('stdSlider').value);
+        
+        const svg = d3.select('#continuousCurve');
+        const width = 500;
+        const height = 250;
+        const margin = {top: 20, right: 20, bottom: 40, left: 40};
+
+        const xScale = d3.scaleLinear()
+            .domain([mean - 4 * std, mean + 4 * std])
+            .range([margin.left, width - margin.right]);
+
+        const yScale = d3.scaleLinear()
+            .domain([0, 0.05])
+            .range([height - margin.bottom, margin.top]);
+
+        // Generate normal distribution curve
+        const normalCurve = [];
+        for (let x = mean - 4 * std; x <= mean + 4 * std; x += 0.5) {
+            const y = (1 / (std * Math.sqrt(2 * Math.PI))) * 
+                     Math.exp(-0.5 * Math.pow((x - mean) / std, 2));
+            normalCurve.push({x: x, y: y});
+        }
+
+        const line = d3.line()
+            .x(d => xScale(d.x))
+            .y(d => yScale(d.y))
+            .curve(d3.curveCardinal);
+
+        // Clear previous curve
+        svg.selectAll('*').remove();
+
+        // Draw curve
+        svg.append('path')
+            .datum(normalCurve)
+            .attr('fill', 'none')
+            .attr('stroke', '#28a745')
+            .attr('stroke-width', 2)
+            .attr('d', line)
+            .attr('opacity', 0)
+            .transition()
+            .duration(1000)
+            .attr('opacity', 1);
+
+        // Add area under curve for probability calculation
+        updateProbabilityArea();
+
+        // Add axis labels
+        d3.select('#continuousLabels').selectAll('*').remove();
+        
+        const xTicks = [mean - 2 * std, mean, mean + 2 * std];
+        d3.select('#continuousLabels')
+            .selectAll('.x-tick')
+            .data(xTicks)
+            .enter()
+            .append('text')
+            .attr('class', 'x-tick')
+            .attr('x', d => xScale(d))
+            .attr('y', height - margin.bottom + 15)
+            .attr('text-anchor', 'middle')
+            .attr('font-size', '10px')
+            .text(d => Math.round(d));
+    }
+
+    function updateProbabilityArea() {
+        const mean = parseFloat(document.getElementById('meanSlider').value);
+        const std = parseFloat(document.getElementById('stdSlider').value);
+        const lowerBound = parseFloat(document.getElementById('lowerBound').value);
+        const upperBound = parseFloat(document.getElementById('upperBound').value);
+        
+        const width = 500;
+        const height = 250;
+        const margin = {top: 20, right: 20, bottom: 40, left: 40};
+
+        const xScale = d3.scaleLinear()
+            .domain([mean - 4 * std, mean + 4 * std])
+            .range([margin.left, width - margin.right]);
+
+        const yScale = d3.scaleLinear()
+            .domain([0, 0.05])
+            .range([height - margin.bottom, margin.top]);
+
+        // Generate area data
+        const areaData = [];
+        for (let x = lowerBound; x <= upperBound; x += 0.5) {
+            const y = (1 / (std * Math.sqrt(2 * Math.PI))) * 
+                     Math.exp(-0.5 * Math.pow((x - mean) / std, 2));
+            areaData.push({x: x, y: y});
+        }
+
+        const area = d3.area()
+            .x(d => xScale(d.x))
+            .y0(yScale(0))
+            .y1(d => yScale(d.y))
+            .curve(d3.curveCardinal);
+
+        // Clear previous area
+        d3.select('#continuousArea').selectAll('*').remove();
+
+        // Draw shaded area
+        d3.select('#continuousArea')
+            .append('path')
+            .datum(areaData)
+            .attr('fill', 'url(#normalGradient)')
+            .attr('d', area)
+            .attr('opacity', 0)
+            .transition()
+            .duration(500)
+            .attr('opacity', 0.7);
+
+        // Calculate and display probability (approximate)
+        const z1 = (lowerBound - mean) / std;
+        const z2 = (upperBound - mean) / std;
+        const prob = normalCDF(z2) - normalCDF(z1);
+        
+        document.getElementById('probabilityResult').textContent = 
+            `P(${lowerBound} ≤ X ≤ ${upperBound}) = ${prob.toFixed(3)}`;
+    }
+
+    // Approximate normal CDF
+    function normalCDF(z) {
+        return 0.5 * (1 + erf(z / Math.sqrt(2)));
+    }
+
+    function erf(x) {
+        // Approximation of error function
+        const a1 =  0.254829592;
+        const a2 = -0.284496736;
+        const a3 =  1.421413741;
+        const a4 = -1.453152027;
+        const a5 =  1.061405429;
+        const p  =  0.3275911;
+
+        const sign = x >= 0 ? 1 : -1;
+        x = Math.abs(x);
+
+        const t = 1.0 / (1.0 + p * x);
+        const y = 1.0 - (((((a5 * t + a4) * t) + a3) * t + a2) * t + a1) * t * Math.exp(-x * x);
+
+        return sign * y;
+    }
+
+    // Comparison Charts
+    function createComparisonCharts() {
+        // Discrete comparison
+        const discreteData = [
+            {x: 0, prob: 0.25},
+            {x: 1, prob: 0.50},
+            {x: 2, prob: 0.25}
+        ];
+
+        const width = 300;
+        const height = 200;
+        const margin = {top: 20, right: 20, bottom: 40, left: 40};
+
+        const xScale = d3.scaleBand()
+            .domain(discreteData.map(d => d.x))
+            .range([margin.left, width - margin.right])
+            .padding(0.3);
+
+        const yScale = d3.scaleLinear()
+            .domain([0, 0.6])
+            .range([height - margin.bottom, margin.top]);
+
+        d3.select('#discreteCompBars')
+            .selectAll('rect')
+            .data(discreteData)
+            .enter()
+            .append('rect')
+            .attr('x', d => xScale(d.x))
+            .attr('y', d => yScale(d.prob))
+            .attr('width', xScale.bandwidth())
+            .attr('height', d => height - margin.bottom - yScale(d.prob))
+            .attr('fill', '#007bff')
+            .attr('opacity', 0.8)
+            .on('click', function(event, d) {
+                alert(`P(X = ${d.x}) = ${d.prob}`);
+            })
+            .on('mouseover', function() {
+                d3.select(this).attr('opacity', 1);
+            })
+            .on('mouseout', function() {
+                d3.select(this).attr('opacity', 0.8);
+            });
+
+        // Continuous comparison
+        const continuousData = [];
+        for (let x = -3; x <= 3; x += 0.1) {
+            const y = (1 / Math.sqrt(2 * Math.PI)) * Math.exp(-0.5 * x * x);
+            continuousData.push({x: x, y: y});
+        }
+
+        const xScaleCont = d3.scaleLinear()
+            .domain([-3, 3])
+            .range([margin.left, width - margin.right]);
+
+        const yScaleCont = d3.scaleLinear()
+            .domain([0, 0.5])
+            .range([height - margin.bottom, margin.top]);
+
+        const line = d3.line()
+            .x(d => xScaleCont(d.x))
+            .y(d => yScaleCont(d.y))
+            .curve(d3.curveCardinal);
+
+        d3.select('#continuousCompCurve')
+            .append('path')
+            .datum(continuousData)
+            .attr('fill', 'none')
+            .attr('stroke', '#28a745')
+            .attr('stroke-width', 2)
+            .attr('d', line);
+
+        // Add interactive hover for continuous curve
+        d3.select('#continuousComparison svg')
+            .on('mousemove', function(event) {
+                const [mouseX, mouseY] = d3.pointer(event);
+                const x = xScaleCont.invert(mouseX);
+                const y = (1 / Math.sqrt(2 * Math.PI)) * Math.exp(-0.5 * x * x);
+                
+                if (x >= -3 && x <= 3) {
+                    showTooltip(event, `x = ${x.toFixed(2)}, f(x) = ${y.toFixed(3)}`);
+                }
+            })
+            .on('mouseleave', hideTooltip);
+    }
+
+    // Tooltip functions
+    function showTooltip(event, text) {
+        const tooltip = d3.select('body')
+            .selectAll('.tooltip')
+            .data([null]);
+
+        const tooltipEnter = tooltip.enter()
+            .append('div')
+            .attr('class', 'tooltip')
+            .style('position', 'absolute')
+            .style('background', 'rgba(0,0,0,0.8)')
+            .style('color', 'white')
+            .style('padding', '5px 10px')
+            .style('border-radius', '3px')
+            .style('font-size', '12px')
+            .style('pointer-events', 'none')
+            .style('opacity', 0);
+
+        tooltip.merge(tooltipEnter)
+            .style('left', (event.pageX + 10) + 'px')
+            .style('top', (event.pageY - 10) + 'px')
+            .text(text)
+            .transition()
+            .duration(200)
+            .style('opacity', 1);
+    }
+
+    function hideTooltip() {
+        d3.select('.tooltip')
+            .transition()
+            .duration(200)
+            .style('opacity', 0)
+            .remove();
+    }
+
+    // Event listeners for sliders
+    document.getElementById('meanSlider').addEventListener('input', function() {
+        document.getElementById('meanValue').textContent = this.value;
+        createContinuousDistribution();
+    });
+
+    document.getElementById('stdSlider').addEventListener('input', function() {
+        document.getElementById('stdValue').textContent = this.value;
+        createContinuousDistribution();
+    });
+
+    document.getElementById('lowerBound').addEventListener('input', updateProbabilityArea);
+    document.getElementById('upperBound').addEventListener('input', updateProbabilityArea);
+
+    // Interactive table rows
+    document.querySelectorAll('.table-row').forEach(row => {
+        row.addEventListener('mouseenter', function() {
+            this.classList.add('table-warning');
+        });
+        row.addEventListener('mouseleave', function() {
+            if (!this.classList.contains('table-success')) {
+                this.classList.remove('table-warning');
+            }
+        });
+    });
+
+    // Initialize charts
+    createDiscretePMF();
+    createContinuousDistribution();
+    createComparisonCharts();
+
+    // Smooth scrolling for internal links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+});
+</script>
+
+<style>
+/* Animations and Effects */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
+    60% { transform: translateY(-5px); }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@keyframes glow {
+    0% { box-shadow: 0 0 5px rgba(0,123,255,0.5); }
+    50% { box-shadow: 0 0 20px rgba(0,123,255,0.8); }
+    100% { box-shadow: 0 0 5px rgba(0,123,255,0.5); }
+}
+
+@keyframes coinBounce {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0); }
+}
+
+.animate-fade-in {
+    animation: fadeIn 1s ease-out forwards;
+}
+
+.animate-slide-in {
+    animation: slideIn 1s ease-out forwards;
+}
+
+.animate-bounce {
+    animation: bounce 1s ease-out;
+}
+
+.animate-pulse {
+    animation: pulse 2s infinite;
+}
+
+.animate-glow {
+    animation: glow 2s infinite;
+}
+
+.rotate-on-hover {
+    transition: transform 0.3s ease;
+}
+
+.rotate-on-hover:hover {
+    transform: rotate(15deg);
+}
+
+.hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.hover-scale {
+    transition: transform 0.2s ease;
+}
+
+.hover-scale:hover {
+    transform: scale(1.05);
+}
+
+.hover-highlight {
+    transition: background-color 0.3s ease;
+}
+
+.hover-highlight:hover {
+    background-color: #f8f9fa !important;
+}
+
+/* Coin Animation Styles */
+.coin {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    position: relative;
+    margin: 10px auto;
+    transform-style: preserve-3d;
+    transition: transform 1.5s;
+}
+
+.coin-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transform-style: preserve-3d;
+}
+
+.coin-front, .coin-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
+    border: 3px solid #ffd700;
+}
+
+.coin-front {
+    background: linear-gradient(45deg, #ffd700, #ffed4e);
+    color: #8b4513;
+}
+
+.coin-back {
+    background: linear-gradient(45deg, #c0c0c0, #e6e6e6);
+    color: #333;
+    transform: rotateY(180deg);
+}
+
+/* Probability boxes */
+.probability-box {
+    background: #f8f9fa;
+    border: 2px solid #dee2e6;
+    border-radius: 8px;
+    padding: 10px;
+    margin: 5px;
+    transition: all 0.3s ease;
+}
+
+.probability-box:hover {
+    border-color: #007bff;
+    background: #e3f2fd;
+    transform: translateY(-2px);
+}
+
+.prob-value {
+    font-weight: bold;
+    color: #007bff;
+    font-size: 1.1em;
+}
+
+.prob-count {
+    color: #6c757d;
+    font-size: 0.9em;
+}
+
+.prob-percentage {
+    color: #28a745;
+    font-weight: bold;
+}
+
+/* Table interactions */
+.table-interactive tbody tr {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.table-interactive tbody tr:hover {
+    background-color: #f8f9fa;
+    transform: translateX(5px);
+}
+
+.table-row-hover {
+    transition: background-color 0.2s ease;
+}
+
+.table-row-hover:hover {
+    background-color: #e3f2fd !important;
+}
+
+/* Chart containers */
+.chart-container {
+    background: #fafafa;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.chart-container svg {
+    display: block;
+    margin: 0 auto;
+}
+
+/* Comparison boxes */
+.comparison-box {
+    border: 2px solid #dee2e6;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 10px 0;
+    transition: all 0.3s ease;
+}
+
+.discrete-box {
+    border-color: #007bff;
+}
+
+.continuous-box {
+    border-color: #28a745;
+}
+
+.comparison-box:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+/* Formula styling */
+.formula {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    margin: 15px 0;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.formula-text {
+    font-size: 1.3em;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+/* Outcome badges */
+.outcome-badge {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.outcome-badge:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .coin {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .coin-front, .coin-back {
+        font-size: 18px;
+    }
+    
+    .formula-text {
+        font-size: 1.1em;
+    }
+    
+    .chart-container svg {
+        width: 100%;
+        height: auto;
+    }
+}
+
+/* Loading states */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.loading::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid #007bff;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+</style>
+{% endblock %}

@@ -1,0 +1,397 @@
+{% extends "base.html" %}
+
+{% block title %}Binomial Distribution - Probability Distributions{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card mb-4">
+            <div class="card-body">
+                <h1 class="display-5 mb-3">
+                    <i class="fas fa-coins text-success me-3"></i>
+                    Binomial Distribution
+                </h1>
+                <p class="lead">The binomial distribution is the probability distribution of the number of successes of an experiment that is conducted multiple times and has only two possible outcomes.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-9">
+        <div class="card mb-4">
+            <div class="card-body">
+                <h4><i class="fas fa-sliders-h text-primary me-2"></i>Interactive Binomial Distribution</h4>
+                
+                <div class="interactive-section">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="nTrials" class="form-label">Number of Trials (n):</label>
+                            <input type="range" class="form-range" id="nTrials" min="1" max="50" step="1" value="10">
+                            <div class="text-center">
+                                <span id="nTrialsValue" class="badge bg-primary">10</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="probability" class="form-label">Probability of Success (p):</label>
+                            <input type="range" class="form-range" id="probability" min="0.01" max="0.99" step="0.01" value="0.5">
+                            <div class="text-center">
+                                <span id="probabilityValue" class="badge bg-success">0.5</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center mt-3">
+                        <button id="generateBinomialPlot" class="btn btn-primary">
+                            <i class="fas fa-chart-bar me-2"></i>Generate Plot
+                        </button>
+                        <button id="lotteryExample" class="btn btn-outline-warning ms-2">
+                            <i class="fas fa-ticket-alt me-2"></i>Lottery Example
+                        </button>
+                    </div>
+                </div>
+
+                <div id="binomialPlotContainer" class="text-center mt-4">
+                    <img id="binomialPlot" src="" alt="Binomial Distribution Plot" class="img-fluid" style="display: none;">
+                    <div id="binomialLoadingSpinner" class="d-none">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h4><i class="fas fa-coins text-warning me-2"></i>Coin Toss Simulation</h4>
+                <p>Simulate coin tosses to see how the binomial distribution emerges in practice!</p>
+                
+                <div class="interactive-section">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="numTosses" class="form-label">Number of Tosses:</label>
+                            <select class="form-select" id="numTosses">
+                                <option value="100">100 tosses</option>
+                                <option value="500" selected>500 tosses</option>
+                                <option value="1000">1000 tosses</option>
+                                <option value="2000">2000 tosses</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 d-flex align-items-end">
+                            <button id="simulateCoinToss" class="btn btn-success w-100">
+                                <i class="fas fa-play me-2"></i>Simulate Coin Tosses
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="simulationResults" class="mt-4" style="display: none;">
+                    <img id="simulationPlot" src="" alt="Coin Toss Simulation" class="img-fluid">
+                    <div id="simulationLoadingSpinner" class="d-none text-center">
+                        <div class="spinner-border text-success" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3">
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5><i class="fas fa-list-check text-info me-2"></i>Assumptions</h5>
+                <ol class="list-group list-group-numbered">
+                    <li class="list-group-item">There are only <strong>two possible outcomes</strong> (success or failure) for each trial</li>
+                    <li class="list-group-item">The <strong>number of trials is fixed</strong></li>
+                    <li class="list-group-item">The outcome of each trial is <strong>independent</strong></li>
+                    <li class="list-group-item">The <strong>probability of success</strong> is the same for each trial</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5><i class="fas fa-calculator text-warning me-2"></i>Formulas</h5>
+                
+                <div class="formula mb-3">
+                    <h6>Probability Mass Function:</h6>
+                    <div class="text-center mb-2">
+                        <div class="bg-light p-3 rounded border" style="font-size: 1.1em; font-family: 'Times New Roman', serif;">
+                            <em>P</em>(<em>X</em> = <em>k</em>) = <em>C</em>(<em>n</em>,<em>k</em>) × <em>p</em><sup><em>k</em></sup> × (1-<em>p</em>)<sup>(<em>n</em>-<em>k</em>)</sup>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <small>where <em>C</em>(<em>n</em>,<em>k</em>) = 
+                            <span style="display: inline-block; text-align: center; font-family: 'Times New Roman', serif;">
+                                <span style="display: block; border-bottom: 1px solid black; padding-bottom: 2px;"><em>n</em>!</span>
+                                <span style="display: block; padding-top: 2px;"><em>k</em>!(<em>n</em>-<em>k</em>)!</span>
+                            </span>
+                        </small>
+                    </div>
+                </div>
+
+                <div class="mb-2">
+                    <strong>Mean:</strong> <span style="font-family: 'Times New Roman', serif;"><em>μ</em> = <em>n</em> × <em>p</em></span>
+                </div>
+                <div class="mb-2">
+                    <strong>Variance:</strong> <span style="font-family: 'Times New Roman', serif;"><em>σ</em>² = <em>n</em> × <em>p</em> × (1-<em>p</em>)</span>
+                </div>
+                <div class="mb-2">
+                    <strong>Standard Deviation:</strong> <span style="font-family: 'Times New Roman', serif;"><em>σ</em> = √(<em>n</em> × <em>p</em> × (1-<em>p</em>))</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5><i class="fas fa-info-circle text-primary me-2"></i>Special Case</h5>
+                <div class="alert alert-info">
+                    <strong>Bernoulli Distribution:</strong><br>
+                    If n = 1, the binomial distribution becomes the Bernoulli distribution.
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h5><i class="fas fa-lightbulb text-success me-2"></i>Real Examples</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2">
+                        <i class="fas fa-coins text-primary me-2"></i>
+                        <strong>Coin tosses</strong> - heads vs tails
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-industry text-warning me-2"></i>
+                        <strong>Quality control</strong> - defective vs non-defective
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-ticket-alt text-info me-2"></i>
+                        <strong>Lottery tickets</strong> - winning vs losing
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-user-check text-success me-2"></i>
+                        <strong>Survey responses</strong> - yes vs no
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4><i class="fas fa-calculator text-primary me-2"></i>Binomial Distribution Formulas</h4>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h5>Probability Mass Function</h5>
+                        <div class="formula mb-3">
+                            <div class="text-center mb-3">
+                                <div class="bg-light p-4 rounded border" style="font-size: 1.4em; font-family: 'Times New Roman', serif;">
+                                    <em>P</em>(<em>X</em> = <em>k</em>) = <em>C</em>(<em>n</em>,<em>k</em>) × <em>p</em><sup><em>k</em></sup> × (1-<em>p</em>)<sup>(<em>n</em>-<em>k</em>)</sup>
+                                </div>
+                            </div>
+                            <div class="text-center mb-3">
+                                <div class="bg-light p-3 rounded border" style="font-size: 1.2em; font-family: 'Times New Roman', serif;">
+                                    where <em>C</em>(<em>n</em>,<em>k</em>) = 
+                                    <span style="display: inline-block; text-align: center;">
+                                        <span style="display: block; border-bottom: 1px solid black; padding-bottom: 2px;"><em>n</em>!</span>
+                                        <span style="display: block; padding-top: 2px;"><em>k</em>!(<em>n</em>-<em>k</em>)!</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <p><strong>Parameters:</strong></p>
+                            <ul class="small">
+                                <li><strong>n</strong> = number of independent trials</li>
+                                <li><strong>k</strong> = number of successes (0 ≤ k ≤ n)</li>
+                                <li><strong>p</strong> = probability of success on each trial</li>
+                                <li><strong>C(n,k)</strong> = binomial coefficient ("n choose k")</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <h5>Statistical Properties</h5>
+                        <div class="formula">
+                            <div class="mb-3">
+                                <h6><strong>Mean (Expected Value):</strong></h6>
+                                <div class="text-center bg-light p-3 rounded border" style="font-size: 1.3em; font-family: 'Times New Roman', serif;">
+                                    <em>μ</em> = <em>n</em> × <em>p</em>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <h6><strong>Variance:</strong></h6>
+                                <div class="text-center bg-light p-3 rounded border" style="font-size: 1.3em; font-family: 'Times New Roman', serif;">
+                                    <em>σ</em>² = <em>n</em> × <em>p</em> × (1-<em>p</em>)
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <h6><strong>Standard Deviation:</strong></h6>
+                                <div class="text-center bg-light p-3 rounded border" style="font-size: 1.3em; font-family: 'Times New Roman', serif;">
+                                    <em>σ</em> = √(<em>n</em> × <em>p</em> × (1-<em>p</em>))
+                                </div>
+                            </div>
+                            
+                            <div class="alert alert-info mb-0">
+                                <h6><i class="fas fa-info-circle me-1"></i>Key Insights:</h6>
+                                <ul class="mb-0 small">
+                                    <li>The mean is the expected number of successes</li>
+                                    <li>Variance is maximized when p = 0.5</li>
+                                    <li>As n increases, shape approaches normal distribution</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4><i class="fas fa-graduation-cap text-primary me-2"></i>Example Problem</h4>
+                <div class="row">
+                    <div class="col-lg-8">
+                        <p><strong>Problem:</strong> Suppose you have purchased 10 lottery tickets and the possible outcomes are winning the lottery or not winning the lottery. If the probability of winning each ticket is 0.1, what is the probability of winning exactly 6 lottery tickets?</p>
+                        
+                        <div class="formula">
+                            <p><strong>Solution:</strong></p>
+                            <ul>
+                                <li>n = 10 (number of trials)</li>
+                                <li>k = 6 (number of successes)</li>
+                                <li>p = 0.1 (probability of success)</li>
+                            </ul>
+                            <p>P(X = 6) = C(10,6) × (0.1)^6 × (0.9)^4</p>
+                            <p>P(X = 6) = 210 × 0.000001 × 0.6561 ≈ 0.000138</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="text-center">
+                            <button id="solveLotteryProblem" class="btn btn-info">
+                                <i class="fas fa-calculator me-2"></i>
+                                Visualize This Problem
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const nTrialsSlider = document.getElementById('nTrials');
+    const probabilitySlider = document.getElementById('probability');
+    const nTrialsValue = document.getElementById('nTrialsValue');
+    const probabilityValue = document.getElementById('probabilityValue');
+    const lotteryButton = document.getElementById('lotteryExample');
+    const plotImage = document.getElementById('binomialPlot');
+    const loadingSpinner = document.getElementById('binomialLoadingSpinner');
+    
+    // Coin toss simulation elements
+    const numTossesSelect = document.getElementById('numTosses');
+    const simulateButton = document.getElementById('simulateCoinToss');
+    const simulationResults = document.getElementById('simulationResults');
+    const simulationPlot = document.getElementById('simulationPlot');
+    const simulationSpinner = document.getElementById('simulationLoadingSpinner');
+    
+    // Problem solver
+    const solveProblemButton = document.getElementById('solveLotteryProblem');
+
+    let updateTimeout;
+    let isInitialLoad = true;
+
+    function generateBinomialPlot() {
+        // Only show spinner on initial load
+        if (isInitialLoad) {
+            loadingSpinner.classList.remove('d-none');
+            plotImage.style.display = 'none';
+        }
+
+        const n = nTrialsSlider.value;
+        const p = probabilitySlider.value;
+
+        fetch(`/generate_binomial_plot?n=${n}&p=${p}`)
+            .then(response => response.json())
+            .then(data => {
+                plotImage.src = 'data:image/png;base64,' + data.plot;
+                plotImage.style.display = 'block';
+                if (isInitialLoad) {
+                    loadingSpinner.classList.add('d-none');
+                    isInitialLoad = false;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                if (isInitialLoad) {
+                    loadingSpinner.classList.add('d-none');
+                    isInitialLoad = false;
+                }
+            });
+    }
+
+    function debounceUpdate() {
+        clearTimeout(updateTimeout);
+        updateTimeout = setTimeout(generateBinomialPlot, 200); // Reduced to 200ms for faster response
+    }
+
+    nTrialsSlider.addEventListener('input', function() {
+        nTrialsValue.textContent = this.value;
+        debounceUpdate();
+    });
+
+    probabilitySlider.addEventListener('input', function() {
+        probabilityValue.textContent = this.value;
+        debounceUpdate();
+    });
+
+    lotteryButton.addEventListener('click', function() {
+        nTrialsSlider.value = 10;
+        probabilitySlider.value = 0.1;
+        nTrialsValue.textContent = '10';
+        probabilityValue.textContent = '0.1';
+        generateBinomialPlot();
+    });
+
+    solveProblemButton.addEventListener('click', function() {
+        nTrialsSlider.value = 10;
+        probabilitySlider.value = 0.1;
+        nTrialsValue.textContent = '10';
+        probabilityValue.textContent = '0.1';
+        generateBinomialPlot();
+    });
+
+    simulateButton.addEventListener('click', function() {
+        simulationSpinner.classList.remove('d-none');
+        simulationResults.style.display = 'block';
+        simulationPlot.style.display = 'none';
+
+        const nTosses = numTossesSelect.value;
+
+        fetch(`/coin_toss_simulation?n_tosses=${nTosses}`)
+            .then(response => response.json())
+            .then(data => {
+                simulationPlot.src = 'data:image/png;base64,' + data.plot;
+                simulationPlot.style.display = 'block';
+                simulationSpinner.classList.add('d-none');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                simulationSpinner.classList.add('d-none');
+            });
+    });
+
+    // Generate initial plot
+    generateBinomialPlot();
+});
+</script>
+{% endblock %}

@@ -1,0 +1,187 @@
+{% extends "base.html" %}
+
+{% block title %}Probability Distributions Learning App{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card mb-4">
+            <div class="card-body text-center">
+                <h1 class="display-4 mb-3">
+                    <i class="fas fa-chart-area text-primary"></i>
+                    Probability Distributions
+                </h1>
+                <p class="lead">Interactive learning platform for understanding probability distributions and random variables</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h3><i class="fas fa-info-circle text-info me-2"></i>What is a Probability Distribution?</h3>
+                <p class="mb-3">
+                    The probability distribution of a random variable describes the values that the random variable can 
+                    take along with the probabilities of those values.
+                </p>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <h5 class="card-title text-primary">
+                                    <i class="fas fa-list-ol me-2"></i>Discrete Probability Distribution
+                                </h5>
+                                <p class="card-text">Uses a <strong>Probability Mass Function</strong> that provides the probability for each value of the random variable.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <h5 class="card-title text-success">
+                                    <i class="fas fa-wave-square me-2"></i>Continuous Probability Distribution
+                                </h5>
+                                <p class="card-text">Uses a <strong>Probability Density Function</strong> that determines the probability within a given interval.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 mb-4">
+        <div class="card distribution-card h-100">
+            <div class="card-body text-center">
+                <div class="mb-3">
+                    <i class="fas fa-dice text-primary" style="font-size: 3rem;"></i>
+                </div>
+                <h4 class="card-title">Random Variables</h4>
+                <p class="card-text">
+                    Learn about discrete and continuous random variables and how they assign numerical values to experimental outcomes.
+                </p>
+                <div class="mb-3">
+                    <span class="badge bg-info me-2">Discrete</span>
+                    <span class="badge bg-success">Continuous</span>
+                </div>
+                <a href="{{ url_for('random_variable') }}" class="btn btn-primary">
+                    <i class="fas fa-play me-2"></i>Explore
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 mb-4">
+        <div class="card distribution-card h-100">
+            <div class="card-body text-center">
+                <div class="mb-3">
+                    <i class="fas fa-bell text-warning" style="font-size: 3rem;"></i>
+                </div>
+                <h4 class="card-title">Normal Distribution</h4>
+                <p class="card-text">
+                    The bell curve - symmetric, continuous distribution. Explore the empirical rule and standard normal distribution.
+                </p>
+                <div class="mb-3">
+                    <span class="badge bg-warning text-dark me-2">Bell Curve</span>
+                    <span class="badge bg-secondary">Empirical Rule</span>
+                </div>
+                <div class="formula mb-3">
+                    <small><strong>Example:</strong> Height of adult males in a city</small>
+                </div>
+                <a href="{{ url_for('normal_distribution') }}" class="btn btn-primary">
+                    <i class="fas fa-play me-2"></i>Explore
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 mb-4">
+        <div class="card distribution-card h-100">
+            <div class="card-body text-center">
+                <div class="mb-3">
+                    <i class="fas fa-equals text-info" style="font-size: 3rem;"></i>
+                </div>
+                <h4 class="card-title">Uniform Distribution</h4>
+                <p class="card-text">
+                    All outcomes are equally likely. Learn about both discrete and continuous uniform distributions.
+                </p>
+                <div class="mb-3">
+                    <span class="badge bg-info me-2">Equal Probability</span>
+                    <span class="badge bg-primary">Fair Die</span>
+                </div>
+                <div class="formula mb-3">
+                    <small><strong>Example:</strong> Rolling a single die</small>
+                </div>
+                <a href="{{ url_for('uniform_distribution') }}" class="btn btn-primary">
+                    <i class="fas fa-play me-2"></i>Explore
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 mb-4">
+        <div class="card distribution-card h-100">
+            <div class="card-body text-center">
+                <div class="mb-3">
+                    <i class="fas fa-coins text-success" style="font-size: 3rem;"></i>
+                </div>
+                <h4 class="card-title">Binomial Distribution</h4>
+                <p class="card-text">
+                    Count successes in fixed number of independent trials. Perfect for coin tosses and quality control.
+                </p>
+                <div class="mb-3">
+                    <span class="badge bg-success me-2">Success/Failure</span>
+                    <span class="badge bg-dark">Independent Trials</span>
+                </div>
+                <div class="formula mb-3">
+                    <small><strong>Example:</strong> Winning 6 out of 10 lottery tickets</small>
+                </div>
+                <a href="{{ url_for('binomial_distribution') }}" class="btn btn-primary">
+                    <i class="fas fa-play me-2"></i>Explore
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h3><i class="fas fa-lightbulb text-warning me-2"></i>Common Examples Around Us</h3>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="text-center p-3">
+                            <div class="badge bg-primary mb-2" style="font-size: 1rem;">Bernoulli</div>
+                            <p class="small">Outcome of tossing a fair coin</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="text-center p-3">
+                            <div class="badge bg-success mb-2" style="font-size: 1rem;">Binomial</div>
+                            <p class="small">Number of non-defective products in a production run</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="text-center p-3">
+                            <div class="badge bg-info mb-2" style="font-size: 1rem;">Uniform</div>
+                            <p class="small">Number of books sold weekly at a bookstore</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="text-center p-3">
+                            <div class="badge bg-warning text-dark mb-2" style="font-size: 1rem;">Normal</div>
+                            <p class="small">IQ distribution of seven-year-old children in New York</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

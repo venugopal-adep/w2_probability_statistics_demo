@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Probability Distributions Learning App{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 14px; /* Reduced base font size */
+        }
+        .navbar {
+            background: rgba(255, 255, 255, 0.2) !important;
+            backdrop-filter: blur(10px);
+            padding: 0.5rem 0; /* Reduced navbar padding */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            z-index: 1030; /* Ensure navbar is above other elements */
+        }
+        
+        .navbar-brand {
+            color: white !important;
+            font-weight: 600;
+            font-size: 1.3rem;
+        }
+        
+        .navbar-nav .nav-link {
+            color: white !important;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .navbar-nav .nav-link:hover {
+            color: #f8f9fa !important;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+        }
+        
+        .navbar-nav .dropdown-toggle {
+            color: white !important;
+        }
+        
+        .navbar-nav .dropdown-toggle:hover {
+            color: #f8f9fa !important;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+        }
+        
+        .dropdown-menu {
+            background: rgba(255, 255, 255, 0.95) !important;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1031;
+            min-width: 200px;
+        }
+        
+        .dropdown-item {
+            color: #333 !important;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+        }
+        
+        .dropdown-item:hover {
+            background: rgba(102, 126, 234, 0.1) !important;
+            color: #667eea !important;
+        }
+        
+        .navbar-toggler {
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .navbar-toggler:focus {
+            box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.25);
+        }
+        
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.8%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+        
+        /* Ensure collapsed navbar menu is visible */
+        .navbar-collapse {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            margin-top: 0.5rem;
+            padding: 0.5rem;
+        }
+        
+        @media (max-width: 991.98px) {
+            .navbar-nav {
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 8px;
+                padding: 0.5rem;
+                margin-top: 0.5rem;
+            }
+            
+            .dropdown-menu {
+                background: rgba(255, 255, 255, 0.9) !important;
+                border: none;
+                box-shadow: none;
+                margin-left: 1rem;
+            }
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 10px; /* Reduced border radius */
+            box-shadow: 0 4px 20px rgba(31, 38, 135, 0.37); /* Reduced shadow */
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            margin-bottom: 1rem; /* Reduced margin */
+        }
+        .card-body {
+            padding: 1rem; /* Reduced padding */
+        }
+        .btn-primary {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border: none;
+            border-radius: 20px; /* Reduced border radius */
+            padding: 8px 20px; /* Reduced padding */
+            transition: transform 0.3s ease;
+            font-size: 13px; /* Smaller button text */
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .distribution-card {
+            transition: transform 0.3s ease;
+        }
+        .distribution-card:hover {
+            transform: translateY(-5px);
+        }
+        .formula {
+            background: #f8f9fa;
+            border-left: 4px solid #007bff;
+            padding: 10px; /* Reduced padding */
+            margin: 10px 0; /* Reduced margin */
+            border-radius: 5px;
+            font-size: 13px; /* Smaller formula text */
+        }
+        .interactive-section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px; /* Reduced border radius */
+            padding: 15px; /* Reduced padding */
+            margin: 15px 0; /* Reduced margin */
+        }
+        /* Compact container adjustments */
+        .container-fluid {
+            padding-left: 10px; /* Reduced padding */
+            padding-right: 10px;
+        }
+        
+        /* Responsive adjustments */
+        @media (min-width: 1400px) {
+            .container-fluid {
+                padding-left: 20px; /* Reduced padding */
+                padding-right: 20px;
+            }
+        }
+        
+        /* Compact plot container */
+        .plot-container {
+            max-width: 100%;
+            overflow-x: auto;
+            max-height: 400px; /* Limit plot height */
+        }
+        
+        .plot-container img {
+            max-width: 100%;
+            height: auto;
+            max-height: 380px; /* Limit image height */
+        }
+        
+        /* Compact headers */
+        .display-5 {
+            font-size: 2rem; /* Reduced from default */
+            margin-bottom: 1rem; /* Reduced margin */
+        }
+        
+        h4 {
+            font-size: 1.3rem; /* Reduced size */
+            margin-bottom: 1rem;
+        }
+        
+        h5 {
+            font-size: 1.1rem; /* Reduced size */
+            margin-bottom: 0.8rem;
+        }
+        
+        /* Compact list items */
+        .list-group-item {
+            padding: 0.5rem 0.75rem; /* Reduced padding */
+            font-size: 13px; /* Smaller text */
+        }
+        
+        /* Compact badges and labels */
+        .badge {
+            font-size: 12px; /* Smaller badges */
+        }
+        
+        .form-label {
+            font-size: 13px; /* Smaller labels */
+            margin-bottom: 0.3rem; /* Reduced margin */
+        }
+        
+        /* Compact alerts */
+        .alert {
+            padding: 0.5rem 0.75rem; /* Reduced padding */
+            font-size: 12px; /* Smaller text */
+        }
+        
+        /* Remove excessive margins */
+        .mt-4 {
+            margin-top: 1.5rem !important; /* Reduced from 1.5rem to 1rem */
+        }
+        
+        .mb-4 {
+            margin-bottom: 1.5rem !important; /* Reduced margin */
+        }
+        
+        /* Compact row spacing */
+        .row {
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Compact lead text */
+        .lead {
+            font-size: 1.1rem; /* Reduced from default */
+            margin-bottom: 1rem; /* Reduced margin */
+        }
+        
+        /* Compact sidebar cards */
+        .col-lg-3 .card {
+            margin-bottom: 0.8rem; /* Reduced margin between sidebar cards */
+        }
+        
+        .col-lg-3 .card-body {
+            padding: 0.8rem; /* Reduced sidebar card padding */
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{ url_for('home') }}">
+                <i class="fas fa-chart-line me-2"></i>
+                Probability Distributions
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('home') }}">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="distributionsDropdown" role="button" data-bs-toggle="dropdown">
+                            Distributions
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{{ url_for('random_variable') }}">Random Variables</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('normal_distribution') }}">Normal</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('uniform_distribution') }}">Uniform</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('binomial_distribution') }}">Binomial</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="inferenceDropdown" role="button" data-bs-toggle="dropdown">
+                            Inference
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{{ url_for('sampling_distributions') }}">Sampling Distributions</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('central_limit_theorem') }}">Central Limit Theorem</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('estimations') }}">Estimations</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid mt-2"> <!-- Reduced top margin -->
+        {% block content %}{% endblock %}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

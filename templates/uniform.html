@@ -1,0 +1,267 @@
+{% extends "base.html" %}
+
+{% block title %}Uniform Distribution - Probability Distributions{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card mb-4">
+            <div class="card-body">
+                <h1 class="display-5 mb-3">
+                    <i class="fas fa-equals text-info me-3"></i>
+                    Uniform Distribution
+                </h1>
+                <p class="lead">The uniform distribution is the probability distribution where all outcomes are equally likely.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-9">
+        <div class="card">
+            <div class="card-body">
+                <h4><i class="fas fa-sliders-h text-primary me-2"></i>Interactive Uniform Distribution</h4>
+                
+                <div class="interactive-section">
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="discreteSwitch">
+                                <label class="form-check-label" for="discreteSwitch">
+                                    <strong>Discrete Uniform Distribution</strong>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="minValue" class="form-label">Minimum Value (a):</label>
+                            <input type="range" class="form-range" id="minValue" min="0" max="10" step="1" value="0">
+                            <div class="text-center">
+                                <span id="minValueDisplay" class="badge bg-primary">0</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="maxValue" class="form-label">Maximum Value (b):</label>
+                            <input type="range" class="form-range" id="maxValue" min="1" max="15" step="1" value="6">
+                            <div class="text-center">
+                                <span id="maxValueDisplay" class="badge bg-success">6</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center mt-3">
+                        <button id="generateUniformPlot" class="btn btn-primary">
+                            <i class="fas fa-chart-bar me-2"></i>Generate Plot
+                        </button>
+                        <button id="diceExample" class="btn btn-outline-success ms-2">
+                            <i class="fas fa-dice me-2"></i>Dice Example
+                        </button>
+                    </div>
+                </div>
+
+                <div id="uniformPlotContainer" class="text-center mt-4">
+                    <img id="uniformPlot" src="" alt="Uniform Distribution Plot" class="img-fluid" style="display: none;">
+                    <div id="uniformLoadingSpinner" class="d-none">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3">
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5><i class="fas fa-info-circle text-info me-2"></i>Types</h5>
+                
+                <div class="mb-3">
+                    <h6 class="text-primary">
+                        <i class="fas fa-list-ol me-2"></i>Discrete Uniform Distribution
+                    </h6>
+                    <p class="small">Can take a finite number (m) of values and each value has an equal probability of selection.</p>
+                    <div class="bg-light p-2 rounded">
+                        <strong>Example:</strong> Rolling a single die
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <h6 class="text-success">
+                        <i class="fas fa-wave-square me-2"></i>Continuous Uniform Distribution
+                    </h6>
+                    <p class="small">Can take any value within a given range with equal probability.</p>
+                    <div class="bg-light p-2 rounded">
+                        <strong>Example:</strong> Weight gained by a person over 2 months (2-5 Kg)
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5><i class="fas fa-calculator text-warning me-2"></i>Formulas</h5>
+                
+                <div class="mb-3">
+                    <h6>Discrete Uniform:</h6>
+                    <div class="formula">
+                        P(X = x) = 1/n
+                    </div>
+                    <small>where n = number of possible outcomes</small>
+                </div>
+
+                <div class="mb-3">
+                    <h6>Continuous Uniform:</h6>
+                    <div class="formula">
+                        f(x) = 1/(b-a) for a ≤ x ≤ b
+                    </div>
+                    <small>where a = minimum, b = maximum</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h5><i class="fas fa-lightbulb text-success me-2"></i>Real Examples</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2">
+                        <i class="fas fa-dice text-primary me-2"></i>
+                        <strong>Rolling a die</strong> (1-6)
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-coins text-warning me-2"></i>
+                        <strong>Coin toss</strong> (H/T)
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-book text-info me-2"></i>
+                        <strong>Books sold weekly</strong> at a bookstore
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-clock text-success me-2"></i>
+                        <strong>Waiting time</strong> for a bus
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4><i class="fas fa-chart-pie text-primary me-2"></i>Key Properties</h4>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h5>Discrete Uniform Distribution</h5>
+                        <ul>
+                            <li><strong>Mean:</strong> μ = (a + b) / 2</li>
+                            <li><strong>Variance:</strong> σ² = ((b - a + 1)² - 1) / 12</li>
+                            <li><strong>Range:</strong> Finite set of values</li>
+                            <li><strong>Probability:</strong> Each outcome has probability 1/n</li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-6">
+                        <h5>Continuous Uniform Distribution</h5>
+                        <ul>
+                            <li><strong>Mean:</strong> μ = (a + b) / 2</li>
+                            <li><strong>Variance:</strong> σ² = (b - a)² / 12</li>
+                            <li><strong>Range:</strong> [a, b] interval</li>
+                            <li><strong>Density:</strong> Constant over the interval</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const discreteSwitch = document.getElementById('discreteSwitch');
+    const minSlider = document.getElementById('minValue');
+    const maxSlider = document.getElementById('maxValue');
+    const minDisplay = document.getElementById('minValueDisplay');
+    const maxDisplay = document.getElementById('maxValueDisplay');
+    const diceButton = document.getElementById('diceExample');
+    const plotImage = document.getElementById('uniformPlot');
+    const loadingSpinner = document.getElementById('uniformLoadingSpinner');
+
+    let updateTimeout;
+    let isInitialLoad = true;
+
+    function generatePlot() {
+        // Only show spinner on initial load
+        if (isInitialLoad) {
+            loadingSpinner.classList.remove('d-none');
+            plotImage.style.display = 'none';
+        }
+
+        const a = minSlider.value;
+        const b = maxSlider.value;
+        const discrete = discreteSwitch.checked;
+
+        fetch(`/generate_uniform_plot?a=${a}&b=${b}&discrete=${discrete}`)
+            .then(response => response.json())
+            .then(data => {
+                plotImage.src = 'data:image/png;base64,' + data.plot;
+                plotImage.style.display = 'block';
+                if (isInitialLoad) {
+                    loadingSpinner.classList.add('d-none');
+                    isInitialLoad = false;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                if (isInitialLoad) {
+                    loadingSpinner.classList.add('d-none');
+                    isInitialLoad = false;
+                }
+            });
+    }
+
+    function debounceUpdate() {
+        clearTimeout(updateTimeout);
+        updateTimeout = setTimeout(generatePlot, 200); // Reduced to 200ms for faster response
+    }
+
+    minSlider.addEventListener('input', function() {
+        minDisplay.textContent = this.value;
+        if (parseInt(this.value) >= parseInt(maxSlider.value)) {
+            maxSlider.value = parseInt(this.value) + 1;
+            maxDisplay.textContent = maxSlider.value;
+        }
+        debounceUpdate();
+    });
+
+    maxSlider.addEventListener('input', function() {
+        maxDisplay.textContent = this.value;
+        if (parseInt(this.value) <= parseInt(minSlider.value)) {
+            minSlider.value = parseInt(this.value) - 1;
+            minDisplay.textContent = minSlider.value;
+        }
+        debounceUpdate();
+    });
+
+    discreteSwitch.addEventListener('change', function() {
+        debounceUpdate();
+    });
+
+    diceButton.addEventListener('click', function() {
+        discreteSwitch.checked = true;
+        minSlider.value = 1;
+        maxSlider.value = 6;
+        minDisplay.textContent = '1';
+        maxDisplay.textContent = '6';
+        generatePlot();
+    });
+
+    // Generate initial plot
+    generatePlot();
+});
+</script>
+{% endblock %}

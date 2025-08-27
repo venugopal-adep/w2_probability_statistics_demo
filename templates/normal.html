@@ -1,0 +1,258 @@
+{% extends "base.html" %}
+
+{% block title %}Normal Distribution - Probability Distributions{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card mb-2"> <!-- Reduced margin -->
+            <div class="card-body">
+                <h1 class="display-5 mb-2"> <!-- Reduced margin -->
+                    <i class="fas fa-bell text-warning me-2"></i>
+                    Normal Distribution
+                </h1>
+                <p class="lead">The normal distribution is a continuous probability distribution that is symmetric to the mean. Also known as a bell curve.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-9">
+        <div class="card">
+            <div class="card-body">
+                <h4><i class="fas fa-sliders-h text-primary me-2"></i>Interactive Normal Distribution</h4>
+                
+                <div class="interactive-section">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="mean" class="form-label">Mean (μ):</label>
+                            <input type="range" class="form-range" id="mean" min="-5" max="5" step="0.1" value="0">
+                            <div class="text-center">
+                                <span id="meanValue" class="badge bg-primary">0</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="std" class="form-label">Standard Deviation (σ):</label>
+                            <input type="range" class="form-range" id="std" min="0.1" max="3" step="0.1" value="1">
+                            <div class="text-center">
+                                <span id="stdValue" class="badge bg-success">1</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center mt-2"> <!-- Reduced margin -->
+                        <button id="showEmpiricalRule" class="btn btn-outline-info btn-sm"> <!-- Smaller button -->
+                            <i class="fas fa-info-circle me-1"></i>Show Empirical Rule
+                        </button>
+                    </div>
+                </div>
+
+                <div id="plotContainer" class="plot-container text-center mt-2"> <!-- Reduced margin -->
+                    <img id="normalPlot" src="" alt="Normal Distribution Plot" class="img-fluid" style="display: none;">
+                    <div id="loadingSpinner" class="d-none">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3">
+        <div class="card mb-2"> <!-- Reduced margin -->
+            <div class="card-body">
+                <h5><i class="fas fa-list-ul text-info me-2"></i>Properties</h5>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <i class="fas fa-check text-success me-2"></i>
+                        Zero skewness
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fas fa-check text-success me-2"></i>
+                        Mean = Median = Mode
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fas fa-check text-success me-2"></i>
+                        If μ = 0, σ = 1: <strong>standard normal</strong>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card mb-2"> <!-- Reduced margin -->
+            <div class="card-body">
+                <h5><i class="fas fa-ruler text-warning me-2"></i>Empirical Rule</h5>
+                <div class="mb-1"> <!-- Reduced margin -->
+                    <span class="badge bg-danger me-2">68.27%</span>
+                    <small>within ±1σ</small>
+                </div>
+                <div class="mb-1"> <!-- Reduced margin -->
+                    <span class="badge bg-primary me-2">95.45%</span>
+                    <small>within ±2σ</small>
+                </div>
+                <div class="mb-1"> <!-- Reduced margin -->
+                    <span class="badge bg-secondary me-2">99.73%</span>
+                    <small>within ±3σ</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h5><i class="fas fa-lightbulb text-success me-2"></i>Examples</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-1"> <!-- Reduced margin -->
+                        <i class="fas fa-ruler-vertical text-primary me-2"></i>
+                        <strong>Height</strong> of adults
+                    </li>
+                    <li class="mb-1"> <!-- Reduced margin -->
+                        <i class="fas fa-brain text-info me-2"></i>
+                        <strong>IQ scores</strong>
+                    </li>
+                    <li class="mb-1"> <!-- Reduced margin -->
+                        <i class="fas fa-thermometer-half text-warning me-2"></i>
+                        <strong>Temperature</strong>
+                    </li>
+                    <li class="mb-1"> <!-- Reduced margin -->
+                        <i class="fas fa-chart-line text-success me-2"></i>
+                        <strong>Stock returns</strong>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-2"> <!-- Reduced margin -->
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4><i class="fas fa-calculator text-primary me-2"></i>Probability Density Function</h4>
+                <div class="formula">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="text-center mb-2"> <!-- Reduced margin -->
+                                <div class="bg-light p-3 rounded border" style="font-size: 1.2em;"> <!-- Reduced font size and padding -->
+                                    <span style="font-family: 'Times New Roman', serif;">
+                                        <em>f</em>(<em>x</em>) = 
+                                        <span style="display: inline-block; text-align: center;">
+                                            <span style="display: block; border-bottom: 1px solid black; padding-bottom: 2px;">1</span>
+                                            <span style="display: block; padding-top: 2px;">σ√(2π)</span>
+                                        </span>
+                                        × <em>e</em><sup>-½((x-μ)/σ)²</sup>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="bg-light p-2 rounded border"> <!-- Reduced padding -->
+                                <h6><strong>Z-score Transform:</strong></h6>
+                                <div class="text-center mb-1" style="font-size: 1.1em; font-family: 'Times New Roman', serif;"> <!-- Reduced font size -->
+                                    <em>Z</em> = <span style="display: inline-block; text-align: center;">
+                                        <span style="display: block; border-bottom: 1px solid black; padding-bottom: 2px;">X - μ</span>
+                                        <span style="display: block; padding-top: 2px;">σ</span>
+                                    </span>
+                                </div>
+                                <p class="small mb-0">Standardizes to μ=0, σ=1</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row mt-2"> <!-- Reduced margin -->
+                        <div class="col-md-6">
+                            <p><strong>Parameters:</strong></p>
+                            <ul class="small mb-0"> <!-- Smaller text, no margin -->
+                                <li><strong>μ</strong> (mu) = mean</li>
+                                <li><strong>σ</strong> (sigma) = standard deviation</li>
+                                <li><strong>π</strong> ≈ 3.14159, <strong>e</strong> ≈ 2.71828</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="alert alert-info mb-0"> <!-- No bottom margin -->
+                                <h6><i class="fas fa-info-circle me-1"></i>Formula Components:</h6>
+                                <ul class="mb-0 small">
+                                    <li><strong>1/(σ√(2π))</strong> - Normalization</li>
+                                    <li><strong>e^(-½((x-μ)/σ)²)</strong> - Bell shape</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const meanSlider = document.getElementById('mean');
+    const stdSlider = document.getElementById('std');
+    const meanValue = document.getElementById('meanValue');
+    const stdValue = document.getElementById('stdValue');
+    const empiricalButton = document.getElementById('showEmpiricalRule');
+    const plotImage = document.getElementById('normalPlot');
+    const loadingSpinner = document.getElementById('loadingSpinner');
+
+    let updateTimeout;
+    let isInitialLoad = true;
+
+    function generatePlot() {
+        // Only show spinner on initial load
+        if (isInitialLoad) {
+            loadingSpinner.classList.remove('d-none');
+            plotImage.style.display = 'none';
+        }
+
+        const mean = meanSlider.value;
+        const std = stdSlider.value;
+
+        fetch(`/generate_normal_plot?mean=${mean}&std=${std}`)
+            .then(response => response.json())
+            .then(data => {
+                plotImage.src = 'data:image/png;base64,' + data.plot;
+                plotImage.style.display = 'block';
+                if (isInitialLoad) {
+                    loadingSpinner.classList.add('d-none');
+                    isInitialLoad = false;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                if (isInitialLoad) {
+                    loadingSpinner.classList.add('d-none');
+                    isInitialLoad = false;
+                }
+            });
+    }
+
+    function debounceUpdate() {
+        clearTimeout(updateTimeout);
+        updateTimeout = setTimeout(generatePlot, 200); // Reduced to 200ms for faster response
+    }
+
+    meanSlider.addEventListener('input', function() {
+        meanValue.textContent = this.value;
+        debounceUpdate();
+    });
+
+    stdSlider.addEventListener('input', function() {
+        stdValue.textContent = this.value;
+        debounceUpdate();
+    });
+
+    empiricalButton.addEventListener('click', function() {
+        meanSlider.value = 0;
+        stdSlider.value = 1;
+        meanValue.textContent = '0';
+        stdValue.textContent = '1';
+        generatePlot();
+    });
+
+    // Generate initial plot
+    generatePlot();
+});
+</script>
+{% endblock %}

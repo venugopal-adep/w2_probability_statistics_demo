@@ -1,0 +1,427 @@
+{% extends "base.html" %}
+
+{% block title %}Estimations - Probability Distributions{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card mb-2">
+            <div class="card-body">
+                <h1 class="display-5 mb-2">
+                    <i class="fas fa-crosshairs text-success me-2"></i>
+                    Estimations
+                </h1>
+                <p class="lead">Make inferences about a population parameter based on sample statistic.</p>
+                
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <div class="card border-primary h-100">
+                            <div class="card-header bg-primary text-white text-center">
+                                <h5><i class="fas fa-dot-circle me-2"></i>Point Estimation</h5>
+                            </div>
+                            <div class="card-body">
+                                <p class="mb-2"><strong>A single value of a population parameter.</strong></p>
+                                <p class="small mb-2"><strong>Example:</strong> Population mean as estimated from the sample mean is $20.</p>
+                                <div class="text-center">
+                                    <div class="bg-light p-2 rounded border" style="font-size: 1.1em;">
+                                        <em>θ̂</em> = single value estimate
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card border-info h-100">
+                            <div class="card-header bg-info text-white text-center">
+                                <h5><i class="fas fa-arrows-alt-h me-2"></i>Interval Estimation</h5>
+                            </div>
+                            <div class="card-body">
+                                <p class="mb-2"><strong>The range of values within which the population parameter lies with some confidence.</strong></p>
+                                <p class="small mb-2"><strong>Example:</strong> Population mean should lie in the range $15-$25, with 95% confidence.</p>
+                                <div class="text-center">
+                                    <div class="bg-light p-2 rounded border" style="font-size: 1.1em;">
+                                        [<em>L</em>, <em>U</em>] with confidence level
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-9">
+        <div class="card mb-2">
+            <div class="card-body">
+                <h4><i class="fas fa-chart-line text-primary me-2"></i>Interactive Confidence Interval Calculator</h4>
+                <div class="interactive-section">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label for="sampleMean" class="form-label">Sample Mean (x̄):</label>
+                            <input type="number" class="form-control" id="sampleMean" value="50" step="0.1">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="sampleStd" class="form-label">Sample Std (s):</label>
+                            <input type="number" class="form-control" id="sampleStd" value="10" step="0.1" min="0.1">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="sampleSizeEst" class="form-label">Sample Size (n):</label>
+                            <input type="number" class="form-control" id="sampleSizeEst" value="25" min="1">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="confidenceLevel" class="form-label">Confidence Level:</label>
+                            <select class="form-select" id="confidenceLevel">
+                                <option value="90">90%</option>
+                                <option value="95" selected>95%</option>
+                                <option value="99">99%</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="text-center mt-2">
+                        <button id="calculateCI" class="btn btn-primary">
+                            <i class="fas fa-calculator me-2"></i>Calculate Confidence Interval
+                        </button>
+                    </div>
+                </div>
+
+                <div id="ciResults" class="mt-3" style="display: none;">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card border-success">
+                                <div class="card-body">
+                                    <h6><i class="fas fa-bullseye text-success me-2"></i>Point Estimate</h6>
+                                    <div class="text-center">
+                                        <span id="pointEstimate" class="h4 text-success"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card border-info">
+                                <div class="card-body">
+                                    <h6><i class="fas fa-arrows-alt-h text-info me-2"></i>Confidence Interval</h6>
+                                    <div class="text-center">
+                                        <span id="intervalEstimate" class="h5 text-info"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card mt-2 border-warning">
+                        <div class="card-body">
+                            <h6><i class="fas fa-info-circle text-warning me-2"></i>Interpretation</h6>
+                            <p id="interpretation" class="mb-0 small"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="ciVisualization" class="plot-container text-center mt-2">
+                    <img id="ciPlot" src="" alt="Confidence Interval Visualization" class="img-fluid" style="display: none;">
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h4><i class="fas fa-chart-area text-success me-2"></i>Confidence Interval Simulation</h4>
+                <p class="small">This simulation shows what happens when we repeatedly sample from a population and calculate confidence intervals.</p>
+                
+                <div class="interactive-section">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="trueMean" class="form-label">True Population Mean (μ):</label>
+                            <input type="number" class="form-control" id="trueMean" value="100" step="1">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="popStd" class="form-label">Population Std (σ):</label>
+                            <input type="number" class="form-control" id="popStd" value="15" step="0.1" min="0.1">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="numIntervals" class="form-label">Number of Intervals:</label>
+                            <input type="range" class="form-range" id="numIntervals" min="20" max="100" step="10" value="50">
+                            <div class="text-center">
+                                <span id="numIntervalsValue" class="badge bg-primary">50</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center mt-2">
+                        <button id="runSimulation" class="btn btn-success">
+                            <i class="fas fa-play me-2"></i>Run CI Simulation
+                        </button>
+                    </div>
+                </div>
+
+                <div id="simulationResults" class="mt-3" style="display: none;">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card bg-success text-white">
+                                <div class="card-body text-center">
+                                    <h6>Intervals Containing μ</h6>
+                                    <div class="h4" id="successCount">-</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card bg-danger text-white">
+                                <div class="card-body text-center">
+                                    <h6>Intervals Missing μ</h6>
+                                    <div class="h4" id="failCount">-</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card bg-info text-white">
+                                <div class="card-body text-center">
+                                    <h6>Success Rate</h6>
+                                    <div class="h4" id="successRate">-</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="simulationPlot" class="plot-container text-center mt-2">
+                    <img id="simPlot" src="" alt="CI Simulation Plot" class="img-fluid" style="display: none;">
+                    <div id="simLoadingSpinner" class="d-none">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3">
+        <div class="card mb-2">
+            <div class="card-body">
+                <h5><i class="fas fa-key text-primary me-2"></i>Key Concepts</h5>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <i class="fas fa-target text-primary me-2"></i>
+                        <strong>Estimator:</strong> Sample statistic used to estimate parameter
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fas fa-bullseye text-success me-2"></i>
+                        <strong>Estimate:</strong> Actual numerical value from sample
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fas fa-balance-scale text-warning me-2"></i>
+                        <strong>Unbiased:</strong> E[θ̂] = θ
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fas fa-compress text-info me-2"></i>
+                        <strong>Efficient:</strong> Smallest variance among unbiased estimators
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card mb-2">
+            <div class="card-body">
+                <h5><i class="fas fa-percentage text-success me-2"></i>Confidence Levels</h5>
+                <div class="mb-2">
+                    <span class="badge bg-primary me-2">90%</span>
+                    <small>z = 1.645</small>
+                </div>
+                <div class="mb-2">
+                    <span class="badge bg-success me-2">95%</span>
+                    <small>z = 1.96</small>
+                </div>
+                <div class="mb-2">
+                    <span class="badge bg-info me-2">99%</span>
+                    <small>z = 2.576</small>
+                </div>
+                <p class="small mt-2 mb-0">Higher confidence = wider interval</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h5><i class="fas fa-lightbulb text-warning me-2"></i>Common Estimators</h5>
+                <ul class="small">
+                    <li class="mb-1"><strong>μ:</strong> Sample mean (x̄)</li>
+                    <li class="mb-1"><strong>σ²:</strong> Sample variance (s²)</li>
+                    <li class="mb-1"><strong>p:</strong> Sample proportion (p̂)</li>
+                    <li class="mb-0"><strong>β:</strong> Regression coefficients</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-2">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4><i class="fas fa-calculator text-primary me-2"></i>Estimation Formulas</h4>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h5>Confidence Interval for Mean (σ known)</h5>
+                        <div class="formula">
+                            <div class="text-center mb-3">
+                                <div class="bg-light p-3 rounded border" style="font-size: 1.2em; font-family: 'Times New Roman', serif;">
+                                    <em>x̄</em> ± <em>z</em><sub>α/2</sub> × <span style="display: inline-block; text-align: center;">
+                                        <span style="display: block; border-bottom: 1px solid black; padding-bottom: 2px;"><em>σ</em></span>
+                                        <span style="display: block; padding-top: 2px;">√<em>n</em></span>
+                                    </span>
+                                </div>
+                            </div>
+                            <p class="small"><strong>Use when:</strong> Population standard deviation is known</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <h5>Confidence Interval for Mean (σ unknown)</h5>
+                        <div class="formula">
+                            <div class="text-center mb-3">
+                                <div class="bg-light p-3 rounded border" style="font-size: 1.2em; font-family: 'Times New Roman', serif;">
+                                    <em>x̄</em> ± <em>t</em><sub>α/2,df</sub> × <span style="display: inline-block; text-align: center;">
+                                        <span style="display: block; border-bottom: 1px solid black; padding-bottom: 2px;"><em>s</em></span>
+                                        <span style="display: block; padding-top: 2px;">√<em>n</em></span>
+                                    </span>
+                                </div>
+                            </div>
+                            <p class="small"><strong>Use when:</strong> Population standard deviation is unknown (df = n-1)</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row mt-3">
+                    <div class="col-lg-6">
+                        <h5>Margin of Error</h5>
+                        <div class="formula">
+                            <div class="text-center mb-3">
+                                <div class="bg-light p-3 rounded border" style="font-size: 1.2em; font-family: 'Times New Roman', serif;">
+                                    <em>E</em> = <em>z</em><sub>α/2</sub> × <span style="display: inline-block; text-align: center;">
+                                        <span style="display: block; border-bottom: 1px solid black; padding-bottom: 2px;"><em>σ</em></span>
+                                        <span style="display: block; padding-top: 2px;">√<em>n</em></span>
+                                    </span>
+                                </div>
+                            </div>
+                            <p class="small"><strong>The "±" part of the confidence interval</strong></p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <h5>Sample Size for Desired Margin</h5>
+                        <div class="formula">
+                            <div class="text-center mb-3">
+                                <div class="bg-light p-3 rounded border" style="font-size: 1.2em; font-family: 'Times New Roman', serif;">
+                                    <em>n</em> = (<span style="display: inline-block; text-align: center;">
+                                        <span style="display: block; border-bottom: 1px solid black; padding-bottom: 2px;"><em>z</em><sub>α/2</sub> × <em>σ</em></span>
+                                        <span style="display: block; padding-top: 2px;"><em>E</em></span>
+                                    </span>)²
+                                </div>
+                            </div>
+                            <p class="small"><strong>Determine required sample size for specific precision</strong></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="alert alert-info mt-3">
+                    <h6><i class="fas fa-info-circle me-1"></i>Parameter Notation:</h6>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul class="mb-0 small">
+                                <li><strong>x̄</strong> = sample mean</li>
+                                <li><strong>s</strong> = sample standard deviation</li>
+                                <li><strong>n</strong> = sample size</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="mb-0 small">
+                                <li><strong>z<sub>α/2</sub></strong> = critical z-value</li>
+                                <li><strong>t<sub>α/2,df</sub></strong> = critical t-value</li>
+                                <li><strong>E</strong> = margin of error</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const calculateCIButton = document.getElementById('calculateCI');
+    const runSimButton = document.getElementById('runSimulation');
+    const numIntervalsSlider = document.getElementById('numIntervals');
+    const numIntervalsValue = document.getElementById('numIntervalsValue');
+
+    numIntervalsSlider.addEventListener('input', function() {
+        numIntervalsValue.textContent = this.value;
+    });
+
+    calculateCIButton.addEventListener('click', function() {
+        const sampleMean = parseFloat(document.getElementById('sampleMean').value);
+        const sampleStd = parseFloat(document.getElementById('sampleStd').value);
+        const sampleSize = parseInt(document.getElementById('sampleSizeEst').value);
+        const confidenceLevel = parseInt(document.getElementById('confidenceLevel').value);
+
+        // Calculate confidence interval
+        const alpha = (100 - confidenceLevel) / 100;
+        const zValues = {90: 1.645, 95: 1.96, 99: 2.576};
+        const z = zValues[confidenceLevel];
+        const standardError = sampleStd / Math.sqrt(sampleSize);
+        const marginOfError = z * standardError;
+        const lowerBound = sampleMean - marginOfError;
+        const upperBound = sampleMean + marginOfError;
+
+        // Display results
+        document.getElementById('pointEstimate').textContent = sampleMean.toFixed(2);
+        document.getElementById('intervalEstimate').textContent = 
+            `[${lowerBound.toFixed(2)}, ${upperBound.toFixed(2)}]`;
+        
+        document.getElementById('interpretation').textContent = 
+            `We are ${confidenceLevel}% confident that the true population mean lies between ${lowerBound.toFixed(2)} and ${upperBound.toFixed(2)}.`;
+        
+        document.getElementById('ciResults').style.display = 'block';
+
+        // Generate visualization
+        fetch(`/generate_ci_visualization?mean=${sampleMean}&std=${sampleStd}&n=${sampleSize}&conf=${confidenceLevel}`)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('ciPlot').src = 'data:image/png;base64,' + data.plot;
+                document.getElementById('ciPlot').style.display = 'block';
+            })
+            .catch(error => console.error('Error:', error));
+    });
+
+    runSimButton.addEventListener('click', function() {
+        const trueMean = parseFloat(document.getElementById('trueMean').value);
+        const popStd = parseFloat(document.getElementById('popStd').value);
+        const numIntervals = parseInt(document.getElementById('numIntervals').value);
+        const confidenceLevel = parseInt(document.getElementById('confidenceLevel').value);
+
+        document.getElementById('simLoadingSpinner').classList.remove('d-none');
+        document.getElementById('simPlot').style.display = 'none';
+
+        fetch(`/run_ci_simulation?true_mean=${trueMean}&pop_std=${popStd}&num_intervals=${numIntervals}&conf_level=${confidenceLevel}`)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('successCount').textContent = data.success_count;
+                document.getElementById('failCount').textContent = data.fail_count;
+                document.getElementById('successRate').textContent = data.success_rate + '%';
+                
+                document.getElementById('simPlot').src = 'data:image/png;base64,' + data.plot;
+                document.getElementById('simPlot').style.display = 'block';
+                document.getElementById('simulationResults').style.display = 'block';
+                document.getElementById('simLoadingSpinner').classList.add('d-none');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('simLoadingSpinner').classList.add('d-none');
+            });
+    });
+
+    // Calculate initial CI
+    calculateCIButton.click();
+});
+</script>
+{% endblock %}
