@@ -1,0 +1,2048 @@
+{% extends "base.html" %}
+
+{% block title %}Hypothesis Testing - Probability Distributions{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card mb-4">
+            <div class="card-body">
+                <h1 class="display-5 mb-3">
+                    <i class="fas fa-balance-scale text-primary me-3"></i>
+                    Hypothesis Testing
+                </h1>
+                <p class="lead">Statistical method for testing claims about population parameters using sample data</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Introduction to Hypothesis Testing -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h3><i class="fas fa-lightbulb text-warning me-2"></i>Introduction to Hypothesis Testing</h3>
+                
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="text-center mb-4">
+                            <div class="bg-light p-4 rounded border">
+                                <div class="mb-3">
+                                    <i class="fas fa-question-circle fa-3x text-primary"></i>
+                                </div>
+                                <h5 class="text-primary">Question of Interest</h5>
+                                <p class="mb-0"><em>e.g. Has the new online Ad increased the conversion rates for an E-commerce website?</em></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="text-center mb-4">
+                            <div class="bg-info text-white p-4 rounded">
+                                <div class="mb-3">
+                                    <i class="fas fa-users fa-3x"></i>
+                                </div>
+                                <h5>Hypotheses about the population parameter(s)</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="card border-primary h-100">
+                            <div class="card-header bg-primary text-white text-center">
+                                <h5><i class="fas fa-times-circle me-2"></i>Null Hypothesis (H₀)</h5>
+                            </div>
+                            <div class="card-body">
+                                <p class="text-center"><strong>The status quo</strong></p>
+                                <p class="text-center"><em>e.g. The new Ad has not increased the conversion rate.</em></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card border-success h-100">
+                            <div class="card-header bg-success text-white text-center">
+                                <h5><i class="fas fa-check-circle me-2"></i>Alternative Hypothesis (Hₐ)</h5>
+                            </div>
+                            <div class="card-body">
+                                <p class="text-center"><strong>The research hypothesis</strong></p>
+                                <p class="text-center"><em>e.g. The new Ad has increased the conversion rate.</em></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Key Terms in Hypothesis Testing -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h3><i class="fas fa-key text-info me-2"></i>Key Terms in Hypothesis Testing</h3>
+                
+                <div class="row">
+                    <div class="col-lg-6 mb-3">
+                        <div class="card bg-primary text-white h-100">
+                            <div class="card-body">
+                                <h5><i class="fas fa-percentage me-2"></i>P-Value</h5>
+                                <ul class="list-unstyled">
+                                    <li>• Probability of observing equal or more extreme results than the computed test statistic, under the null hypothesis.</li>
+                                    <li>• The smaller the p-value, the stronger the evidence against the null hypothesis.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-6 mb-3">
+                        <div class="card bg-warning text-dark h-100">
+                            <div class="card-body">
+                                <h5><i class="fas fa-chart-line me-2"></i>Level of Significance</h5>
+                                <ul class="list-unstyled">
+                                    <li>• The significance level (denoted by α), is the probability of rejecting the null hypothesis when it is true.</li>
+                                    <li>• It is a measure of the strength of the evidence that must be present in the sample data to reject the null hypothesis.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-6 mb-3">
+                        <div class="card bg-info text-white h-100">
+                            <div class="card-body">
+                                <h5><i class="fas fa-divide me-2"></i>Acceptance or Rejection Region</h5>
+                                <ul class="list-unstyled">
+                                    <li>• The total area under the distribution curve of the test statistic is partitioned into acceptance and rejection region.</li>
+                                    <li>• Reject the null hypothesis when the test statistic lies in the rejection region, else we fail to reject it.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-6 mb-3">
+                        <div class="card bg-danger text-white h-100">
+                            <div class="card-body">
+                                <h5><i class="fas fa-exclamation-triangle me-2"></i>Types of Error</h5>
+                                <ul class="list-unstyled">
+                                    <li>• There are two types of errors - Type I and Type II.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Type I and Type II Errors -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h3><i class="fas fa-exclamation-triangle text-danger me-2"></i>Type I and Type II Errors</h3>
+                
+                <div class="row mb-4">
+                    <div class="col-lg-4">
+                        <div class="card border-info">
+                            <div class="card-body text-center">
+                                <h6 class="text-info">Level of significance = α</h6>
+                                <h6 class="text-success">Confidence Level = (1 - α)</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card bg-light">
+                            <div class="card-body text-center">
+                                <h6><strong>H₀ True</strong></h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card bg-light">
+                            <div class="card-body text-center">
+                                <h6><strong>H₀ False</strong></h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="card bg-secondary text-white">
+                            <div class="card-body text-center">
+                                <h6><strong>Reject H₀</strong></h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card bg-danger text-white">
+                            <div class="card-body text-center">
+                                <h6><strong>Type I Error</strong></h6>
+                                <p class="mb-0">(α)</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card bg-success text-white">
+                            <div class="card-body text-center">
+                                <h6><strong>Correct decision</strong></h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row mt-2">
+                    <div class="col-lg-4">
+                        <div class="card bg-secondary text-white">
+                            <div class="card-body text-center">
+                                <h6><strong>Fail to reject H₀</strong></h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card bg-success text-white">
+                            <div class="card-body text-center">
+                                <h6><strong>Correct decision</strong></h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card bg-info text-white">
+                            <div class="card-body text-center">
+                                <h6><strong>Type II Error</strong></h6>
+                                <p class="mb-0">(β)</p>
+                                <div class="mt-2">
+                                    <small>Power of the test = (1 - β)</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Hypothesis Testing Steps Flowchart -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h3><i class="fas fa-sitemap text-primary me-2"></i>Hypothesis Testing Process Flowchart</h3>
+                <p class="text-muted">Interactive step-by-step guide through the hypothesis testing process</p>
+                
+                <div class="row">
+                    <div class="col-lg-8">
+                        <!-- Interactive Flowchart -->
+                        <div id="hypothesisFlowchart" class="text-center">
+                            <div class="flowchart-container">
+                                <!-- Step 1 -->
+                                <div class="flowchart-step" id="step1" data-step="1">
+                                    <div class="step-box bg-primary text-white">
+                                        <h6>Step 1</h6>
+                                        <p class="mb-0">Formulate H₀ and Hₐ</p>
+                                    </div>
+                                </div>
+                                <div class="flowchart-arrow">↓</div>
+                                
+                                <!-- Step 2 -->
+                                <div class="flowchart-step" id="step2" data-step="2">
+                                    <div class="step-box bg-info text-white">
+                                        <h6>Step 2</h6>
+                                        <p class="mb-0">Select Appropriate Test</p>
+                                    </div>
+                                </div>
+                                <div class="flowchart-arrow">↓</div>
+                                
+                                <!-- Step 3 -->
+                                <div class="flowchart-step" id="step3" data-step="3">
+                                    <div class="step-box bg-warning text-dark">
+                                        <h6>Step 3</h6>
+                                        <p class="mb-0">Set Level of Significance, α</p>
+                                    </div>
+                                </div>
+                                <div class="flowchart-arrow">↓</div>
+                                
+                                <!-- Step 4 -->
+                                <div class="flowchart-step" id="step4" data-step="4">
+                                    <div class="step-box bg-success text-white" style="padding: 15px;">
+                                        <h6>Step 4</h6>
+                                        <p class="mb-0">Collect Data and Calculate Test Statistic</p>
+                                    </div>
+                                </div>
+                                
+                                <!-- Branching -->
+                                <div class="flowchart-branch mt-3">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="flowchart-arrow-branch">↙</div>
+                                            <div class="flowchart-step" id="step5a" data-step="5a">
+                                                <div class="step-box bg-secondary text-white">
+                                                    <h6>Method A</h6>
+                                                    <p class="mb-0">Determine p-value</p>
+                                                </div>
+                                            </div>
+                                            <div class="flowchart-arrow">↓</div>
+                                            <div class="flowchart-step" id="step6a" data-step="6a">
+                                                <div class="step-box bg-light">
+                                                    <p class="mb-0">Compare with α</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="flowchart-arrow-branch">↘</div>
+                                            <div class="flowchart-step" id="step5b" data-step="5b">
+                                                <div class="step-box bg-secondary text-white">
+                                                    <h6>Method B</h6>
+                                                    <p class="mb-0">Determine Critical Value</p>
+                                                </div>
+                                            </div>
+                                            <div class="flowchart-arrow">↓</div>
+                                            <div class="flowchart-step" id="step6b" data-step="6b">
+                                                <div class="step-box bg-light">
+                                                    <p class="mb-0">Compare with Test Statistic</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Final Decision -->
+                                <div class="flowchart-merge mt-3">
+                                    <div class="flowchart-arrow-merge">↘↙</div>
+                                    <div class="flowchart-step" id="step7" data-step="7">
+                                        <div class="step-box bg-danger text-white">
+                                            <h6>Final Step</h6>
+                                            <p class="mb-0">Reject or Do Not Reject H₀</p>
+                                        </div>
+                                    </div>
+                                    <div class="flowchart-arrow">↓</div>
+                                    <div class="flowchart-step" id="step8" data-step="8">
+                                        <div class="step-box bg-success text-white">
+                                            <p class="mb-0">Draw Conclusion</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-4">
+                        <!-- Step Details Panel -->
+                        <div class="card">
+                            <div class="card-body">
+                                <h5>Step Details</h5>
+                                <div id="stepDetails">
+                                    <div class="alert alert-info">
+                                        <i class="fas fa-info-circle me-2"></i>
+                                        Click on any step in the flowchart to see detailed information.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Interactive Guide -->
+                        <div class="card mt-3">
+                            <div class="card-body">
+                                <h6>Interactive Guide</h6>
+                                <div class="d-grid gap-2">
+                                    <button id="startGuide" class="btn btn-primary btn-sm">
+                                        <i class="fas fa-play me-2"></i>Start Guided Tour
+                                    </button>
+                                    <button id="resetFlowchart" class="btn btn-outline-secondary btn-sm">
+                                        <i class="fas fa-undo me-2"></i>Reset
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- One-tailed vs Two-tailed Tests Interactive Comparison -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h3><i class="fas fa-arrows-alt-h text-info me-2"></i>One-tailed vs Two-tailed Tests</h3>
+                <p class="text-muted">Interactive comparison of different test types with visual rejection regions</p>
+                
+                <div class="row">
+                    <div class="col-12">
+                        <!-- Test Type Selector -->
+                        <div class="text-center mb-4">
+                            <div class="btn-group" role="group" aria-label="Test Type">
+                                <input type="radio" class="btn-check" name="testTypeComparison" id="leftTailTest" value="left_tailed">
+                                <label class="btn btn-outline-danger" for="leftTailTest">
+                                    <i class="fas fa-arrow-left me-1"></i>Left-tailed Test
+                                </label>
+                                
+                                <input type="radio" class="btn-check" name="testTypeComparison" id="rightTailTest" value="right_tailed">
+                                <label class="btn btn-outline-success" for="rightTailTest">
+                                    <i class="fas fa-arrow-right me-1"></i>Right-tailed Test
+                                </label>
+                                
+                                <input type="radio" class="btn-check" name="testTypeComparison" id="twoTailTest" value="two_tailed" checked>
+                                <label class="btn btn-outline-primary" for="twoTailTest">
+                                    <i class="fas fa-arrows-alt-h me-1"></i>Two-tailed Test
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <!-- Interactive Visualization Area -->
+                        <div id="testTypeVisualization" class="bg-light p-4 rounded">
+                            <!-- This will be populated by JavaScript -->
+                        </div>
+                        
+                        <!-- Test Information Cards -->
+                        <div class="row mt-4">
+                            <div class="col-md-4">
+                                <div class="card border-danger h-100" id="leftTailInfo">
+                                    <div class="card-header bg-danger text-white text-center">
+                                        <h6><i class="fas fa-arrow-left me-2"></i>Left Tail Test</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <p><strong>Hₐ: μ < μ₀</strong></p>
+                                        <p class="small">Reject H₀ if the value of the test statistic is too small.</p>
+                                        <div class="bg-light p-2 rounded">
+                                            <small><strong>Example:</strong> Testing if a new process reduces production time</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-4">
+                                <div class="card border-success h-100" id="rightTailInfo">
+                                    <div class="card-header bg-success text-white text-center">
+                                        <h6><i class="fas fa-arrow-right me-2"></i>Right Tail Test</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <p><strong>Hₐ: μ > μ₀</strong></p>
+                                        <p class="small">Reject H₀ if the value of the test statistic is too large.</p>
+                                        <div class="bg-light p-2 rounded">
+                                            <small><strong>Example:</strong> Testing if a new drug increases recovery rate</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-4">
+                                <div class="card border-primary h-100" id="twoTailInfo">
+                                    <div class="card-header bg-primary text-white text-center">
+                                        <h6><i class="fas fa-arrows-alt-h me-2"></i>Two Tail Test</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <p><strong>Hₐ: μ ≠ μ₀</strong></p>
+                                        <p class="small">Reject H₀ if the value of the test statistic is either too small or too large.</p>
+                                        <div class="bg-light p-2 rounded">
+                                            <small><strong>Example:</strong> Testing if a machine produces parts different from specification</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Practical Example: Store Manager Checkout Time -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h3><i class="fas fa-shopping-cart text-success me-2"></i>Practical Example: Store Checkout Analysis</h3>
+                <p class="text-muted">Work through a complete hypothesis testing example step by step</p>
+                
+                <div class="row">
+                    <div class="col-lg-8">
+                        <!-- Problem Statement -->
+                        <div class="card mb-3">
+                            <div class="card-header bg-info text-white">
+                                <h5><i class="fas fa-clipboard-list me-2"></i>Problem Statement</h5>
+                            </div>
+                            <div class="card-body">
+                                <p class="mb-3"><strong>Scenario:</strong> The store manager believes that the average waiting time for customers at checkouts has become worse than 15 minutes.</p>
+                                
+                                <div class="alert alert-warning">
+                                    <h6><i class="fas fa-question-circle me-2"></i>Question:</h6>
+                                    <p class="mb-0">Formulate the hypotheses and determine if there's sufficient evidence to support the manager's belief.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Interactive Example Solution -->
+                        <div class="card">
+                            <div class="card-body">
+                                <h5>Interactive Solution</h5>
+                                
+                                <!-- Step Navigation -->
+                                <div class="mb-3">
+                                    <div class="btn-group w-100" role="group">
+                                        <button type="button" class="btn btn-outline-primary example-step-btn" data-step="1">
+                                            Step 1: Hypotheses
+                                        </button>
+                                        <button type="button" class="btn btn-outline-primary example-step-btn" data-step="2">
+                                            Step 2: Test Setup
+                                        </button>
+                                        <button type="button" class="btn btn-outline-primary example-step-btn" data-step="3">
+                                            Step 3: Sample Data
+                                        </button>
+                                        <button type="button" class="btn btn-outline-primary example-step-btn" data-step="4">
+                                            Step 4: Decision
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <!-- Step Content -->
+                                <div id="exampleStepContent">
+                                    <!-- Content will be populated by JavaScript -->
+                                </div>
+                                
+                                <!-- Navigation Controls -->
+                                <div class="d-flex justify-content-between mt-3">
+                                    <button id="prevExampleStep" class="btn btn-secondary" disabled>
+                                        <i class="fas fa-arrow-left me-2"></i>Previous
+                                    </button>
+                                    <div>
+                                        <span id="exampleStepIndicator" class="badge bg-info">Step 1 of 4</span>
+                                    </div>
+                                    <button id="nextExampleStep" class="btn btn-primary">
+                                        Next<i class="fas fa-arrow-right ms-2"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-4">
+                        <!-- Error Types in Context -->
+                        <div class="card mb-3">
+                            <div class="card-header bg-warning text-dark">
+                                <h6><i class="fas fa-exclamation-triangle me-2"></i>Error Types in This Context</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <h6 class="text-danger">Type I Error (α)</h6>
+                                    <p class="small">Concluding that waiting time is more than 15 minutes when it's actually ≤ 15 minutes.</p>
+                                    <div class="bg-danger text-white p-2 rounded text-center">
+                                        <small><strong>False Positive</strong></small>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <h6 class="text-info">Type II Error (β)</h6>
+                                    <p class="small">Concluding that waiting time is ≤ 15 minutes when it's actually more than 15 minutes.</p>
+                                    <div class="bg-info text-white p-2 rounded text-center">
+                                        <small><strong>False Negative</strong></small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Quick Calculator for Example -->
+                        <div class="card">
+                            <div class="card-body">
+                                <h6>Quick Test Calculator</h6>
+                                <div class="mb-2">
+                                    <label for="exampleSampleMean" class="form-label">Sample Mean (minutes):</label>
+                                    <input type="number" class="form-control form-control-sm" id="exampleSampleMean" value="16.2" step="0.1">
+                                </div>
+                                <div class="mb-2">
+                                    <label for="exampleSampleSize" class="form-label">Sample Size:</label>
+                                    <input type="number" class="form-control form-control-sm" id="exampleSampleSize" value="36" min="1">
+                                </div>
+                                <div class="mb-2">
+                                    <label for="exampleStdDev" class="form-label">Population Std Dev:</label>
+                                    <input type="number" class="form-control form-control-sm" id="exampleStdDev" value="3.5" step="0.1" min="0.1">
+                                </div>
+                                <div class="d-grid">
+                                    <button id="calculateExample" class="btn btn-success btn-sm">
+                                        <i class="fas fa-calculator me-1"></i>Calculate
+                                    </button>
+                                </div>
+                                <div id="exampleResults" class="mt-2" style="display: none;">
+                                    <div class="text-center">
+                                        <div class="badge bg-primary" id="exampleTestStat">Z = -</div>
+                                        <div class="badge bg-info" id="examplePValue">p = -</div>
+                                        <div class="badge bg-success" id="exampleDecision">Decision: -</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Interactive Hypothesis Testing Examples -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h3><i class="fas fa-calculator text-success me-2"></i>Interactive Hypothesis Testing Calculator</h3>
+                
+                <div class="row">
+                    <div class="col-lg-8">
+                        <!-- Test Parameters -->
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5><i class="fas fa-cog text-primary me-2"></i>Test Parameters</h5>
+                                
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="testType" class="form-label">Test Type:</label>
+                                        <select class="form-select" id="testType">
+                                            <option value="one_sample_mean">One Sample Mean (Z-test)</option>
+                                            <option value="one_sample_proportion">One Sample Proportion</option>
+                                            <option value="two_sample_mean">Two Sample Means</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="alternativeHyp" class="form-label">Alternative Hypothesis:</label>
+                                        <select class="form-select" id="alternativeHyp">
+                                            <option value="two_tailed">Two-tailed (≠)</option>
+                                            <option value="left_tailed">Left-tailed (<)</option>
+                                            <option value="right_tailed">Right-tailed (>)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="row mt-3">
+                                    <div class="col-md-4">
+                                        <label for="alpha" class="form-label">Significance Level (α):</label>
+                                        <select class="form-select" id="alpha">
+                                            <option value="0.01">0.01 (1%)</option>
+                                            <option value="0.05" selected>0.05 (5%)</option>
+                                            <option value="0.10">0.10 (10%)</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="sampleMean" class="form-label">Sample Mean (x̄):</label>
+                                        <input type="number" class="form-control" id="sampleMean" value="52" step="0.1">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="populationMean" class="form-label">Population Mean (μ₀):</label>
+                                        <input type="number" class="form-control" id="populationMean" value="50" step="0.1">
+                                    </div>
+                                </div>
+                                
+                                <div class="row mt-3">
+                                    <div class="col-md-4">
+                                        <label for="populationStd" class="form-label">Population Std (σ):</label>
+                                        <input type="number" class="form-control" id="populationStd" value="10" step="0.1" min="0.1">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="sampleSize" class="form-label">Sample Size (n):</label>
+                                        <input type="number" class="form-control" id="sampleSize" value="30" min="1">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="d-grid gap-2 mt-4">
+                                            <button id="calculateTest" class="btn btn-primary">
+                                                <i class="fas fa-calculator me-2"></i>Calculate Test
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Results -->
+                        <div id="testResults" class="card mb-3" style="display: none;">
+                            <div class="card-body">
+                                <h5><i class="fas fa-chart-bar text-success me-2"></i>Test Results</h5>
+                                
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="card border-primary">
+                                            <div class="card-body text-center">
+                                                <h6 class="text-primary">Test Statistic (Z)</h6>
+                                                <div class="h4" id="testStatistic">-</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="card border-info">
+                                            <div class="card-body text-center">
+                                                <h6 class="text-info">P-Value</h6>
+                                                <div class="h4" id="pValue">-</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row mt-3">
+                                    <div class="col-md-6">
+                                        <div class="card border-warning">
+                                            <div class="card-body text-center">
+                                                <h6 class="text-warning">Critical Value(s)</h6>
+                                                <div class="h5" id="criticalValue">-</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="card" id="decisionCard">
+                                            <div class="card-body text-center">
+                                                <h6>Decision</h6>
+                                                <div class="h5" id="decision">-</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="alert alert-info mt-3">
+                                    <h6><i class="fas fa-info-circle me-2"></i>Interpretation:</h6>
+                                    <p id="interpretation" class="mb-0">-</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Visualization -->
+                        <div class="card">
+                            <div class="card-body">
+                                <h5><i class="fas fa-chart-area text-warning me-2"></i>Test Visualization</h5>
+                                <div id="testVisualization" class="text-center">
+                                    <div id="plotContainer">
+                                        <!-- Interactive plot will be loaded here -->
+                                        <div class="bg-light p-5 rounded">
+                                            <i class="fas fa-chart-line fa-3x text-muted mb-3"></i>
+                                            <p class="text-muted">Click "Calculate Test" to see the interactive visualization</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Side Panel -->
+                    <div class="col-lg-4">
+                        <!-- Power Analysis -->
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5><i class="fas fa-bolt text-success me-2"></i>Power Analysis</h5>
+                                
+                                <div class="mb-3">
+                                    <label for="trueMean" class="form-label">True Population Mean:</label>
+                                    <input type="number" class="form-control" id="trueMean" value="53" step="0.1">
+                                </div>
+                                
+                                <div class="d-grid gap-2">
+                                    <button id="calculatePower" class="btn btn-success">
+                                        <i class="fas fa-bolt me-2"></i>Calculate Power
+                                    </button>
+                                </div>
+                                
+                                <div id="powerResults" class="mt-3" style="display: none;">
+                                    <div class="row text-center">
+                                        <div class="col-6">
+                                            <div class="card bg-warning text-dark">
+                                                <div class="card-body p-2">
+                                                    <h6>Power</h6>
+                                                    <div class="h5" id="powerValue">-</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="card bg-info text-white">
+                                                <div class="card-body p-2">
+                                                    <h6>β (Type II)</h6>
+                                                    <div class="h5" id="betaValue">-</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div id="powerPlotContainer" class="mt-3" style="display: none;">
+                                    <img id="powerPlot" src="" alt="Power Analysis Plot" class="img-fluid">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Error Types Summary -->
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5><i class="fas fa-exclamation-triangle text-danger me-2"></i>Error Types</h5>
+                                
+                                <div class="mb-3">
+                                    <h6 class="text-danger">Type I Error (α)</h6>
+                                    <p class="small">Rejecting H₀ when it's actually true (False Positive)</p>
+                                    <div class="bg-danger text-white p-2 rounded text-center">
+                                        <small><strong>α = P(Reject H₀ | H₀ is true)</strong></small>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <h6 class="text-info">Type II Error (β)</h6>
+                                    <p class="small">Failing to reject H₀ when it's actually false (False Negative)</p>
+                                    <div class="bg-info text-white p-2 rounded text-center">
+                                        <small><strong>β = P(Fail to reject H₀ | H₀ is false)</strong></small>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <h6 class="text-success">Power of Test</h6>
+                                    <p class="small">Probability of correctly rejecting a false H₀</p>
+                                    <div class="bg-success text-white p-2 rounded text-center">
+                                        <small><strong>Power = 1 - β</strong></small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Visualization Controls -->
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5><i class="fas fa-sliders-h text-primary me-2"></i>Visualization Controls</h5>
+                                
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" id="showPValue" checked>
+                                    <label class="form-check-label" for="showPValue">
+                                        Show P-Value Area
+                                    </label>
+                                </div>
+                                
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" id="showCriticalRegions" checked>
+                                    <label class="form-check-label" for="showCriticalRegions">
+                                        Show Critical Regions
+                                    </label>
+                                </div>
+                                
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" id="showOriginalScale" checked>
+                                    <label class="form-check-label" for="showOriginalScale">
+                                        Show Original Scale
+                                    </label>
+                                </div>
+                                
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="animateVisualization">
+                                    <label class="form-check-label" for="animateVisualization">
+                                        Animate Changes
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Common Significance Levels -->
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5><i class="fas fa-percentage text-warning me-2"></i>Common α Levels</h5>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item d-flex justify-content-between">
+                                        <span>α = 0.01</span>
+                                        <span class="badge bg-danger">Very Strict</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between">
+                                        <span>α = 0.05</span>
+                                        <span class="badge bg-warning text-dark">Common</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between">
+                                        <span>α = 0.10</span>
+                                        <span class="badge bg-info">Liberal</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <!-- Real-World Examples -->
+                        <div class="card">
+                            <div class="card-body">
+                                <h5><i class="fas fa-lightbulb text-success me-2"></i>Real-World Examples</h5>
+                                
+                                <div class="mb-2">
+                                    <button class="btn btn-outline-primary btn-sm w-100" onclick="setExample('drug')">
+                                        <i class="fas fa-pills me-1"></i>Drug Effectiveness
+                                    </button>
+                                </div>
+                                <div class="mb-2">
+                                    <button class="btn btn-outline-info btn-sm w-100" onclick="setExample('quality')">
+                                        <i class="fas fa-cogs me-1"></i>Quality Control
+                                    </button>
+                                </div>
+                                <div class="mb-2">
+                                    <button class="btn btn-outline-success btn-sm w-100" onclick="setExample('marketing')">
+                                        <i class="fas fa-chart-line me-1"></i>Marketing Campaign
+                                    </button>
+                                </div>
+                                <div class="mb-2">
+                                    <button class="btn btn-outline-warning btn-sm w-100" onclick="setExample('education')">
+                                        <i class="fas fa-graduation-cap me-1"></i>Educational Program
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Interactive P-Value Simulator -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h3><i class="fas fa-random text-primary me-2"></i>Interactive P-Value Simulator</h3>
+                <p class="text-muted">See how sample means from the null distribution relate to p-values</p>
+                
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div id="pValueSimulation" class="bg-light p-4 rounded">
+                            <div class="text-center">
+                                <h6>Sample from Null Distribution</h6>
+                                <div id="sampleMeanSlider" class="mb-3">
+                                    <label for="simSampleMean" class="form-label">Sample Mean:</label>
+                                    <input type="range" class="form-range" id="simSampleMean" min="45" max="55" step="0.1" value="50">
+                                    <div class="text-center">
+                                        <span id="simSampleMeanValue" class="badge bg-primary">50.0</span>
+                                    </div>
+                                </div>
+                                
+                                <div id="simulatedPValue" class="alert alert-info">
+                                    <strong>P-Value: <span id="pValueDisplay">-</span></strong>
+                                </div>
+                                
+                                <button id="generateRandomSample" class="btn btn-secondary">
+                                    <i class="fas fa-dice me-2"></i>Generate Random Sample
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h6>P-Value Interpretation</h6>
+                                <div id="pValueInterpretation">
+                                    <p class="small text-muted">Move the slider or click "Generate Random Sample" to see how different sample means lead to different p-values.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Hypothesis Testing Steps -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h3><i class="fas fa-list-ol text-primary me-2"></i>Steps in Hypothesis Testing</h3>
+                
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="card border-primary h-100">
+                            <div class="card-header bg-primary text-white">
+                                <h6><i class="fas fa-step-forward me-2"></i>Step 1: State Hypotheses</h6>
+                            </div>
+                            <div class="card-body">
+                                <p><strong>Null Hypothesis (H₀):</strong> Statement of no effect or no difference</p>
+                                <p><strong>Alternative Hypothesis (Hₐ):</strong> Statement we want to prove</p>
+                                <div class="bg-light p-2 rounded">
+                                    <small><strong>Example:</strong> H₀: μ = 50, Hₐ: μ ≠ 50</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-6">
+                        <div class="card border-warning h-100">
+                            <div class="card-header bg-warning text-dark">
+                                <h6><i class="fas fa-step-forward me-2"></i>Step 2: Choose Significance Level</h6>
+                            </div>
+                            <div class="card-body">
+                                <p>Set the probability of Type I error (α)</p>
+                                <p>Common values: 0.01, 0.05, 0.10</p>
+                                <div class="bg-light p-2 rounded">
+                                    <small><strong>Example:</strong> α = 0.05 (5% chance of Type I error)</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row mt-3">
+                    <div class="col-lg-6">
+                        <div class="card border-info h-100">
+                            <div class="card-header bg-info text-white">
+                                <h6><i class="fas fa-step-forward me-2"></i>Step 3: Calculate Test Statistic</h6>
+                            </div>
+                            <div class="card-body">
+                                <p>Calculate the standardized test statistic</p>
+                                <div class="bg-light p-2 rounded text-center">
+                                    <strong>Z = (x̄ - μ₀) / (σ/√n)</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-6">
+                        <div class="card border-success h-100">
+                            <div class="card-header bg-success text-white">
+                                <h6><i class="fas fa-step-forward me-2"></i>Step 4: Make Decision</h6>
+                            </div>
+                            <div class="card-body">
+                                <p><strong>P-value approach:</strong> Reject H₀ if p-value < α</p>
+                                <p><strong>Critical value approach:</strong> Reject H₀ if test statistic is in rejection region</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const calculateTestBtn = document.getElementById('calculateTest');
+    
+    // Calculate hypothesis test
+    calculateTestBtn.addEventListener('click', function() {
+        const testType = document.getElementById('testType').value;
+        const altHyp = document.getElementById('alternativeHyp').value;
+        const alpha = parseFloat(document.getElementById('alpha').value);
+        const sampleMean = parseFloat(document.getElementById('sampleMean').value);
+        const populationMean = parseFloat(document.getElementById('populationMean').value);
+        const populationStd = parseFloat(document.getElementById('populationStd').value);
+        const sampleSize = parseInt(document.getElementById('sampleSize').value);
+        
+        // Calculate test statistic (Z-score)
+        const standardError = populationStd / Math.sqrt(sampleSize);
+        const testStatistic = (sampleMean - populationMean) / standardError;
+        
+        // Calculate p-value based on alternative hypothesis
+        let pValue;
+        if (altHyp === 'two_tailed') {
+            pValue = 2 * (1 - normalCDF(Math.abs(testStatistic)));
+        } else if (altHyp === 'right_tailed') {
+            pValue = 1 - normalCDF(testStatistic);
+        } else { // left_tailed
+            pValue = normalCDF(testStatistic);
+        }
+        
+        // Calculate critical values
+        let criticalValue;
+        if (altHyp === 'two_tailed') {
+            const zCritical = normalInv(1 - alpha/2);
+            criticalValue = `±${zCritical.toFixed(3)}`;
+        } else if (altHyp === 'right_tailed') {
+            criticalValue = normalInv(1 - alpha).toFixed(3);
+        } else { // left_tailed
+            criticalValue = normalInv(alpha).toFixed(3);
+        }
+        
+        // Make decision
+        const reject = pValue < alpha;
+        const decision = reject ? 'Reject H₀' : 'Fail to reject H₀';
+        const decisionColor = reject ? 'border-danger' : 'border-success';
+        
+        // Update results
+        document.getElementById('testStatistic').textContent = testStatistic.toFixed(4);
+        document.getElementById('pValue').textContent = pValue.toFixed(6);
+        document.getElementById('criticalValue').textContent = criticalValue;
+        document.getElementById('decision').textContent = decision;
+        
+        // Update decision card color
+        const decisionCard = document.getElementById('decisionCard');
+        decisionCard.className = `card ${decisionColor}`;
+        
+        // Create interpretation
+        let interpretation;
+        if (reject) {
+            interpretation = `At α = ${alpha}, we reject the null hypothesis. There is sufficient evidence to support the alternative hypothesis. The p-value (${pValue.toFixed(6)}) is less than the significance level.`;
+        } else {
+            interpretation = `At α = ${alpha}, we fail to reject the null hypothesis. There is insufficient evidence to support the alternative hypothesis. The p-value (${pValue.toFixed(6)}) is greater than the significance level.`;
+        }
+        
+        document.getElementById('interpretation').textContent = interpretation;
+        
+        // Show results
+        document.getElementById('testResults').style.display = 'block';
+        
+        // Create visualization (simplified text-based for now)
+        createTestVisualization(testStatistic, criticalValue, altHyp, alpha, reject);
+    });
+    
+    // Normal CDF approximation
+    function normalCDF(x) {
+        return 0.5 * (1 + erf(x / Math.sqrt(2)));
+    }
+    
+    // Normal inverse approximation
+    function normalInv(p) {
+        // Approximate inverse normal using Beasley-Springer-Moro algorithm
+        if (p <= 0 || p >= 1) return NaN;
+        
+        const a0 = 2.515517, a1 = 0.802853, a2 = 0.010328;
+        const b1 = 1.432788, b2 = 0.189269, b3 = 0.001308;
+        
+        let x;
+        if (p > 0.5) {
+            const t = Math.sqrt(-2 * Math.log(1 - p));
+            x = t - (a0 + a1*t + a2*t*t) / (1 + b1*t + b2*t*t + b3*t*t*t);
+        } else {
+            const t = Math.sqrt(-2 * Math.log(p));
+            x = -(t - (a0 + a1*t + a2*t*t) / (1 + b1*t + b2*t*t + b3*t*t*t));
+        }
+        
+        return x;
+    }
+    
+    // Error function approximation
+    function erf(x) {
+        const a1 =  0.254829592;
+        const a2 = -0.284496736;
+        const a3 =  1.421413741;
+        const a4 = -1.453152027;
+        const a5 =  1.061405429;
+        const p  =  0.3275911;
+        
+        const sign = x >= 0 ? 1 : -1;
+        x = Math.abs(x);
+        
+        const t = 1.0 / (1.0 + p * x);
+        const y = 1.0 - (((((a5 * t + a4) * t) + a3) * t + a2) * t + a1) * t * Math.exp(-x * x);
+        
+        return sign * y;
+    }
+    
+    // Create test visualization
+    function createTestVisualization(testStat, criticalVal, altHyp, alpha, reject) {
+        const container = document.getElementById('plotContainer');
+        const sampleMean = parseFloat(document.getElementById('sampleMean').value);
+        const populationMean = parseFloat(document.getElementById('populationMean').value);
+        const populationStd = parseFloat(document.getElementById('populationStd').value);
+        const sampleSize = parseInt(document.getElementById('sampleSize').value);
+        const standardError = populationStd / Math.sqrt(sampleSize);
+        
+        // Generate interactive visualization using Flask backend
+        const params = new URLSearchParams({
+            test_statistic: testStat,
+            alpha: alpha,
+            alternative: altHyp,
+            population_mean: populationMean,
+            sample_mean: sampleMean,
+            std_error: standardError
+        });
+        
+        container.innerHTML = `
+            <div class="text-center">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading visualization...</span>
+                </div>
+                <p class="mt-2">Generating interactive plot...</p>
+            </div>
+        `;
+        
+        fetch(`/generate_hypothesis_test_plot?${params}`)
+            .then(response => response.json())
+            .then(data => {
+                container.innerHTML = `
+                    <img src="data:image/png;base64,${data.plot}" class="img-fluid" alt="Hypothesis Test Visualization">
+                    <div class="mt-3">
+                        <div class="row text-center">
+                            <div class="col-md-4">
+                                <div class="card ${reject ? 'border-danger' : 'border-success'}">
+                                    <div class="card-body p-2">
+                                        <h6>Test Statistic (Z)</h6>
+                                        <div class="h5">${testStat.toFixed(3)}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card border-warning">
+                                    <div class="card-body p-2">
+                                        <h6>Critical Value(s)</h6>
+                                        <div class="h5">${criticalVal}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card border-info">
+                                    <div class="card-body p-2">
+                                        <h6>Significance Level</h6>
+                                        <div class="h5">α = ${alpha}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-2">
+                            <div class="alert ${reject ? 'alert-danger' : 'alert-success'} mb-0">
+                                <strong>${reject ? 'Test statistic falls in rejection region - Reject H₀' : 'Test statistic falls in acceptance region - Fail to reject H₀'}</strong>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            })
+            .catch(error => {
+                console.error('Error generating plot:', error);
+                container.innerHTML = `
+                    <div class="alert alert-warning">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        Could not generate visualization. Please try again.
+                    </div>
+                `;
+            });
+    }
+    
+    // Power Analysis functionality
+    const calculatePowerBtn = document.getElementById('calculatePower');
+    calculatePowerBtn.addEventListener('click', function() {
+        const nullMean = parseFloat(document.getElementById('populationMean').value);
+        const trueMean = parseFloat(document.getElementById('trueMean').value);
+        const populationStd = parseFloat(document.getElementById('populationStd').value);
+        const sampleSize = parseInt(document.getElementById('sampleSize').value);
+        const alpha = parseFloat(document.getElementById('alpha').value);
+        const altHyp = document.getElementById('alternativeHyp').value;
+        
+        const standardError = populationStd / Math.sqrt(sampleSize);
+        
+        const params = new URLSearchParams({
+            null_mean: nullMean,
+            true_mean: trueMean,
+            std_error: standardError,
+            alpha: alpha,
+            alternative: altHyp
+        });
+        
+        // Show loading state
+        document.getElementById('powerResults').style.display = 'block';
+        document.getElementById('powerValue').textContent = '...';
+        document.getElementById('betaValue').textContent = '...';
+        
+        fetch(`/generate_power_analysis_plot?${params}`)
+            .then(response => response.json())
+            .then(data => {
+                // Update power analysis results
+                document.getElementById('powerValue').textContent = data.power.toFixed(3);
+                document.getElementById('betaValue').textContent = data.beta.toFixed(3);
+                
+                // Show power analysis plot
+                document.getElementById('powerPlot').src = `data:image/png;base64,${data.plot}`;
+                document.getElementById('powerPlotContainer').style.display = 'block';
+            })
+            .catch(error => {
+                console.error('Error generating power analysis:', error);
+                document.getElementById('powerValue').textContent = 'Error';
+                document.getElementById('betaValue').textContent = 'Error';
+            });
+    });
+    
+    // P-Value Simulator functionality
+    const simSampleMeanSlider = document.getElementById('simSampleMean');
+    const simSampleMeanValue = document.getElementById('simSampleMeanValue');
+    const pValueDisplay = document.getElementById('pValueDisplay');
+    const pValueInterpretation = document.getElementById('pValueInterpretation');
+    const generateRandomSampleBtn = document.getElementById('generateRandomSample');
+    
+    function updatePValueSimulation() {
+        const sampleMean = parseFloat(simSampleMeanSlider.value);
+        const populationMean = parseFloat(document.getElementById('populationMean').value);
+        const populationStd = parseFloat(document.getElementById('populationStd').value);
+        const sampleSize = parseInt(document.getElementById('sampleSize').value);
+        const altHyp = document.getElementById('alternativeHyp').value;
+        
+        simSampleMeanValue.textContent = sampleMean.toFixed(1);
+        
+        // Calculate test statistic and p-value
+        const standardError = populationStd / Math.sqrt(sampleSize);
+        const testStatistic = (sampleMean - populationMean) / standardError;
+        
+        let pValue;
+        if (altHyp === 'two_tailed') {
+            pValue = 2 * (1 - normalCDF(Math.abs(testStatistic)));
+        } else if (altHyp === 'right_tailed') {
+            pValue = 1 - normalCDF(testStatistic);
+        } else { // left_tailed
+            pValue = normalCDF(testStatistic);
+        }
+        
+        pValueDisplay.textContent = pValue.toFixed(4);
+        
+        // Update interpretation
+        const alpha = parseFloat(document.getElementById('alpha').value);
+        let interpretation = '';
+        let alertClass = '';
+        
+        if (pValue < 0.001) {
+            interpretation = 'Very strong evidence against H₀. This is extremely unlikely under the null hypothesis.';
+            alertClass = 'alert-danger';
+        } else if (pValue < 0.01) {
+            interpretation = 'Strong evidence against H₀. This would typically lead to rejecting H₀.';
+            alertClass = 'alert-warning';
+        } else if (pValue < 0.05) {
+            interpretation = 'Moderate evidence against H₀. Significant at the 5% level.';
+            alertClass = 'alert-info';
+        } else if (pValue < 0.10) {
+            interpretation = 'Weak evidence against H₀. Marginally significant.';
+            alertClass = 'alert-secondary';
+        } else {
+            interpretation = 'Little to no evidence against H₀. This sample mean is quite plausible under the null hypothesis.';
+            alertClass = 'alert-success';
+        }
+        
+        if (pValue < alpha) {
+            interpretation += ` At α = ${alpha}, we would reject H₀.`;
+        } else {
+            interpretation += ` At α = ${alpha}, we would fail to reject H₀.`;
+        }
+        
+        pValueInterpretation.innerHTML = `
+            <div class="alert ${alertClass} mb-0">
+                <small>${interpretation}</small>
+            </div>
+        `;
+    }
+    
+    simSampleMeanSlider.addEventListener('input', updatePValueSimulation);
+    
+    generateRandomSampleBtn.addEventListener('click', function() {
+        const populationMean = parseFloat(document.getElementById('populationMean').value);
+        const populationStd = parseFloat(document.getElementById('populationStd').value);
+        const sampleSize = parseInt(document.getElementById('sampleSize').value);
+        
+        // Generate random sample mean assuming null hypothesis is true
+        const standardError = populationStd / Math.sqrt(sampleSize);
+        const randomSampleMean = populationMean + (Math.random() - 0.5) * 4 * standardError;
+        
+        // Clamp to slider range
+        const clampedMean = Math.max(45, Math.min(55, randomSampleMean));
+        
+        simSampleMeanSlider.value = clampedMean;
+        updatePValueSimulation();
+        
+        // Add visual feedback
+        this.classList.add('btn-success');
+        this.innerHTML = '<i class="fas fa-check me-2"></i>Sample Generated!';
+        setTimeout(() => {
+            this.classList.remove('btn-success');
+            this.innerHTML = '<i class="fas fa-dice me-2"></i>Generate Random Sample';
+        }, 1500);
+    });
+    
+    // Real-time updates when parameters change
+    ['alpha', 'populationMean', 'populationStd', 'sampleSize', 'alternativeHyp'].forEach(id => {
+        const element = document.getElementById(id);
+        if (element) {
+            element.addEventListener('change', updatePValueSimulation);
+        }
+    });
+    
+    // Visualization controls
+    const visualizationControls = ['showPValue', 'showCriticalRegions', 'showOriginalScale', 'animateVisualization'];
+    visualizationControls.forEach(id => {
+        const element = document.getElementById(id);
+        if (element) {
+            element.addEventListener('change', function() {
+                // If test results are visible, regenerate visualization
+                if (document.getElementById('testResults').style.display !== 'none') {
+                    document.getElementById('calculateTest').click();
+                }
+            });
+        }
+    });
+    
+    // Initialize p-value simulation
+    updatePValueSimulation();
+    
+    // Flowchart Interactions
+    const stepDetails = {
+        '1': {
+            title: 'Step 1: Formulate Hypotheses',
+            content: `
+                <h6>Null Hypothesis (H₀)</h6>
+                <p>The statement being tested, usually representing no effect or no difference.</p>
+                <h6>Alternative Hypothesis (Hₐ)</h6>
+                <p>The research hypothesis we want to prove, representing the effect we're looking for.</p>
+                <div class="alert alert-info">
+                    <strong>Example:</strong><br>
+                    H₀: μ = 15 (average waiting time equals 15 minutes)<br>
+                    Hₐ: μ > 15 (average waiting time is greater than 15 minutes)
+                </div>
+            `
+        },
+        '2': {
+            title: 'Step 2: Select Appropriate Test',
+            content: `
+                <p>Choose the right statistical test based on:</p>
+                <ul>
+                    <li>Type of data (continuous, categorical)</li>
+                    <li>Sample size</li>
+                    <li>Number of groups being compared</li>
+                    <li>Distribution assumptions</li>
+                </ul>
+                <div class="alert alert-warning">
+                    <strong>Common Tests:</strong><br>
+                    • Z-test (large samples, known σ)<br>
+                    • t-test (small samples, unknown σ)<br>
+                    • Chi-square test (categorical data)
+                </div>
+            `
+        },
+        '3': {
+            title: 'Step 3: Set Significance Level (α)',
+            content: `
+                <p>The significance level determines the probability of making a Type I error.</p>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card border-danger">
+                            <div class="card-body text-center">
+                                <h6>α = 0.01</h6>
+                                <small>Very strict</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card border-warning">
+                            <div class="card-body text-center">
+                                <h6>α = 0.05</h6>
+                                <small>Most common</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card border-info">
+                            <div class="card-body text-center">
+                                <h6>α = 0.10</h6>
+                                <small>More liberal</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `
+        },
+        '4': {
+            title: 'Step 4: Collect Data & Calculate Test Statistic',
+            content: `
+                <p>Calculate the test statistic using your sample data:</p>
+                <div class="text-center bg-light p-3 rounded">
+                    <strong>Z = (x̄ - μ₀) / (σ/√n)</strong>
+                </div>
+                <p class="mt-2">Where:</p>
+                <ul>
+                    <li>x̄ = sample mean</li>
+                    <li>μ₀ = hypothesized population mean</li>
+                    <li>σ = population standard deviation</li>
+                    <li>n = sample size</li>
+                </ul>
+            `
+        },
+        '5a': {
+            title: 'Method A: P-Value Approach',
+            content: `
+                <p>Calculate the p-value and compare with α:</p>
+                <div class="alert alert-success">
+                    <strong>Decision Rule:</strong><br>
+                    If p-value < α → Reject H₀<br>
+                    If p-value ≥ α → Fail to reject H₀
+                </div>
+                <p>The p-value represents the probability of obtaining results as extreme or more extreme than observed, assuming H₀ is true.</p>
+            `
+        },
+        '5b': {
+            title: 'Method B: Critical Value Approach',
+            content: `
+                <p>Determine critical value(s) and compare with test statistic:</p>
+                <div class="alert alert-info">
+                    <strong>Decision Rule:</strong><br>
+                    If test statistic falls in rejection region → Reject H₀<br>
+                    If test statistic falls in acceptance region → Fail to reject H₀
+                </div>
+                <p>Critical values define the boundaries of the rejection region.</p>
+            `
+        },
+        '7': {
+            title: 'Final Decision',
+            content: `
+                <p>Based on your analysis using either method:</p>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card border-danger">
+                            <div class="card-body text-center">
+                                <h6>Reject H₀</h6>
+                                <small>Evidence supports alternative hypothesis</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card border-success">
+                            <div class="card-body text-center">
+                                <h6>Fail to Reject H₀</h6>
+                                <small>Insufficient evidence for alternative</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `
+        },
+        '8': {
+            title: 'Draw Conclusion',
+            content: `
+                <p>State your conclusion in the context of the original problem:</p>
+                <div class="alert alert-warning">
+                    <strong>Important:</strong> We never "accept" H₀, we only "fail to reject" it. This is because we can never prove the null hypothesis is true with sample data.
+                </div>
+                <p><strong>Example conclusion:</strong> "Based on the sample data, there is sufficient evidence at the 0.05 significance level to conclude that the average waiting time is greater than 15 minutes."</p>
+            `
+        }
+    };
+    
+    // Flowchart step clicks
+    document.querySelectorAll('.flowchart-step').forEach(step => {
+        step.addEventListener('click', function() {
+            const stepId = this.getAttribute('data-step');
+            
+            // Remove active class from all steps
+            document.querySelectorAll('.flowchart-step').forEach(s => s.classList.remove('active'));
+            
+            // Add active class to clicked step
+            this.classList.add('active');
+            
+            // Update step details
+            if (stepDetails[stepId]) {
+                const detailsContainer = document.getElementById('stepDetails');
+                detailsContainer.innerHTML = `
+                    <div class="fade-in">
+                        <h6 class="text-primary">${stepDetails[stepId].title}</h6>
+                        ${stepDetails[stepId].content}
+                    </div>
+                `;
+            }
+        });
+    });
+    
+    // Guided tour functionality
+    let currentTourStep = 0;
+    const tourSteps = ['1', '2', '3', '4', '5a', '6a', '7', '8'];
+    
+    document.getElementById('startGuide').addEventListener('click', function() {
+        currentTourStep = 0;
+        startGuidedTour();
+    });
+    
+    function startGuidedTour() {
+        if (currentTourStep < tourSteps.length) {
+            const stepId = tourSteps[currentTourStep];
+            const stepElement = document.getElementById(`step${stepId}`);
+            
+            // Reset all steps
+            document.querySelectorAll('.flowchart-step').forEach(s => s.classList.remove('active'));
+            
+            // Highlight current step
+            stepElement.classList.add('active');
+            stepElement.click();
+            
+            // Scroll to step
+            stepElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
+            currentTourStep++;
+            
+            // Continue tour after delay
+            setTimeout(() => {
+                if (currentTourStep < tourSteps.length) {
+                    startGuidedTour();
+                }
+            }, 3000);
+        }
+    }
+    
+    document.getElementById('resetFlowchart').addEventListener('click', function() {
+        document.querySelectorAll('.flowchart-step').forEach(s => s.classList.remove('active'));
+        document.getElementById('stepDetails').innerHTML = `
+            <div class="alert alert-info">
+                <i class="fas fa-info-circle me-2"></i>
+                Click on any step in the flowchart to see detailed information.
+            </div>
+        `;
+        currentTourStep = 0;
+    });
+    
+    // Test Type Visualization
+    function updateTestTypeVisualization(testType) {
+        const container = document.getElementById('testTypeVisualization');
+        
+        // Create SVG visualization
+        const svg = `
+            <svg width="100%" height="300" viewBox="0 0 800 300" style="background: white; border-radius: 8px;">
+                <!-- Normal curve -->
+                <path d="M 50 250 Q 400 50 750 250" stroke="#007bff" stroke-width="3" fill="none"/>
+                
+                <!-- Center line -->
+                <line x1="400" y1="50" x2="400" y2="280" stroke="#6c757d" stroke-width="1" stroke-dasharray="5,5"/>
+                <text x="400" y="295" text-anchor="middle" font-size="12" fill="#6c757d">μ₀</text>
+                
+                ${testType === 'left_tailed' ? `
+                    <!-- Left rejection region -->
+                    <path d="M 50 250 Q 200 80 280 250 L 280 280 L 50 280 Z" fill="rgba(220, 53, 69, 0.3)" stroke="#dc3545" stroke-width="2"/>
+                    <line x1="280" y1="50" x2="280" y2="280" stroke="#dc3545" stroke-width="3"/>
+                    <text x="280" y="295" text-anchor="middle" font-size="12" fill="#dc3545">-Zα</text>
+                    <text x="165" y="200" text-anchor="middle" font-size="14" fill="#dc3545" font-weight="bold">Reject H₀</text>
+                    <text x="540" y="200" text-anchor="middle" font-size="14" fill="#28a745" font-weight="bold">Do not reject</text>
+                ` : ''}
+                
+                ${testType === 'right_tailed' ? `
+                    <!-- Right rejection region -->
+                    <path d="M 520 250 Q 600 80 750 250 L 750 280 L 520 280 Z" fill="rgba(220, 53, 69, 0.3)" stroke="#dc3545" stroke-width="2"/>
+                    <line x1="520" y1="50" x2="520" y2="280" stroke="#dc3545" stroke-width="3"/>
+                    <text x="520" y="295" text-anchor="middle" font-size="12" fill="#dc3545">Zα</text>
+                    <text x="635" y="200" text-anchor="middle" font-size="14" fill="#dc3545" font-weight="bold">Reject H₀</text>
+                    <text x="260" y="200" text-anchor="middle" font-size="14" fill="#28a745" font-weight="bold">Do not reject</text>
+                ` : ''}
+                
+                ${testType === 'two_tailed' ? `
+                    <!-- Both rejection regions -->
+                    <path d="M 50 250 Q 200 100 280 250 L 280 280 L 50 280 Z" fill="rgba(220, 53, 69, 0.3)" stroke="#dc3545" stroke-width="2"/>
+                    <path d="M 520 250 Q 600 100 750 250 L 750 280 L 520 280 Z" fill="rgba(220, 53, 69, 0.3)" stroke="#dc3545" stroke-width="2"/>
+                    <line x1="280" y1="50" x2="280" y2="280" stroke="#dc3545" stroke-width="3"/>
+                    <line x1="520" y1="50" x2="520" y2="280" stroke="#dc3545" stroke-width="3"/>
+                    <text x="280" y="295" text-anchor="middle" font-size="12" fill="#dc3545">-Zα/2</text>
+                    <text x="520" y="295" text-anchor="middle" font-size="12" fill="#dc3545">Zα/2</text>
+                    <text x="165" y="200" text-anchor="middle" font-size="12" fill="#dc3545" font-weight="bold">Reject H₀</text>
+                    <text x="635" y="200" text-anchor="middle" font-size="12" fill="#dc3545" font-weight="bold">Reject H₀</text>
+                    <text x="400" y="180" text-anchor="middle" font-size="14" fill="#28a745" font-weight="bold">Do not reject</text>
+                ` : ''}
+            </svg>
+        `;
+        
+        container.innerHTML = svg;
+        
+        // Highlight corresponding info card
+        document.querySelectorAll('#leftTailInfo, #rightTailInfo, #twoTailInfo').forEach(card => {
+            card.classList.remove('highlight');
+        });
+        
+        if (testType === 'left_tailed') {
+            document.getElementById('leftTailInfo').classList.add('highlight');
+        } else if (testType === 'right_tailed') {
+            document.getElementById('rightTailInfo').classList.add('highlight');
+        } else {
+            document.getElementById('twoTailInfo').classList.add('highlight');
+        }
+    }
+    
+    // Test type radio button handlers
+    document.querySelectorAll('input[name="testTypeComparison"]').forEach(radio => {
+        radio.addEventListener('change', function() {
+            updateTestTypeVisualization(this.value);
+        });
+    });
+    
+    // Initialize with two-tailed test
+    updateTestTypeVisualization('two_tailed');
+    
+    // Practical Example: Store Checkout Analysis
+    const exampleSteps = {
+        1: {
+            title: 'Step 1: Formulate Hypotheses',
+            content: `
+                <div class="step-content">
+                    <h5>Setting up the Hypotheses</h5>
+                    <p>The manager believes waiting time has become <strong>worse than 15 minutes</strong>.</p>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="hypothesis-box null-hypothesis">
+                                <h6><i class="fas fa-times-circle text-danger me-2"></i>Null Hypothesis (H₀)</h6>
+                                <p class="mb-2"><strong>H₀: μ ≤ 15</strong></p>
+                                <p class="small">The average waiting time is less than or equal to 15 minutes (status quo)</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="hypothesis-box alternative-hypothesis">
+                                <h6><i class="fas fa-check-circle text-success me-2"></i>Alternative Hypothesis (Hₐ)</h6>
+                                <p class="mb-2"><strong>Hₐ: μ > 15</strong></p>
+                                <p class="small">The average waiting time is greater than 15 minutes (manager's belief)</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="alert alert-info mt-3">
+                        <h6><i class="fas fa-lightbulb me-2"></i>Why Right-tailed?</h6>
+                        <p class="mb-0">Since we're testing if waiting time has become "worse than" (greater than) 15 minutes, this is a right-tailed test.</p>
+                    </div>
+                </div>
+            `
+        },
+        2: {
+            title: 'Step 2: Test Setup',
+            content: `
+                <div class="step-content">
+                    <h5>Test Configuration</h5>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card border-primary">
+                                <div class="card-body">
+                                    <h6><i class="fas fa-cog text-primary me-2"></i>Test Type</h6>
+                                    <p><strong>One-sample Z-test</strong></p>
+                                    <p class="small">Testing one sample mean against a known value</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card border-warning">
+                                <div class="card-body">
+                                    <h6><i class="fas fa-percentage text-warning me-2"></i>Significance Level</h6>
+                                    <p><strong>α = 0.05</strong></p>
+                                    <p class="small">5% chance of Type I error</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-3">
+                        <h6>Test Statistic Formula:</h6>
+                        <div class="text-center bg-light p-3 rounded">
+                            <strong>Z = (x̄ - μ₀) / (σ/√n)</strong>
+                        </div>
+                        <p class="mt-2">Where μ₀ = 15 (hypothesized mean)</p>
+                    </div>
+                </div>
+            `
+        },
+        3: {
+            title: 'Step 3: Sample Data Analysis',
+            content: `
+                <div class="step-content">
+                    <h5>Sample Data</h5>
+                    
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="card bg-primary text-white">
+                                <div class="card-body text-center">
+                                    <h6>Sample Mean</h6>
+                                    <div class="h4">16.2 min</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card bg-info text-white">
+                                <div class="card-body text-center">
+                                    <h6>Sample Size</h6>
+                                    <div class="h4">36</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card bg-warning text-dark">
+                                <div class="card-body text-center">
+                                    <h6>Pop. Std Dev</h6>
+                                    <div class="h4">3.5 min</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card bg-success text-white">
+                                <div class="card-body text-center">
+                                    <h6>Std Error</h6>
+                                    <div class="h4">0.583</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <h6>Calculate Test Statistic:</h6>
+                        <div class="bg-light p-3 rounded">
+                            <p><strong>Z = (16.2 - 15) / (3.5/√36)</strong></p>
+                            <p><strong>Z = 1.2 / 0.583</strong></p>
+                            <p><strong>Z = 2.06</strong></p>
+                        </div>
+                    </div>
+                </div>
+            `
+        },
+        4: {
+            title: 'Step 4: Decision and Conclusion',
+            content: `
+                <div class="step-content">
+                    <h5>Making the Decision</h5>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card border-primary">
+                                <div class="card-body">
+                                    <h6>P-Value Approach</h6>
+                                    <p><strong>p-value = 0.0197</strong></p>
+                                    <p class="small">Since p-value (0.0197) < α (0.05)</p>
+                                    <div class="alert alert-danger mb-0">
+                                        <strong>Reject H₀</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card border-warning">
+                                <div class="card-body">
+                                    <h6>Critical Value Approach</h6>
+                                    <p><strong>Critical value = 1.645</strong></p>
+                                    <p class="small">Since Z (2.06) > 1.645</p>
+                                    <div class="alert alert-danger mb-0">
+                                        <strong>Reject H₀</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <div class="alert alert-success">
+                            <h6><i class="fas fa-check-circle me-2"></i>Conclusion</h6>
+                            <p class="mb-0">At the 0.05 significance level, there is sufficient evidence to support the manager's belief that the average waiting time for customers at checkouts has become worse than 15 minutes.</p>
+                        </div>
+                    </div>
+                </div>
+            `
+        }
+    };
+    
+    let currentExampleStep = 1;
+    
+    function updateExampleStep(step) {
+        currentExampleStep = step;
+        
+        // Update step buttons
+        document.querySelectorAll('.example-step-btn').forEach((btn, index) => {
+            btn.classList.toggle('active', index + 1 === step);
+        });
+        
+        // Update content
+        document.getElementById('exampleStepContent').innerHTML = exampleSteps[step].content;
+        
+        // Update indicator
+        document.getElementById('exampleStepIndicator').textContent = `Step ${step} of 4`;
+        
+        // Update navigation buttons
+        document.getElementById('prevExampleStep').disabled = step === 1;
+        document.getElementById('nextExampleStep').disabled = step === 4;
+        document.getElementById('nextExampleStep').textContent = step === 4 ? 'Complete' : 'Next';
+    }
+    
+    // Example step navigation
+    document.querySelectorAll('.example-step-btn').forEach((btn, index) => {
+        btn.addEventListener('click', () => updateExampleStep(index + 1));
+    });
+    
+    document.getElementById('prevExampleStep').addEventListener('click', () => {
+        if (currentExampleStep > 1) updateExampleStep(currentExampleStep - 1);
+    });
+    
+    document.getElementById('nextExampleStep').addEventListener('click', () => {
+        if (currentExampleStep < 4) updateExampleStep(currentExampleStep + 1);
+    });
+    
+    // Example calculator
+    document.getElementById('calculateExample').addEventListener('click', function() {
+        const sampleMean = parseFloat(document.getElementById('exampleSampleMean').value);
+        const sampleSize = parseInt(document.getElementById('exampleSampleSize').value);
+        const stdDev = parseFloat(document.getElementById('exampleStdDev').value);
+        const populationMean = 15; // H₀: μ = 15
+        
+        // Calculate test statistic
+        const standardError = stdDev / Math.sqrt(sampleSize);
+        const testStatistic = (sampleMean - populationMean) / standardError;
+        
+        // Calculate p-value (right-tailed test)
+        const pValue = 1 - normalCDF(testStatistic);
+        
+        // Make decision
+        const alpha = 0.05;
+        const reject = pValue < alpha;
+        
+        // Update results
+        document.getElementById('exampleTestStat').textContent = `Z = ${testStatistic.toFixed(3)}`;
+        document.getElementById('examplePValue').textContent = `p = ${pValue.toFixed(4)}`;
+        document.getElementById('exampleDecision').textContent = reject ? 'Reject H₀' : 'Fail to reject H₀';
+        document.getElementById('exampleDecision').className = reject ? 'badge bg-danger' : 'badge bg-success';
+        
+        document.getElementById('exampleResults').style.display = 'block';
+    });
+    
+    // Initialize example with step 1
+    updateExampleStep(1);
+    
+    // Example scenarios
+    window.setExample = function(type) {
+        // ...existing code...
+    };
+});
+</script>
+<style>
+        /* Compact sidebar cards */
+        .col-lg-3 .card {
+            margin-bottom: 0.8rem; /* Reduced margin between sidebar cards */
+        }
+        
+        .col-lg-3 .card-body {
+            padding: 0.8rem; /* Reduced sidebar card padding */
+        }
+        
+        /* Flowchart Styles */
+        .flowchart-container {
+            padding: 2rem;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 10px;
+            position: relative;
+        }
+        
+        .flowchart-step {
+            margin: 1rem 0;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .flowchart-step:hover {
+            transform: scale(1.05);
+        }
+        
+        .flowchart-step.active {
+            transform: scale(1.1);
+            z-index: 10;
+        }
+        
+        .step-box {
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .flowchart-step.active .step-box {
+            border-color: #ffc107;
+            box-shadow: 0 4px 20px rgba(255,193,7,0.3);
+        }
+        
+        .flowchart-arrow {
+            font-size: 2rem;
+            color: #6c757d;
+            margin: 0.5rem 0;
+            line-height: 1;
+        }
+        
+        .flowchart-arrow-branch {
+            font-size: 1.5rem;
+            color: #6c757d;
+            margin: 0.5rem 0;
+        }
+        
+        .flowchart-arrow-merge {
+            font-size: 1.5rem;
+            color: #6c757d;
+            margin: 1rem 0;
+        }
+        
+        .flowchart-branch .row {
+            align-items: flex-start;
+        }
+        
+        /* Test Type Visualization */
+        .test-type-visual {
+            width: 100%;
+            height: 300px;
+            background: white;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .normal-curve {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .rejection-region {
+            position: absolute;
+            background: rgba(220, 53, 69, 0.3);
+            border: 2px solid #dc3545;
+        }
+        
+        .critical-line {
+            position: absolute;
+            width: 2px;
+            height: 100%;
+            background: #dc3545;
+            border-left: 2px dashed #dc3545;
+        }
+        
+        /* Example Step Styles */
+        .example-step-btn.active {
+            background-color: #0d6efd;
+            color: white;
+            border-color: #0d6efd;
+        }
+        
+        .step-content {
+            min-height: 300px;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #0d6efd;
+        }
+        
+        .hypothesis-box {
+            background: white;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            transition: all 0.3s ease;
+        }
+        
+        .hypothesis-box:hover {
+            border-color: #0d6efd;
+            box-shadow: 0 2px 10px rgba(13,110,253,0.1);
+        }
+        
+        .null-hypothesis {
+            border-color: #dc3545;
+            background: linear-gradient(45deg, #fff5f5, #fff);
+        }
+        
+        .alternative-hypothesis {
+            border-color: #198754;
+            background: linear-gradient(45deg, #f0fff4, #fff);
+        }
+        
+        /* Animation classes */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .highlight {
+            animation: highlight 1s ease-in-out;
+        }
+        
+        @keyframes highlight {
+            0%, 100% { background-color: transparent; }
+            50% { background-color: rgba(255, 193, 7, 0.3); }
+        }
+    </style>
+{% endblock %}

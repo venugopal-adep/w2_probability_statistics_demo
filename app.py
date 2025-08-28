@@ -46,6 +46,10 @@ def sampling_distributions():
 def estimations():
     return render_template('estimations.html')
 
+@app.route('/hypothesis_testing')
+def hypothesis_testing():
+    return render_template('hypothesis_testing.html')
+
 @app.route('/generate_normal_plot')
 def generate_normal_plot():
     mean = float(request.args.get('mean', 0))
@@ -1078,6 +1082,297 @@ def generate_sampling_plot():
     plt.close()
     
     return jsonify({'plot': plot_url})
+
+@app.route('/generate_hypothesis_test_plot')
+def generate_hypothesis_test_plot():
+    # Get parameters from request
+    test_statistic = float(request.args.get('test_statistic', 0))
+    alpha = float(request.args.get('alpha', 0.05))
+    alternative = request.args.get('alternative', 'two_tailed')
+    population_mean = float(request.args.get('population_mean', 0))
+    sample_mean = float(request.args.get('sample_mean', 0))
+    std_error = float(request.args.get('std_error', 1))
+    
+    # Create figure
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 6))
+    
+    # Left plot: Standard normal distribution with critical regions
+    x = np.linspace(-4, 4, 1000)
+    y = stats.norm.pdf(x, 0, 1)
+    
+    # Plot the standard normal curve
+    ax1.plot(x, y, 'b-', linewidth=2, label='Standard Normal Distribution')
+    ax1.fill_between(x, y, alpha=0.2, color='lightblue')
+    
+    # Calculate critical values and shade rejection regions
+    if alternative == 'two_tailed':
+        critical_lower = stats.norm.ppf(alpha/2)
+        critical_upper = stats.norm.ppf(1 - alpha/2)
+        
+        # Shade rejection regions
+        x_left = x[x <= critical_lower]
+        y_left = stats.norm.pdf(x_left, 0, 1)
+        x_right = x[x >= critical_upper]
+        y_right = stats.norm.pdf(x_right, 0, 1)
+        
+        ax1.fill_between(x_left, y_left, alpha=0.7, color='red', label=f'Rejection Region (α/2 = {alpha/2:.3f})')
+        ax1.fill_between(x_right, y_right, alpha=0.7, color='red')
+        
+        # Add critical value lines
+        ax1.axvline(critical_lower, color='red', linestyle='--', linewidth=2, label=f'Critical Values: ±{abs(critical_upper):.3f}')
+        ax1.axvline(critical_upper, color='red', linestyle='--', linewidth=2)
+        
+    elif alternative == 'right_tailed':
+        critical_value = stats.norm.ppf(1 - alpha)
+        
+        # Shade rejection region
+        x_reject = x[x >= critical_value]
+        y_reject = stats.norm.pdf(x_reject, 0, 1)
+        ax1.fill_between(x_reject, y_reject, alpha=0.7, color='red', label=f'Rejection Region (α = {alpha:.3f})')
+        
+        # Add critical value line
+        ax1.axvline(critical_value, color='red', linestyle='--', linewidth=2, label=f'Critical Value: {critical_value:.3f}')
+        
+    else:  # left_tailed
+        critical_value = stats.norm.ppf(alpha)
+        
+        # Shade rejection region
+        x_reject = x[x <= critical_value]
+        y_reject = stats.norm.pdf(x_reject, 0, 1)
+        ax1.fill_between(x_reject, y_reject, alpha=0.7, color='red', label=f'Rejection Region (α = {alpha:.3f})')
+        
+        # Add critical value line
+        ax1.axvline(critical_value, color='red', linestyle='--', linewidth=2, label=f'Critical Value: {critical_value:.3f}')
+    
+    # Add test statistic line
+    ax1.axvline(test_statistic, color='green', linestyle='-', linewidth=3, 
+               label=f'Test Statistic: {test_statistic:.3f}')
+    
+    # Add vertical line at 0
+    ax1.axvline(0, color='black', linestyle=':', alpha=0.5, linewidth=1)
+    
+    # Styling for left plot
+    ax1.set_xlabel('Z-Score', fontsize=12)
+    ax1.set_ylabel('Probability Density', fontsize=12)
+    ax1.set_title('Standard Normal Distribution\nwith Critical Regions', fontsize=14, fontweight='bold')
+    ax1.legend(fontsize=10)
+    ax1.grid(True, alpha=0.3)
+    ax1.set_ylim(0, max(y) * 1.1)
+    
+    # Right plot: Original scale distribution
+    # Create distribution on original scale
+    x_orig = np.linspace(sample_mean - 4*std_error, sample_mean + 4*std_error, 1000)
+    y_orig = stats.norm.pdf(x_orig, population_mean, std_error)
+    
+    # Plot the sampling distribution
+    ax2.plot(x_orig, y_orig, 'b-', linewidth=2, label=f'Sampling Distribution\nN({population_mean}, {std_error:.3f})')
+    ax2.fill_between(x_orig, y_orig, alpha=0.2, color='lightblue')
+    
+    # Convert critical values to original scale
+    if alternative == 'two_tailed':
+        crit_orig_lower = population_mean + critical_lower * std_error
+        crit_orig_upper = population_mean + critical_upper * std_error
+        
+        # Shade rejection regions
+        x_left_orig = x_orig[x_orig <= crit_orig_lower]
+        y_left_orig = stats.norm.pdf(x_left_orig, population_mean, std_error)
+        x_right_orig = x_orig[x_orig >= crit_orig_upper]
+        y_right_orig = stats.norm.pdf(x_right_orig, population_mean, std_error)
+        
+        ax2.fill_between(x_left_orig, y_left_orig, alpha=0.7, color='red', label='Rejection Regions')
+        ax2.fill_between(x_right_orig, y_right_orig, alpha=0.7, color='red')
+        
+        # Add critical value lines
+        ax2.axvline(crit_orig_lower, color='red', linestyle='--', linewidth=2)
+        ax2.axvline(crit_orig_upper, color='red', linestyle='--', linewidth=2)
+        
+    elif alternative == 'right_tailed':
+        crit_orig = population_mean + critical_value * std_error
+        
+        # Shade rejection region
+        x_reject_orig = x_orig[x_orig >= crit_orig]
+        y_reject_orig = stats.norm.pdf(x_reject_orig, population_mean, std_error)
+        ax2.fill_between(x_reject_orig, y_reject_orig, alpha=0.7, color='red', label='Rejection Region')
+        
+        # Add critical value line
+        ax2.axvline(crit_orig, color='red', linestyle='--', linewidth=2)
+        
+    else:  # left_tailed
+        crit_orig = population_mean + critical_value * std_error
+        
+        # Shade rejection region
+        x_reject_orig = x_orig[x_orig <= crit_orig]
+        y_reject_orig = stats.norm.pdf(x_reject_orig, population_mean, std_error)
+        ax2.fill_between(x_reject_orig, y_reject_orig, alpha=0.7, color='red', label='Rejection Region')
+        
+        # Add critical value line
+        ax2.axvline(crit_orig, color='red', linestyle='--', linewidth=2)
+    
+    # Add sample mean line
+    ax2.axvline(sample_mean, color='green', linestyle='-', linewidth=3, 
+               label=f'Sample Mean: {sample_mean:.3f}')
+    
+    # Add population mean line
+    ax2.axvline(population_mean, color='black', linestyle=':', linewidth=2, 
+               label=f'H₀: μ = {population_mean:.3f}')
+    
+    # Styling for right plot
+    ax2.set_xlabel('Sample Mean', fontsize=12)
+    ax2.set_ylabel('Probability Density', fontsize=12)
+    ax2.set_title('Sampling Distribution\n(Original Scale)', fontsize=14, fontweight='bold')
+    ax2.legend(fontsize=10)
+    ax2.grid(True, alpha=0.3)
+    ax2.set_ylim(0, max(y_orig) * 1.1)
+    
+    plt.tight_layout()
+    
+    # Convert plot to base64 string
+    img = io.BytesIO()
+    plt.savefig(img, format='png', bbox_inches='tight', dpi=120)
+    img.seek(0)
+    plot_url = base64.b64encode(img.getvalue()).decode()
+    plt.close()
+    
+    return jsonify({'plot': plot_url})
+
+@app.route('/generate_power_analysis_plot')
+def generate_power_analysis_plot():
+    # Get parameters
+    null_mean = float(request.args.get('null_mean', 0))
+    true_mean = float(request.args.get('true_mean', 2))
+    std_error = float(request.args.get('std_error', 1))
+    alpha = float(request.args.get('alpha', 0.05))
+    alternative = request.args.get('alternative', 'two_tailed')
+    
+    # Create figure
+    fig, ax = plt.subplots(1, 1, figsize=(12, 8))
+    
+    # Create x range
+    x_min = min(null_mean, true_mean) - 4 * std_error
+    x_max = max(null_mean, true_mean) + 4 * std_error
+    x = np.linspace(x_min, x_max, 1000)
+    
+    # Null distribution
+    y_null = stats.norm.pdf(x, null_mean, std_error)
+    ax.plot(x, y_null, 'b-', linewidth=2, label=f'H₀: μ = {null_mean} (Null Distribution)')
+    ax.fill_between(x, y_null, alpha=0.2, color='blue')
+    
+    # Alternative distribution
+    y_alt = stats.norm.pdf(x, true_mean, std_error)
+    ax.plot(x, y_alt, 'g-', linewidth=2, label=f'H₁: μ = {true_mean} (Alternative Distribution)')
+    ax.fill_between(x, y_alt, alpha=0.2, color='green')
+    
+    # Calculate critical values
+    if alternative == 'two_tailed':
+        critical_lower = null_mean + stats.norm.ppf(alpha/2) * std_error
+        critical_upper = null_mean + stats.norm.ppf(1 - alpha/2) * std_error
+        
+        # Type I error (α)
+        x_alpha_left = x[x <= critical_lower]
+        y_alpha_left = stats.norm.pdf(x_alpha_left, null_mean, std_error)
+        x_alpha_right = x[x >= critical_upper]
+        y_alpha_right = stats.norm.pdf(x_alpha_right, null_mean, std_error)
+        
+        ax.fill_between(x_alpha_left, y_alpha_left, alpha=0.7, color='red', label=f'Type I Error (α = {alpha})')
+        ax.fill_between(x_alpha_right, y_alpha_right, alpha=0.7, color='red')
+        
+        # Type II error (β) and Power
+        x_beta = x[(x > critical_lower) & (x < critical_upper)]
+        y_beta = stats.norm.pdf(x_beta, true_mean, std_error)
+        ax.fill_between(x_beta, y_beta, alpha=0.7, color='orange', label='Type II Error (β)')
+        
+        # Power regions
+        x_power_left = x[x <= critical_lower]
+        y_power_left = stats.norm.pdf(x_power_left, true_mean, std_error)
+        x_power_right = x[x >= critical_upper]
+        y_power_right = stats.norm.pdf(x_power_right, true_mean, std_error)
+        
+        ax.fill_between(x_power_left, y_power_left, alpha=0.7, color='yellow', label='Power (1-β)')
+        ax.fill_between(x_power_right, y_power_right, alpha=0.7, color='yellow')
+        
+        # Calculate actual power
+        power = stats.norm.cdf(critical_lower, true_mean, std_error) + (1 - stats.norm.cdf(critical_upper, true_mean, std_error))
+        beta = 1 - power
+        
+        # Add critical value lines
+        ax.axvline(critical_lower, color='red', linestyle='--', linewidth=2)
+        ax.axvline(critical_upper, color='red', linestyle='--', linewidth=2)
+        
+    elif alternative == 'right_tailed':
+        critical_value = null_mean + stats.norm.ppf(1 - alpha) * std_error
+        
+        # Type I error (α)
+        x_alpha = x[x >= critical_value]
+        y_alpha = stats.norm.pdf(x_alpha, null_mean, std_error)
+        ax.fill_between(x_alpha, y_alpha, alpha=0.7, color='red', label=f'Type I Error (α = {alpha})')
+        
+        # Type II error (β) and Power
+        x_beta = x[x < critical_value]
+        y_beta = stats.norm.pdf(x_beta, true_mean, std_error)
+        ax.fill_between(x_beta, y_beta, alpha=0.7, color='orange', label='Type II Error (β)')
+        
+        x_power = x[x >= critical_value]
+        y_power = stats.norm.pdf(x_power, true_mean, std_error)
+        ax.fill_between(x_power, y_power, alpha=0.7, color='yellow', label='Power (1-β)')
+        
+        # Calculate actual power
+        power = 1 - stats.norm.cdf(critical_value, true_mean, std_error)
+        beta = 1 - power
+        
+        # Add critical value line
+        ax.axvline(critical_value, color='red', linestyle='--', linewidth=2, label=f'Critical Value')
+        
+    else:  # left_tailed
+        critical_value = null_mean + stats.norm.ppf(alpha) * std_error
+        
+        # Type I error (α)
+        x_alpha = x[x <= critical_value]
+        y_alpha = stats.norm.pdf(x_alpha, null_mean, std_error)
+        ax.fill_between(x_alpha, y_alpha, alpha=0.7, color='red', label=f'Type I Error (α = {alpha})')
+        
+        # Type II error (β) and Power
+        x_beta = x[x > critical_value]
+        y_beta = stats.norm.pdf(x_beta, true_mean, std_error)
+        ax.fill_between(x_beta, y_beta, alpha=0.7, color='orange', label='Type II Error (β)')
+        
+        x_power = x[x <= critical_value]
+        y_power = stats.norm.pdf(x_power, true_mean, std_error)
+        ax.fill_between(x_power, y_power, alpha=0.7, color='yellow', label='Power (1-β)')
+        
+        # Calculate actual power
+        power = stats.norm.cdf(critical_value, true_mean, std_error)
+        beta = 1 - power
+        
+        # Add critical value line
+        ax.axvline(critical_value, color='red', linestyle='--', linewidth=2, label=f'Critical Value')
+    
+    # Add mean lines
+    ax.axvline(null_mean, color='blue', linestyle=':', linewidth=2, alpha=0.7)
+    ax.axvline(true_mean, color='green', linestyle=':', linewidth=2, alpha=0.7)
+    
+    # Styling
+    ax.set_xlabel('Value', fontsize=12)
+    ax.set_ylabel('Probability Density', fontsize=12)
+    ax.set_title(f'Power Analysis\nPower = {power:.3f}, β = {beta:.3f}', fontsize=14, fontweight='bold')
+    ax.legend(fontsize=10, loc='upper left')
+    ax.grid(True, alpha=0.3)
+    
+    # Add text box with statistics
+    textstr = f'α = {alpha}\nβ = {beta:.3f}\nPower = {power:.3f}\nEffect Size = {abs(true_mean - null_mean):.1f}'
+    props = dict(boxstyle='round', facecolor='wheat', alpha=0.8)
+    ax.text(0.02, 0.98, textstr, transform=ax.transAxes, fontsize=11,
+            verticalalignment='top', bbox=props)
+    
+    plt.tight_layout()
+    
+    # Convert plot to base64 string
+    img = io.BytesIO()
+    plt.savefig(img, format='png', bbox_inches='tight', dpi=120)
+    img.seek(0)
+    plot_url = base64.b64encode(img.getvalue()).decode()
+    plt.close()
+    
+    return jsonify({'plot': plot_url, 'power': power, 'beta': beta})
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
