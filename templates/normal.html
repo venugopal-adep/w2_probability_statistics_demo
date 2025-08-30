@@ -51,6 +51,36 @@
     </div>
 </div>
 
+<!-- MCQ Quiz 1: Introduction to Normal Distribution -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card border-warning">
+            <div class="card-header bg-warning text-dark">
+                <h5 class="mb-0"><i class="fas fa-question-circle me-2"></i>Quiz 1: Normal Distribution Basics</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>What is the shape of a normal distribution?</strong></p>
+                <div class="quiz-options">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz1" id="quiz1a" value="a">
+                        <label class="form-check-label" for="quiz1a">
+                            Bell-shaped and symmetric
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz1" id="quiz1b" value="b">
+                        <label class="form-check-label" for="quiz1b">
+                            Flat and rectangular
+                        </label>
+                    </div>
+                </div>
+                <button class="btn btn-warning btn-sm mt-2" onclick="checkQuiz('quiz1', 'a', 'Correct! Normal distribution has a characteristic bell-shaped, symmetric curve.')">Check Answer</button>
+                <div id="quiz1-feedback" class="quiz-feedback mt-2"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Main Control Panel -->
 <div class="row">
     <div class="col-lg-8">
@@ -154,6 +184,32 @@
             </div>
         </div>
 
+        <!-- MCQ Quiz 2: Distribution Parameters -->
+        <div class="card border-primary mb-3">
+            <div class="card-header bg-primary text-white">
+                <h6 class="mb-0"><i class="fas fa-question-circle me-2"></i>Quiz 2: Distribution Parameters</h6>
+            </div>
+            <div class="card-body">
+                <p><strong>What does the standard deviation (σ) control in a normal distribution?</strong></p>
+                <div class="quiz-options">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz2" id="quiz2a" value="a">
+                        <label class="form-check-label" for="quiz2a">
+                            The width or spread of the curve
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz2" id="quiz2b" value="b">
+                        <label class="form-check-label" for="quiz2b">
+                            The height of the curve
+                        </label>
+                    </div>
+                </div>
+                <button class="btn btn-primary btn-sm mt-2" onclick="checkQuiz('quiz2', 'a', 'Correct! Standard deviation controls how spread out the distribution is.')">Check Answer</button>
+                <div id="quiz2-feedback" class="quiz-feedback mt-2"></div>
+            </div>
+        </div>
+
         <!-- Main Plot -->
         <div class="card mb-3">
             <div class="card-body">
@@ -199,6 +255,32 @@
                     <h6>Result:</h6>
                     <div id="probResultText"></div>
                 </div>
+            </div>
+        </div>
+
+        <!-- MCQ Quiz 3: Probability Calculations -->
+        <div class="card border-success mb-3">
+            <div class="card-header bg-success text-white">
+                <h6 class="mb-0"><i class="fas fa-question-circle me-2"></i>Quiz 3: Probability in Normal Distribution</h6>
+            </div>
+            <div class="card-body">
+                <p><strong>In a continuous distribution like normal distribution, what is P(X = exact value)?</strong></p>
+                <div class="quiz-options">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz3" id="quiz3a" value="a">
+                        <label class="form-check-label" for="quiz3a">
+                            Approximately zero
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz3" id="quiz3b" value="b">
+                        <label class="form-check-label" for="quiz3b">
+                            Always 0.5
+                        </label>
+                    </div>
+                </div>
+                <button class="btn btn-success btn-sm mt-2" onclick="checkQuiz('quiz3', 'a', 'Correct! For continuous distributions, probability at any exact point is approximately zero.')">Check Answer</button>
+                <div id="quiz3-feedback" class="quiz-feedback mt-2"></div>
             </div>
         </div>
     </div>
@@ -267,6 +349,32 @@
             </div>
         </div>
 
+        <!-- MCQ Quiz 4: Properties -->
+        <div class="card border-info mb-3">
+            <div class="card-header bg-info text-white">
+                <h6 class="mb-0"><i class="fas fa-question-circle me-2"></i>Quiz 4: Normal Distribution Properties</h6>
+            </div>
+            <div class="card-body">
+                <p><strong>What percentage of data falls within 1 standard deviation of the mean in a normal distribution?</strong></p>
+                <div class="quiz-options">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz4" id="quiz4a" value="a">
+                        <label class="form-check-label" for="quiz4a">
+                            Approximately 68%
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz4" id="quiz4b" value="b">
+                        <label class="form-check-label" for="quiz4b">
+                            Approximately 50%
+                        </label>
+                    </div>
+                </div>
+                <button class="btn btn-info btn-sm mt-2" onclick="checkQuiz('quiz4', 'a', 'Correct! The 68-95-99.7 rule states that about 68% of data falls within 1σ of the mean.')">Check Answer</button>
+                <div id="quiz4-feedback" class="quiz-feedback mt-2"></div>
+            </div>
+        </div>
+
         <!-- Empirical Rule -->
         <div class="card mb-3">
             <div class="card-body">
@@ -289,6 +397,32 @@
                         <span id="range3sigma" class="text-muted small"></span>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <!-- MCQ Quiz 5: Empirical Rule -->
+        <div class="card border-warning mb-3">
+            <div class="card-header bg-warning text-dark">
+                <h6 class="mb-0"><i class="fas fa-question-circle me-2"></i>Quiz 5: Empirical Rule</h6>
+            </div>
+            <div class="card-body">
+                <p><strong>The empirical rule (68-95-99.7 rule) applies to which type of distribution?</strong></p>
+                <div class="quiz-options">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz5" id="quiz5a" value="a">
+                        <label class="form-check-label" for="quiz5a">
+                            Normal distributions
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz5" id="quiz5b" value="b">
+                        <label class="form-check-label" for="quiz5b">
+                            All distributions
+                        </label>
+                    </div>
+                </div>
+                <button class="btn btn-warning btn-sm mt-2" onclick="checkQuiz('quiz5', 'a', 'Correct! The empirical rule specifically applies to normal (bell-shaped) distributions.')">Check Answer</button>
+                <div id="quiz5-feedback" class="quiz-feedback mt-2"></div>
             </div>
         </div>
 
@@ -318,6 +452,32 @@
                         </button>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <!-- MCQ Quiz 6: Real-World Applications -->
+        <div class="card border-success mb-3">
+            <div class="card-header bg-success text-white">
+                <h6 class="mb-0"><i class="fas fa-question-circle me-2"></i>Quiz 6: Real-World Applications</h6>
+            </div>
+            <div class="card-body">
+                <p><strong>Which of these is commonly modeled using a normal distribution?</strong></p>
+                <div class="quiz-options">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz6" id="quiz6a" value="a">
+                        <label class="form-check-label" for="quiz6a">
+                            Human heights and IQ scores
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz6" id="quiz6b" value="b">
+                        <label class="form-check-label" for="quiz6b">
+                            Number of coin flips
+                        </label>
+                    </div>
+                </div>
+                <button class="btn btn-success btn-sm mt-2" onclick="checkQuiz('quiz6', 'a', 'Correct! Human heights, IQ scores, and many natural phenomena follow normal distributions.')">Check Answer</button>
+                <div id="quiz6-feedback" class="quiz-feedback mt-2"></div>
             </div>
         </div>
 
@@ -353,6 +513,32 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <!-- MCQ Quiz 7: Sampling -->
+        <div class="card border-danger mt-3">
+            <div class="card-header bg-danger text-white">
+                <h6 class="mb-0"><i class="fas fa-question-circle me-2"></i>Quiz 7: Sampling from Normal Distribution</h6>
+            </div>
+            <div class="card-body">
+                <p><strong>What happens to the sample mean as we increase the sample size from a normal distribution?</strong></p>
+                <div class="quiz-options">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz7" id="quiz7a" value="a">
+                        <label class="form-check-label" for="quiz7a">
+                            It gets closer to the population mean
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz7" id="quiz7b" value="b">
+                        <label class="form-check-label" for="quiz7b">
+                            It becomes more variable
+                        </label>
+                    </div>
+                </div>
+                <button class="btn btn-danger btn-sm mt-2" onclick="checkQuiz('quiz7', 'a', 'Correct! By the Law of Large Numbers, larger samples give more accurate estimates of the population mean.')">Check Answer</button>
+                <div id="quiz7-feedback" class="quiz-feedback mt-2"></div>
             </div>
         </div>
     </div>
@@ -422,10 +608,57 @@
         </div>
     </div>
 </div>
+
+<!-- MCQ Quiz 8: Mathematical Foundation -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card border-primary">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0"><i class="fas fa-question-circle me-2"></i>Quiz 8: Standard Normal Distribution</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>What are the parameters of the standard normal distribution?</strong></p>
+                <div class="quiz-options">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz8" id="quiz8a" value="a">
+                        <label class="form-check-label" for="quiz8a">
+                            Mean = 0, Standard deviation = 1
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz8" id="quiz8b" value="b">
+                        <label class="form-check-label" for="quiz8b">
+                            Mean = 1, Standard deviation = 0
+                        </label>
+                    </div>
+                </div>
+                <button class="btn btn-primary btn-sm mt-2" onclick="checkQuiz('quiz8', 'a', 'Correct! The standard normal distribution has mean = 0 and standard deviation = 1.')">Check Answer</button>
+                <div id="quiz8-feedback" class="quiz-feedback mt-2"></div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
 
 {% block scripts %}
 <script>
+// Quiz functionality
+function checkQuiz(quizName, correctAnswer, successMessage) {
+    const selectedAnswer = document.querySelector(`input[name="${quizName}"]:checked`);
+    const feedbackDiv = document.getElementById(`${quizName}-feedback`);
+    
+    if (!selectedAnswer) {
+        feedbackDiv.innerHTML = '<div class="alert alert-warning">Please select an answer!</div>';
+        return;
+    }
+    
+    if (selectedAnswer.value === correctAnswer) {
+        feedbackDiv.innerHTML = `<div class="alert alert-success"><i class="fas fa-check-circle me-2"></i>${successMessage}</div>`;
+    } else {
+        feedbackDiv.innerHTML = '<div class="alert alert-danger"><i class="fas fa-times-circle me-2"></i>Incorrect. Try again!</div>';
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     // Get all the DOM elements
     const meanSlider = document.getElementById('mean');
@@ -844,4 +1077,37 @@ document.addEventListener('DOMContentLoaded', function() {
     showSampleStatsBtn.disabled = true;
 });
 </script>
+
+<style>
+/* Quiz specific styles */
+.quiz-options {
+    margin: 15px 0;
+}
+
+.quiz-options .form-check {
+    margin-bottom: 10px;
+    padding: 8px;
+    border-radius: 5px;
+    transition: background-color 0.2s ease;
+}
+
+.quiz-options .form-check:hover {
+    background-color: #f8f9fa;
+}
+
+.quiz-options .form-check-input:checked + .form-check-label {
+    font-weight: bold;
+    color: #007bff;
+}
+
+.quiz-feedback {
+    min-height: 20px;
+}
+
+.quiz-feedback .alert {
+    margin-bottom: 0;
+    padding: 8px 12px;
+    font-size: 0.9em;
+}
+</style>
 {% endblock %}
