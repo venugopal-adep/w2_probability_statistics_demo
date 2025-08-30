@@ -17,6 +17,36 @@
     </div>
 </div>
 
+<!-- MCQ Quiz 1: Introduction to Random Variables -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card border-info">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0"><i class="fas fa-question-circle me-2"></i>Quiz 1: Introduction to Random Variables</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>What is a random variable?</strong></p>
+                <div class="quiz-options">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz1" id="quiz1a" value="a">
+                        <label class="form-check-label" for="quiz1a">
+                            A variable that changes randomly without any pattern
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz1" id="quiz1b" value="b">
+                        <label class="form-check-label" for="quiz1b">
+                            A function that assigns numerical values to outcomes of an experiment
+                        </label>
+                    </div>
+                </div>
+                <button class="btn btn-info btn-sm mt-2" onclick="checkQuiz('quiz1', 'b', 'Correct! A random variable is indeed a function that assigns numerical values to outcomes.')">Check Answer</button>
+                <div id="quiz1-feedback" class="quiz-feedback mt-2"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="row">
     <div class="col-md-6 mb-4">
         <div class="card h-100 hover-lift">
@@ -165,6 +195,32 @@
                 </div>
             </div>
         </div>
+        
+        <!-- MCQ Quiz 2: Discrete Random Variables -->
+        <div class="card border-primary mt-3">
+            <div class="card-header bg-primary text-white">
+                <h6 class="mb-0"><i class="fas fa-question-circle me-2"></i>Quiz 2: Discrete Random Variables</h6>
+            </div>
+            <div class="card-body">
+                <p><strong>Which of the following is a discrete random variable?</strong></p>
+                <div class="quiz-options">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz2" id="quiz2a" value="a">
+                        <label class="form-check-label" for="quiz2a">
+                            The exact height of a person
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz2" id="quiz2b" value="b">
+                        <label class="form-check-label" for="quiz2b">
+                            Number of books on a shelf
+                        </label>
+                    </div>
+                </div>
+                <button class="btn btn-primary btn-sm mt-2" onclick="checkQuiz('quiz2', 'b', 'Correct! Number of books is countable, making it discrete.')">Check Answer</button>
+                <div id="quiz2-feedback" class="quiz-feedback mt-2"></div>
+            </div>
+        </div>
     </div>
 
     <div class="col-md-6 mb-4">
@@ -253,6 +309,32 @@
                 </div>
             </div>
         </div>
+        
+        <!-- MCQ Quiz 3: Continuous Random Variables -->
+        <div class="card border-success mt-3">
+            <div class="card-header bg-success text-white">
+                <h6 class="mb-0"><i class="fas fa-question-circle me-2"></i>Quiz 3: Continuous Random Variables</h6>
+            </div>
+            <div class="card-body">
+                <p><strong>What is true about continuous random variables?</strong></p>
+                <div class="quiz-options">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz3" id="quiz3a" value="a">
+                        <label class="form-check-label" for="quiz3a">
+                            They can only take whole number values
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz3" id="quiz3b" value="b">
+                        <label class="form-check-label" for="quiz3b">
+                            They can take any value within a range
+                        </label>
+                    </div>
+                </div>
+                <button class="btn btn-success btn-sm mt-2" onclick="checkQuiz('quiz3', 'b', 'Correct! Continuous variables can take any value within a range.')">Check Answer</button>
+                <div id="quiz3-feedback" class="quiz-feedback mt-2"></div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -275,7 +357,7 @@
                                 </svg>
                             </div>
                             <div class="text-center mt-2">
-                                <small class="text-muted">Click bars to see probabilities</small>
+                                <small class="text-muted">Hover over bars to see probabilities</small>
                             </div>
                         </div>
                     </div>
@@ -295,6 +377,36 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MCQ Quiz 4: Comparison -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card border-info">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0"><i class="fas fa-question-circle me-2"></i>Quiz 4: Discrete vs Continuous</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>What is the main difference between discrete and continuous random variables?</strong></p>
+                <div class="quiz-options">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz4" id="quiz4a" value="a">
+                        <label class="form-check-label" for="quiz4a">
+                            Discrete can be counted, continuous cannot be counted
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz4" id="quiz4b" value="b">
+                        <label class="form-check-label" for="quiz4b">
+                            There is no difference between them
+                        </label>
+                    </div>
+                </div>
+                <button class="btn btn-info btn-sm mt-2" onclick="checkQuiz('quiz4', 'a', 'Correct! Discrete variables are countable, while continuous variables are uncountable.')">Check Answer</button>
+                <div id="quiz4-feedback" class="quiz-feedback mt-2"></div>
             </div>
         </div>
     </div>
@@ -407,6 +519,36 @@
     </div>
 </div>
 
+<!-- MCQ Quiz 5: Relationship Overview -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card border-warning">
+            <div class="card-header bg-warning text-dark">
+                <h5 class="mb-0"><i class="fas fa-question-circle me-2"></i>Quiz 5: Random Variable Types</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>Random variables are divided into how many main types?</strong></p>
+                <div class="quiz-options">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz5" id="quiz5a" value="a">
+                        <label class="form-check-label" for="quiz5a">
+                            Two types: discrete and continuous
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz5" id="quiz5b" value="b">
+                        <label class="form-check-label" for="quiz5b">
+                            Three types: small, medium, and large
+                        </label>
+                    </div>
+                </div>
+                <button class="btn btn-warning btn-sm mt-2" onclick="checkQuiz('quiz5', 'a', 'Correct! Random variables are classified into discrete and continuous types.')">Check Answer</button>
+                <div id="quiz5-feedback" class="quiz-feedback mt-2"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="row">
     <div class="col-md-6">
         <div class="card hover-lift">
@@ -428,6 +570,32 @@
                         <li class="animate-fade-in" style="animation-delay: 0.2s;">Σ P(X = x) = 1</li>
                     </ul>
                 </div>
+            </div>
+        </div>
+        
+        <!-- MCQ Quiz 6: PMF -->
+        <div class="card border-info mt-3">
+            <div class="card-header bg-info text-white">
+                <h6 class="mb-0"><i class="fas fa-question-circle me-2"></i>Quiz 6: Probability Mass Function</h6>
+            </div>
+            <div class="card-body">
+                <p><strong>PMF is used for which type of random variables?</strong></p>
+                <div class="quiz-options">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz6" id="quiz6a" value="a">
+                        <label class="form-check-label" for="quiz6a">
+                            Discrete random variables
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz6" id="quiz6b" value="b">
+                        <label class="form-check-label" for="quiz6b">
+                            Continuous random variables
+                        </label>
+                    </div>
+                </div>
+                <button class="btn btn-info btn-sm mt-2" onclick="checkQuiz('quiz6', 'a', 'Correct! PMF is used for discrete random variables.')">Check Answer</button>
+                <div id="quiz6-feedback" class="quiz-feedback mt-2"></div>
             </div>
         </div>
     </div>
@@ -455,6 +623,32 @@
                 </div>
             </div>
         </div>
+        
+        <!-- MCQ Quiz 7: PDF -->
+        <div class="card border-warning mt-3">
+            <div class="card-header bg-warning text-dark">
+                <h6 class="mb-0"><i class="fas fa-question-circle me-2"></i>Quiz 7: Probability Density Function</h6>
+            </div>
+            <div class="card-body">
+                <p><strong>For continuous random variables, what do we use to find probabilities?</strong></p>
+                <div class="quiz-options">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz7" id="quiz7a" value="a">
+                        <label class="form-check-label" for="quiz7a">
+                            Probability Mass Function (PMF)
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz7" id="quiz7b" value="b">
+                        <label class="form-check-label" for="quiz7b">
+                            Probability Density Function (PDF)
+                        </label>
+                    </div>
+                </div>
+                <button class="btn btn-warning btn-sm mt-2" onclick="checkQuiz('quiz7', 'b', 'Correct! PDF is used for continuous random variables.')">Check Answer</button>
+                <div id="quiz7-feedback" class="quiz-feedback mt-2"></div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}
@@ -462,6 +656,23 @@
 {% block scripts %}
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script>
+// Quiz functionality
+function checkQuiz(quizName, correctAnswer, successMessage) {
+    const selectedAnswer = document.querySelector(`input[name="${quizName}"]:checked`);
+    const feedbackDiv = document.getElementById(`${quizName}-feedback`);
+    
+    if (!selectedAnswer) {
+        feedbackDiv.innerHTML = '<div class="alert alert-warning">Please select an answer!</div>';
+        return;
+    }
+    
+    if (selectedAnswer.value === correctAnswer) {
+        feedbackDiv.innerHTML = `<div class="alert alert-success"><i class="fas fa-check-circle me-2"></i>${successMessage}</div>`;
+    } else {
+        feedbackDiv.innerHTML = '<div class="alert alert-danger"><i class="fas fa-times-circle me-2"></i>Incorrect. Try again!</div>';
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     // Animation and interaction variables
     let coinTossCount = 0;
@@ -834,14 +1045,13 @@ document.addEventListener('DOMContentLoaded', function() {
             .attr('height', d => height - margin.bottom - yScale(d.prob))
             .attr('fill', '#007bff')
             .attr('opacity', 0.8)
-            .on('click', function(event, d) {
-                alert(`P(X = ${d.x}) = ${d.prob}`);
-            })
-            .on('mouseover', function() {
+            .on('mouseover', function(event, d) {
                 d3.select(this).attr('opacity', 1);
+                showTooltip(event, `P(X = ${d.x}) = ${d.prob}`);
             })
-            .on('mouseout', function() {
+            .on('mouseout', function(event, d) {
                 d3.select(this).attr('opacity', 0.8);
+                hideTooltip();
             });
 
         // Continuous comparison
@@ -969,6 +1179,37 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <style>
+/* Quiz specific styles */
+.quiz-options {
+    margin: 15px 0;
+}
+
+.quiz-options .form-check {
+    margin-bottom: 10px;
+    padding: 8px;
+    border-radius: 5px;
+    transition: background-color 0.2s ease;
+}
+
+.quiz-options .form-check:hover {
+    background-color: #f8f9fa;
+}
+
+.quiz-options .form-check-input:checked + .form-check-label {
+    font-weight: bold;
+    color: #007bff;
+}
+
+.quiz-feedback {
+    min-height: 20px;
+}
+
+.quiz-feedback .alert {
+    margin-bottom: 0;
+    padding: 8px 12px;
+    font-size: 0.9em;
+}
+
 /* Animations and Effects */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(20px); }
