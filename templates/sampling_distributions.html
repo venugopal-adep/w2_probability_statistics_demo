@@ -25,6 +25,36 @@
         </div>
     </div>
 
+    <!-- MCQ Quiz 1: Introduction to Central Limit Theorem -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card border-primary">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="fas fa-question-circle me-2"></i>Quiz 1: Central Limit Theorem Basics</h5>
+                </div>
+                <div class="card-body">
+                    <p><strong>What does the Central Limit Theorem tell us about sampling distributions?</strong></p>
+                    <div class="quiz-options">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="quiz1" id="quiz1a" value="a">
+                            <label class="form-check-label" for="quiz1a">
+                                Sample means become normally distributed as sample size increases, regardless of population shape
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="quiz1" id="quiz1b" value="b">
+                            <label class="form-check-label" for="quiz1b">
+                                The population must be normally distributed for sampling to work
+                            </label>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-sm mt-2" onclick="checkQuiz('quiz1', 'a', 'Correct! CLT works regardless of population shape - thats the magic!')">Check Answer</button>
+                    <div id="quiz1-feedback" class="quiz-feedback mt-2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="row">
         <!-- Controls Panel -->
         <div class="col-lg-4">
@@ -50,6 +80,32 @@
                             <i class="fas fa-exchange-alt me-1"></i>Compare
                         </label>
                     </div>
+                </div>
+            </div>
+
+            <!-- MCQ Quiz 2: Sample Size and CLT -->
+            <div class="card border-success mb-3">
+                <div class="card-header bg-success text-white">
+                    <h6 class="mb-0"><i class="fas fa-question-circle me-2"></i>Quiz 2: Sample Size Rule</h6>
+                </div>
+                <div class="card-body">
+                    <p><strong>What is the general rule of thumb for when CLT applies?</strong></p>
+                    <div class="quiz-options">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="quiz2" id="quiz2a" value="a">
+                            <label class="form-check-label" for="quiz2a">
+                                Sample size should be at least 30
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="quiz2" id="quiz2b" value="b">
+                            <label class="form-check-label" for="quiz2b">
+                                Sample size should be at least 100
+                            </label>
+                        </div>
+                    </div>
+                    <button class="btn btn-success btn-sm mt-2" onclick="checkQuiz('quiz2', 'a', 'Correct! n ≥ 30 is the magic number for CLT to apply reliably.')">Check Answer</button>
+                    <div id="quiz2-feedback" class="quiz-feedback mt-2"></div>
                 </div>
             </div>
 
@@ -167,6 +223,32 @@
                 </div>
             </div>
 
+            <!-- MCQ Quiz 3: Standard Error -->
+            <div class="card border-warning mb-3">
+                <div class="card-header bg-warning text-dark">
+                    <h6 class="mb-0"><i class="fas fa-question-circle me-2"></i>Quiz 3: Standard Error Formula</h6>
+                </div>
+                <div class="card-body">
+                    <p><strong>What is the formula for standard error of the sample mean?</strong></p>
+                    <div class="quiz-options">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="quiz3" id="quiz3a" value="a">
+                            <label class="form-check-label" for="quiz3a">
+                                SE = σ / √n
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="quiz3" id="quiz3b" value="b">
+                            <label class="form-check-label" for="quiz3b">
+                                SE = σ × √n
+                            </label>
+                        </div>
+                    </div>
+                    <button class="btn btn-warning btn-sm mt-2" onclick="checkQuiz('quiz3', 'a', 'Correct! Standard error decreases as sample size increases (divided by √n).')">Check Answer</button>
+                    <div id="quiz3-feedback" class="quiz-feedback mt-2"></div>
+                </div>
+            </div>
+
             <!-- Quick Examples -->
             <div class="card mb-4">
                 <div class="card-header">
@@ -187,6 +269,32 @@
                             <i class="fas fa-exchange-alt me-1"></i>Size Comparison
                         </button>
                     </div>
+                </div>
+            </div>
+
+            <!-- MCQ Quiz 4: Sample Size Effect -->
+            <div class="card border-info mb-3">
+                <div class="card-header bg-info text-white">
+                    <h6 class="mb-0"><i class="fas fa-question-circle me-2"></i>Quiz 4: Effect of Sample Size</h6>
+                </div>
+                <div class="card-body">
+                    <p><strong>What happens to the sampling distribution as sample size increases?</strong></p>
+                    <div class="quiz-options">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="quiz4" id="quiz4a" value="a">
+                            <label class="form-check-label" for="quiz4a">
+                                It becomes narrower (less spread) and more normal
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="quiz4" id="quiz4b" value="b">
+                            <label class="form-check-label" for="quiz4b">
+                                It becomes wider (more spread) and less normal
+                            </label>
+                        </div>
+                    </div>
+                    <button class="btn btn-info btn-sm mt-2" onclick="checkQuiz('quiz4', 'a', 'Correct! Larger samples give more precise estimates, making the distribution narrower.')">Check Answer</button>
+                    <div id="quiz4-feedback" class="quiz-feedback mt-2"></div>
                 </div>
             </div>
 
@@ -277,6 +385,32 @@
                 </div>
             </div>
 
+            <!-- MCQ Quiz 5: Sampling Distribution Properties -->
+            <div class="card border-danger mt-3 mb-3">
+                <div class="card-header bg-danger text-white">
+                    <h6 class="mb-0"><i class="fas fa-question-circle me-2"></i>Quiz 5: Sampling Distribution Mean</h6>
+                </div>
+                <div class="card-body">
+                    <p><strong>What is the mean of the sampling distribution of sample means?</strong></p>
+                    <div class="quiz-options">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="quiz5" id="quiz5a" value="a">
+                            <label class="form-check-label" for="quiz5a">
+                                Equal to the population mean (μ)
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="quiz5" id="quiz5b" value="b">
+                            <label class="form-check-label" for="quiz5b">
+                                Equal to the population mean divided by sample size (μ/n)
+                            </label>
+                        </div>
+                    </div>
+                    <button class="btn btn-danger btn-sm mt-2" onclick="checkQuiz('quiz5', 'a', 'Correct! The sampling distribution is unbiased - its mean equals the population mean.')">Check Answer</button>
+                    <div id="quiz5-feedback" class="quiz-feedback mt-2"></div>
+                </div>
+            </div>
+
             <!-- Educational Content Tabs -->
             <div class="card mt-4">
                 <div class="card-header">
@@ -323,6 +457,32 @@
                                     </ul>
                                 </div>
                             </div>
+
+                            <!-- MCQ Quiz 6: CLT Assumptions -->
+                            <div class="card border-secondary mt-3">
+                                <div class="card-header bg-secondary text-white">
+                                    <h6 class="mb-0"><i class="fas fa-question-circle me-2"></i>Quiz 6: CLT Assumptions</h6>
+                                </div>
+                                <div class="card-body">
+                                    <p><strong>Which is NOT a required assumption for the Central Limit Theorem?</strong></p>
+                                    <div class="quiz-options">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="quiz6" id="quiz6a" value="a">
+                                            <label class="form-check-label" for="quiz6a">
+                                                The population must be normally distributed
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="quiz6" id="quiz6b" value="b">
+                                            <label class="form-check-label" for="quiz6b">
+                                                Samples must be randomly selected and independent
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-secondary btn-sm mt-2" onclick="checkQuiz('quiz6', 'a', 'Correct! CLT works regardless of population shape - thats its superpower!')">Check Answer</button>
+                                    <div id="quiz6-feedback" class="quiz-feedback mt-2"></div>
+                                </div>
+                            </div>
                         </div>
 
                         <!-- Properties Content -->
@@ -357,6 +517,32 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- MCQ Quiz 7: Properties of Sampling Distribution -->
+                            <div class="card border-success mt-3">
+                                <div class="card-header bg-success text-white">
+                                    <h6 class="mb-0"><i class="fas fa-question-circle me-2"></i>Quiz 7: Distribution Shape</h6>
+                                </div>
+                                <div class="card-body">
+                                    <p><strong>What shape does the sampling distribution approach as n increases?</strong></p>
+                                    <div class="quiz-options">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="quiz7" id="quiz7a" value="a">
+                                            <label class="form-check-label" for="quiz7a">
+                                                Normal (bell-shaped) distribution
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="quiz7" id="quiz7b" value="b">
+                                            <label class="form-check-label" for="quiz7b">
+                                                The same shape as the original population
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-success btn-sm mt-2" onclick="checkQuiz('quiz7', 'a', 'Correct! Sampling distribution always approaches normal shape, regardless of population shape.')">Check Answer</button>
+                                    <div id="quiz7-feedback" class="quiz-feedback mt-2"></div>
+                                </div>
+                            </div>
                         </div>
 
                         <!-- Formulas Content -->
@@ -377,6 +563,32 @@
                                     <small><strong>Use:</strong> Convert sample means to standard normal for probability calculations</small>
                                 </div>
                             </div>
+
+                            <!-- MCQ Quiz 8: Z-Score for Sample Means -->
+                            <div class="card border-warning mt-3">
+                                <div class="card-header bg-warning text-dark">
+                                    <h6 class="mb-0"><i class="fas fa-question-circle me-2"></i>Quiz 8: Z-Score Formula</h6>
+                                </div>
+                                <div class="card-body">
+                                    <p><strong>What is the correct Z-score formula for a sample mean?</strong></p>
+                                    <div class="quiz-options">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="quiz8" id="quiz8a" value="a">
+                                            <label class="form-check-label" for="quiz8a">
+                                                Z = (X̄ - μ) / (σ/√n)
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="quiz8" id="quiz8b" value="b">
+                                            <label class="form-check-label" for="quiz8b">
+                                                Z = (X̄ - μ) / σ
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-warning btn-sm mt-2" onclick="checkQuiz('quiz8', 'a', 'Correct! For sample means, we use standard error (σ/√n) in the denominator.')">Check Answer</button>
+                                    <div id="quiz8-feedback" class="quiz-feedback mt-2"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -386,6 +598,23 @@
 </div>
 
 <script>
+// Quiz functionality - Define this first
+function checkQuiz(quizName, correctAnswer, successMessage) {
+    const selectedAnswer = document.querySelector(`input[name="${quizName}"]:checked`);
+    const feedbackDiv = document.getElementById(`${quizName}-feedback`);
+    
+    if (!selectedAnswer) {
+        feedbackDiv.innerHTML = '<div class="alert alert-warning">Please select an answer!</div>';
+        return;
+    }
+    
+    if (selectedAnswer.value === correctAnswer) {
+        feedbackDiv.innerHTML = `<div class="alert alert-success"><i class="fas fa-check-circle me-2"></i>${successMessage}</div>`;
+    } else {
+        feedbackDiv.innerHTML = '<div class="alert alert-danger"><i class="fas fa-times-circle me-2"></i>Incorrect. Try again!</div>';
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('samplingForm');
     const loadingState = document.getElementById('loadingState');
@@ -609,4 +838,37 @@ document.addEventListener('DOMContentLoaded', function() {
     updateStats();
 });
 </script>
+
+<style>
+/* Quiz specific styles */
+.quiz-options {
+    margin: 15px 0;
+}
+
+.quiz-options .form-check {
+    margin-bottom: 10px;
+    padding: 8px;
+    border-radius: 5px;
+    transition: background-color 0.2s ease;
+}
+
+.quiz-options .form-check:hover {
+    background-color: #f8f9fa;
+}
+
+.quiz-options .form-check-input:checked + .form-check-label {
+    font-weight: bold;
+    color: #007bff;
+}
+
+.quiz-feedback {
+    min-height: 20px;
+}
+
+.quiz-feedback .alert {
+    margin-bottom: 0;
+    padding: 8px 12px;
+    font-size: 0.9em;
+}
+</style>
 {% endblock %}

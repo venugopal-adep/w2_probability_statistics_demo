@@ -51,6 +51,36 @@
     </div>
 </div>
 
+<!-- MCQ Quiz 1: Introduction to Uniform Distribution -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card border-info">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0"><i class="fas fa-question-circle me-2"></i>Quiz 1: Uniform Distribution Basics</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>What is the main characteristic of a uniform distribution?</strong></p>
+                <div class="quiz-options">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz1" id="quiz1a" value="a">
+                        <label class="form-check-label" for="quiz1a">
+                            All outcomes have equal probability
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz1" id="quiz1b" value="b">
+                        <label class="form-check-label" for="quiz1b">
+                            Some outcomes are more likely than others
+                        </label>
+                    </div>
+                </div>
+                <button class="btn btn-info btn-sm mt-2" onclick="checkQuiz('quiz1', 'a', 'Correct! Uniform distribution means all outcomes within the range have equal probability.')">Check Answer</button>
+                <div id="quiz1-feedback" class="quiz-feedback mt-2"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Main Control Panel -->
 <div class="row">
     <div class="col-lg-8">
@@ -168,6 +198,32 @@
             </div>
         </div>
 
+        <!-- MCQ Quiz 2: Distribution Parameters -->
+        <div class="card border-primary mb-3">
+            <div class="card-header bg-primary text-white">
+                <h6 class="mb-0"><i class="fas fa-question-circle me-2"></i>Quiz 2: Distribution Parameters</h6>
+            </div>
+            <div class="card-body">
+                <p><strong>In a uniform distribution U(a,b), what do 'a' and 'b' represent?</strong></p>
+                <div class="quiz-options">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz2" id="quiz2a" value="a">
+                        <label class="form-check-label" for="quiz2a">
+                            The minimum and maximum values of the range
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz2" id="quiz2b" value="b">
+                        <label class="form-check-label" for="quiz2b">
+                            The mean and standard deviation
+                        </label>
+                    </div>
+                </div>
+                <button class="btn btn-primary btn-sm mt-2" onclick="checkQuiz('quiz2', 'a', 'Correct! In U(a,b), a is the minimum value and b is the maximum value of the distribution.')">Check Answer</button>
+                <div id="quiz2-feedback" class="quiz-feedback mt-2"></div>
+            </div>
+        </div>
+
         <!-- Main Plot -->
         <div class="card mb-3">
             <div class="card-body">
@@ -213,6 +269,32 @@
                     <h6>Result:</h6>
                     <div id="probResultText"></div>
                 </div>
+            </div>
+        </div>
+
+        <!-- MCQ Quiz 3: Probability Calculations -->
+        <div class="card border-success mb-3">
+            <div class="card-header bg-success text-white">
+                <h6 class="mb-0"><i class="fas fa-question-circle me-2"></i>Quiz 3: Probability in Uniform Distribution</h6>
+            </div>
+            <div class="card-body">
+                <p><strong>For a continuous uniform distribution U(0,10), what is P(X = 5)?</strong></p>
+                <div class="quiz-options">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz3" id="quiz3a" value="a">
+                        <label class="form-check-label" for="quiz3a">
+                            0 (zero)
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz3" id="quiz3b" value="b">
+                        <label class="form-check-label" for="quiz3b">
+                            0.1 (one-tenth)
+                        </label>
+                    </div>
+                </div>
+                <button class="btn btn-success btn-sm mt-2" onclick="checkQuiz('quiz3', 'a', 'Correct! For continuous distributions, probability at any exact point is zero.')">Check Answer</button>
+                <div id="quiz3-feedback" class="quiz-feedback mt-2"></div>
             </div>
         </div>
 
@@ -301,6 +383,32 @@
             </div>
         </div>
 
+        <!-- MCQ Quiz 4: Discrete vs Continuous -->
+        <div class="card border-warning mb-3">
+            <div class="card-header bg-warning text-dark">
+                <h6 class="mb-0"><i class="fas fa-question-circle me-2"></i>Quiz 4: Discrete vs Continuous Uniform</h6>
+            </div>
+            <div class="card-body">
+                <p><strong>What is the difference between discrete and continuous uniform distributions?</strong></p>
+                <div class="quiz-options">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz4" id="quiz4a" value="a">
+                        <label class="form-check-label" for="quiz4a">
+                            Discrete has finite outcomes, continuous has infinite outcomes
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz4" id="quiz4b" value="b">
+                        <label class="form-check-label" for="quiz4b">
+                            They are exactly the same
+                        </label>
+                    </div>
+                </div>
+                <button class="btn btn-warning btn-sm mt-2" onclick="checkQuiz('quiz4', 'a', 'Correct! Discrete uniform has countable outcomes, while continuous has uncountable outcomes.')">Check Answer</button>
+                <div id="quiz4-feedback" class="quiz-feedback mt-2"></div>
+            </div>
+        </div>
+
         <!-- Current Distribution Stats -->
         <div class="card mb-3">
             <div class="card-body">
@@ -363,6 +471,32 @@
             </div>
         </div>
 
+        <!-- MCQ Quiz 5: Properties -->
+        <div class="card border-info mb-3">
+            <div class="card-header bg-info text-white">
+                <h6 class="mb-0"><i class="fas fa-question-circle me-2"></i>Quiz 5: Uniform Distribution Properties</h6>
+            </div>
+            <div class="card-body">
+                <p><strong>What is the mean of a uniform distribution U(a,b)?</strong></p>
+                <div class="quiz-options">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz5" id="quiz5a" value="a">
+                        <label class="form-check-label" for="quiz5a">
+                            (a + b) / 2
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz5" id="quiz5b" value="b">
+                        <label class="form-check-label" for="quiz5b">
+                            (b - a) / 2
+                        </label>
+                    </div>
+                </div>
+                <button class="btn btn-info btn-sm mt-2" onclick="checkQuiz('quiz5', 'a', 'Correct! The mean is the midpoint between the minimum and maximum values.')">Check Answer</button>
+                <div id="quiz5-feedback" class="quiz-feedback mt-2"></div>
+            </div>
+        </div>
+
         <!-- Real-World Examples -->
         <div class="card mb-3">
             <div class="card-body">
@@ -389,6 +523,32 @@
                         </button>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <!-- MCQ Quiz 6: Real-World Applications -->
+        <div class="card border-success mb-3">
+            <div class="card-header bg-success text-white">
+                <h6 class="mb-0"><i class="fas fa-question-circle me-2"></i>Quiz 6: Real-World Applications</h6>
+            </div>
+            <div class="card-body">
+                <p><strong>Which of these is a good example of a discrete uniform distribution?</strong></p>
+                <div class="quiz-options">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz6" id="quiz6a" value="a">
+                        <label class="form-check-label" for="quiz6a">
+                            Rolling a fair six-sided die
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz6" id="quiz6b" value="b">
+                        <label class="form-check-label" for="quiz6b">
+                            Measuring someone's exact height
+                        </label>
+                    </div>
+                </div>
+                <button class="btn btn-success btn-sm mt-2" onclick="checkQuiz('quiz6', 'a', 'Correct! A die has finite, equally likely outcomes (1,2,3,4,5,6).')">Check Answer</button>
+                <div id="quiz6-feedback" class="quiz-feedback mt-2"></div>
             </div>
         </div>
 
@@ -424,12 +584,85 @@
                 </div>
             </div>
         </div>
+
+        <!-- MCQ Quiz 7: Mathematical Formulas -->
+        <div class="card border-danger mt-3">
+            <div class="card-header bg-danger text-white">
+                <h6 class="mb-0"><i class="fas fa-question-circle me-2"></i>Quiz 7: Mathematical Formulas</h6>
+            </div>
+            <div class="card-body">
+                <p><strong>For a continuous uniform distribution U(a,b), what is the PDF f(x)?</strong></p>
+                <div class="quiz-options">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz7" id="quiz7a" value="a">
+                        <label class="form-check-label" for="quiz7a">
+                            f(x) = 1/(b-a) for a ≤ x ≤ b
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz7" id="quiz7b" value="b">
+                        <label class="form-check-label" for="quiz7b">
+                            f(x) = (b-a)/2 for a ≤ x ≤ b
+                        </label>
+                    </div>
+                </div>
+                <button class="btn btn-danger btn-sm mt-2" onclick="checkQuiz('quiz7', 'a', 'Correct! The PDF is constant at 1/(b-a) over the interval [a,b].')">Check Answer</button>
+                <div id="quiz7-feedback" class="quiz-feedback mt-2"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MCQ Quiz 8: Simulation and Practical Applications -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card border-secondary">
+            <div class="card-header bg-secondary text-white">
+                <h5 class="mb-0"><i class="fas fa-question-circle me-2"></i>Quiz 8: Simulation and Applications</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>When might you use a uniform distribution in real-world modeling?</strong></p>
+                <div class="quiz-options">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz8" id="quiz8a" value="a">
+                        <label class="form-check-label" for="quiz8a">
+                            When you have no reason to believe any value is more likely than others
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz8" id="quiz8b" value="b">
+                        <label class="form-check-label" for="quiz8b">
+                            When most values cluster around the center
+                        </label>
+                    </div>
+                </div>
+                <button class="btn btn-secondary btn-sm mt-2" onclick="checkQuiz('quiz8', 'a', 'Correct! Uniform distribution represents maximum uncertainty - all values equally likely.')">Check Answer</button>
+                <div id="quiz8-feedback" class="quiz-feedback mt-2"></div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}
 
 {% block scripts %}
 <script>
+// Quiz functionality
+function checkQuiz(quizName, correctAnswer, successMessage) {
+    const selectedAnswer = document.querySelector(`input[name="${quizName}"]:checked`);
+    const feedbackDiv = document.getElementById(`${quizName}-feedback`);
+    
+    if (!selectedAnswer) {
+        feedbackDiv.innerHTML = '<div class="alert alert-warning">Please select an answer!</div>';
+        return;
+    }
+    
+    if (selectedAnswer.value === correctAnswer) {
+        feedbackDiv.innerHTML = `<div class="alert alert-success"><i class="fas fa-check-circle me-2"></i>${successMessage}</div>`;
+    } else {
+        feedbackDiv.innerHTML = '<div class="alert alert-danger"><i class="fas fa-times-circle me-2"></i>Incorrect. Try again!</div>';
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     // Get all the DOM elements
     const discreteSwitch = document.getElementById('discreteSwitch');
@@ -991,4 +1224,37 @@ document.addEventListener('DOMContentLoaded', function() {
     generatePlot();
 });
 </script>
+
+<style>
+/* Quiz specific styles */
+.quiz-options {
+    margin: 15px 0;
+}
+
+.quiz-options .form-check {
+    margin-bottom: 10px;
+    padding: 8px;
+    border-radius: 5px;
+    transition: background-color 0.2s ease;
+}
+
+.quiz-options .form-check:hover {
+    background-color: #f8f9fa;
+}
+
+.quiz-options .form-check-input:checked + .form-check-label {
+    font-weight: bold;
+    color: #007bff;
+}
+
+.quiz-feedback {
+    min-height: 20px;
+}
+
+.quiz-feedback .alert {
+    margin-bottom: 0;
+    padding: 8px 12px;
+    font-size: 0.9em;
+}
+</style>
 {% endblock %}

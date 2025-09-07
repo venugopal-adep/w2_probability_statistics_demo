@@ -77,6 +77,58 @@
     </div>
 </div>
 
+<!-- MCQ Quiz 1: Null and Alternative Hypotheses -->
+<div class="card border-primary mt-3">
+    <div class="card-header bg-primary text-white">
+        <h6 class="mb-0"><i class="fas fa-question-circle me-2"></i>Quiz 1: Null and Alternative Hypotheses</h6>
+    </div>
+    <div class="card-body">
+        <p><strong>The null hypothesis (H₀) typically represents:</strong></p>
+        <div class="quiz-options">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="quiz1" id="quiz1a" value="a">
+                <label class="form-check-label" for="quiz1a">
+                    The research hypothesis we want to prove
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="quiz1" id="quiz1b" value="b">
+                <label class="form-check-label" for="quiz1b">
+                    The status quo or no effect/difference
+                </label>
+            </div>
+        </div>
+        <div class="quiz-feedback mt-3" id="quiz1-feedback" style="display: none;"></div>
+        <button class="btn btn-sm btn-outline-primary mt-2" onclick="checkAnswer('quiz1', 'b', 'Correct! The null hypothesis represents the status quo or a statement of no effect/difference that we test against.')">Check Answer</button>
+    </div>
+</div>
+
+<!-- MCQ Quiz 2: Significance Level -->
+<div class="card border-warning mt-3">
+    <div class="card-header bg-warning text-dark">
+        <h6 class="mb-0"><i class="fas fa-question-circle me-2"></i>Quiz 2: Significance Level</h6>
+    </div>
+    <div class="card-body">
+        <p><strong>A significance level (α) of 0.05 means there is a 5% chance of making a Type I error:</strong></p>
+        <div class="quiz-options">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="quiz2" id="quiz2a" value="a">
+                <label class="form-check-label" for="quiz2a">
+                    True
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="quiz2" id="quiz2b" value="b">
+                <label class="form-check-label" for="quiz2b">
+                    False
+                </label>
+            </div>
+        </div>
+        <div class="quiz-feedback mt-3" id="quiz2-feedback" style="display: none;"></div>
+        <button class="btn btn-sm btn-outline-warning mt-2" onclick="checkAnswer('quiz2', 'a', 'Correct! α = 0.05 means exactly that - a 5% chance of rejecting H₀ when it is actually true (Type I error).')">Check Answer</button>
+    </div>
+</div>
+
 <!-- Key Terms in Hypothesis Testing -->
 <div class="row mb-4">
     <div class="col-12">
@@ -205,7 +257,7 @@
                     <div class="col-lg-4">
                         <div class="card bg-success text-white">
                             <div class="card-body text-center">
-                                <h6><strong>Correct decision</strong></h6>
+                                <h6><strong>Correct decision</h6>
                             </div>
                         </div>
                     </div>
@@ -226,231 +278,107 @@
     </div>
 </div>
 
-<!-- Hypothesis Testing Steps Flowchart -->
-<div class="row mb-4">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body">
-                <h3><i class="fas fa-sitemap text-primary me-2"></i>Hypothesis Testing Process Flowchart</h3>
-                <p class="text-muted">Interactive step-by-step guide through the hypothesis testing process</p>
-                
-                <div class="row">
-                    <div class="col-lg-8">
-                        <!-- Interactive Flowchart -->
-                        <div id="hypothesisFlowchart" class="text-center">
-                            <div class="flowchart-container">
-                                <!-- Step 1 -->
-                                <div class="flowchart-step" id="step1" data-step="1">
-                                    <div class="step-box bg-primary text-white">
-                                        <h6>Step 1</h6>
-                                        <p class="mb-0">Formulate H₀ and Hₐ</p>
-                                    </div>
-                                </div>
-                                <div class="flowchart-arrow">↓</div>
-                                
-                                <!-- Step 2 -->
-                                <div class="flowchart-step" id="step2" data-step="2">
-                                    <div class="step-box bg-info text-white">
-                                        <h6>Step 2</h6>
-                                        <p class="mb-0">Select Appropriate Test</p>
-                                    </div>
-                                </div>
-                                <div class="flowchart-arrow">↓</div>
-                                
-                                <!-- Step 3 -->
-                                <div class="flowchart-step" id="step3" data-step="3">
-                                    <div class="step-box bg-warning text-dark">
-                                        <h6>Step 3</h6>
-                                        <p class="mb-0">Set Level of Significance, α</p>
-                                    </div>
-                                </div>
-                                <div class="flowchart-arrow">↓</div>
-                                
-                                <!-- Step 4 -->
-                                <div class="flowchart-step" id="step4" data-step="4">
-                                    <div class="step-box bg-success text-white" style="padding: 15px;">
-                                        <h6>Step 4</h6>
-                                        <p class="mb-0">Collect Data and Calculate Test Statistic</p>
-                                    </div>
-                                </div>
-                                
-                                <!-- Branching -->
-                                <div class="flowchart-branch mt-3">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="flowchart-arrow-branch">↙</div>
-                                            <div class="flowchart-step" id="step5a" data-step="5a">
-                                                <div class="step-box bg-secondary text-white">
-                                                    <h6>Method A</h6>
-                                                    <p class="mb-0">Determine p-value</p>
-                                                </div>
-                                            </div>
-                                            <div class="flowchart-arrow">↓</div>
-                                            <div class="flowchart-step" id="step6a" data-step="6a">
-                                                <div class="step-box bg-light">
-                                                    <p class="mb-0">Compare with α</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="flowchart-arrow-branch">↘</div>
-                                            <div class="flowchart-step" id="step5b" data-step="5b">
-                                                <div class="step-box bg-secondary text-white">
-                                                    <h6>Method B</h6>
-                                                    <p class="mb-0">Determine Critical Value</p>
-                                                </div>
-                                            </div>
-                                            <div class="flowchart-arrow">↓</div>
-                                            <div class="flowchart-step" id="step6b" data-step="6b">
-                                                <div class="step-box bg-light">
-                                                    <p class="mb-0">Compare with Test Statistic</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <!-- Final Decision -->
-                                <div class="flowchart-merge mt-3">
-                                    <div class="flowchart-arrow-merge">↘↙</div>
-                                    <div class="flowchart-step" id="step7" data-step="7">
-                                        <div class="step-box bg-danger text-white">
-                                            <h6>Final Step</h6>
-                                            <p class="mb-0">Reject or Do Not Reject H₀</p>
-                                        </div>
-                                    </div>
-                                    <div class="flowchart-arrow">↓</div>
-                                    <div class="flowchart-step" id="step8" data-step="8">
-                                        <div class="step-box bg-success text-white">
-                                            <p class="mb-0">Draw Conclusion</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-lg-4">
-                        <!-- Step Details Panel -->
-                        <div class="card">
-                            <div class="card-body">
-                                <h5>Step Details</h5>
-                                <div id="stepDetails">
-                                    <div class="alert alert-info">
-                                        <i class="fas fa-info-circle me-2"></i>
-                                        Click on any step in the flowchart to see detailed information.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Interactive Guide -->
-                        <div class="card mt-3">
-                            <div class="card-body">
-                                <h6>Interactive Guide</h6>
-                                <div class="d-grid gap-2">
-                                    <button id="startGuide" class="btn btn-primary btn-sm">
-                                        <i class="fas fa-play me-2"></i>Start Guided Tour
-                                    </button>
-                                    <button id="resetFlowchart" class="btn btn-outline-secondary btn-sm">
-                                        <i class="fas fa-undo me-2"></i>Reset
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<!-- MCQ Quiz 3: Type I and Type II Errors -->
+<div class="card border-danger mt-3">
+    <div class="card-header bg-danger text-white">
+        <h6 class="mb-0"><i class="fas fa-question-circle me-2"></i>Quiz 3: Type I and Type II Errors</h6>
+    </div>
+    <div class="card-body">
+        <p><strong>A Type I error occurs when we reject a true null hypothesis:</strong></p>
+        <div class="quiz-options">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="quiz3" id="quiz3a" value="a">
+                <label class="form-check-label" for="quiz3a">
+                    True
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="quiz3" id="quiz3b" value="b">
+                <label class="form-check-label" for="quiz3b">
+                    False
+                </label>
             </div>
         </div>
+        <div class="quiz-feedback mt-3" id="quiz3-feedback" style="display: none;"></div>
+        <button class="btn btn-sm btn-outline-danger mt-2" onclick="checkAnswer('quiz3', 'a', 'Correct! Type I error (α) occurs when we reject a true null hypothesis - this is a false positive.')">Check Answer</button>
     </div>
 </div>
 
-<!-- One-tailed vs Two-tailed Tests Interactive Comparison -->
-<div class="row mb-4">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body">
-                <h3><i class="fas fa-arrows-alt-h text-info me-2"></i>One-tailed vs Two-tailed Tests</h3>
-                <p class="text-muted">Interactive comparison of different test types with visual rejection regions</p>
-                
-                <div class="row">
-                    <div class="col-12">
-                        <!-- Test Type Selector -->
-                        <div class="text-center mb-4">
-                            <div class="btn-group" role="group" aria-label="Test Type">
-                                <input type="radio" class="btn-check" name="testTypeComparison" id="leftTailTest" value="left_tailed">
-                                <label class="btn btn-outline-danger" for="leftTailTest">
-                                    <i class="fas fa-arrow-left me-1"></i>Left-tailed Test
-                                </label>
-                                
-                                <input type="radio" class="btn-check" name="testTypeComparison" id="rightTailTest" value="right_tailed">
-                                <label class="btn btn-outline-success" for="rightTailTest">
-                                    <i class="fas fa-arrow-right me-1"></i>Right-tailed Test
-                                </label>
-                                
-                                <input type="radio" class="btn-check" name="testTypeComparison" id="twoTailTest" value="two_tailed" checked>
-                                <label class="btn btn-outline-primary" for="twoTailTest">
-                                    <i class="fas fa-arrows-alt-h me-1"></i>Two-tailed Test
-                                </label>
-                            </div>
-                        </div>
-                        
-                        <!-- Interactive Visualization Area -->
-                        <div id="testTypeVisualization" class="bg-light p-4 rounded">
-                            <!-- This will be populated by JavaScript -->
-                        </div>
-                        
-                        <!-- Test Information Cards -->
-                        <div class="row mt-4">
-                            <div class="col-md-4">
-                                <div class="card border-danger h-100" id="leftTailInfo">
-                                    <div class="card-header bg-danger text-white text-center">
-                                        <h6><i class="fas fa-arrow-left me-2"></i>Left Tail Test</h6>
-                                    </div>
-                                    <div class="card-body">
-                                        <p><strong>Hₐ: μ < μ₀</strong></p>
-                                        <p class="small">Reject H₀ if the value of the test statistic is too small.</p>
-                                        <div class="bg-light p-2 rounded">
-                                            <small><strong>Example:</strong> Testing if a new process reduces production time</small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="col-md-4">
-                                <div class="card border-success h-100" id="rightTailInfo">
-                                    <div class="card-header bg-success text-white text-center">
-                                        <h6><i class="fas fa-arrow-right me-2"></i>Right Tail Test</h6>
-                                    </div>
-                                    <div class="card-body">
-                                        <p><strong>Hₐ: μ > μ₀</strong></p>
-                                        <p class="small">Reject H₀ if the value of the test statistic is too large.</p>
-                                        <div class="bg-light p-2 rounded">
-                                            <small><strong>Example:</strong> Testing if a new drug increases recovery rate</small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="col-md-4">
-                                <div class="card border-primary h-100" id="twoTailInfo">
-                                    <div class="card-header bg-primary text-white text-center">
-                                        <h6><i class="fas fa-arrows-alt-h me-2"></i>Two Tail Test</h6>
-                                    </div>
-                                    <div class="card-body">
-                                        <p><strong>Hₐ: μ ≠ μ₀</strong></p>
-                                        <p class="small">Reject H₀ if the value of the test statistic is either too small or too large.</p>
-                                        <div class="bg-light p-2 rounded">
-                                            <small><strong>Example:</strong> Testing if a machine produces parts different from specification</small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<!-- MCQ Quiz 4: P-Value Interpretation -->
+<div class="card border-info mt-3">
+    <div class="card-header bg-info text-white">
+        <h6 class="mb-0"><i class="fas fa-question-circle me-2"></i>Quiz 4: P-Value Interpretation</h6>
+    </div>
+    <div class="card-body">
+        <p><strong>If the p-value is 0.02 and α = 0.05, we should reject H₀:</strong></p>
+        <div class="quiz-options">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="quiz4" id="quiz4a" value="a">
+                <label class="form-check-label" for="quiz4a">
+                    True
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="quiz4" id="quiz4b" value="b">
+                <label class="form-check-label" for="quiz4b">
+                    False
+                </label>
             </div>
         </div>
+        <div class="quiz-feedback mt-3" id="quiz4-feedback" style="display: none;"></div>
+        <button class="btn btn-sm btn-outline-info mt-2" onclick="checkAnswer('quiz4', 'a', 'Correct! Since p-value (0.02) < α (0.05), we reject the null hypothesis. There is sufficient evidence against H₀.')">Check Answer</button>
+    </div>
+</div>
+
+<!-- MCQ Quiz 5: Test Types -->
+<div class="card border-success mt-3">
+    <div class="card-header bg-success text-white">
+        <h6 class="mb-0"><i class="fas fa-question-circle me-2"></i>Quiz 5: Test Types</h6>
+    </div>
+    <div class="card-body">
+        <p><strong>You want to test if a new teaching method affects student performance (could be better or worse). You should use a two-tailed test:</strong></p>
+        <div class="quiz-options">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="quiz5" id="quiz5a" value="a">
+                <label class="form-check-label" for="quiz5a">
+                    True
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="quiz5" id="quiz5b" value="b">
+                <label class="form-check-label" for="quiz5b">
+                    False
+                </label>
+            </div>
+        </div>
+        <div class="quiz-feedback mt-3" id="quiz5-feedback" style="display: none;"></div>
+        <button class="btn btn-sm btn-outline-success mt-2" onclick="checkAnswer('quiz5', 'a', 'Correct! Since the new method could affect performance in either direction (better or worse), we use a two-tailed test (Hₐ: μ ≠ μ₀).')">Check Answer</button>
+    </div>
+</div>
+
+<!-- MCQ Quiz 6: Critical Values -->
+<div class="card border-secondary mt-3">
+    <div class="card-header bg-secondary text-white">
+        <h6 class="mb-0"><i class="fas fa-question-circle me-2"></i>Quiz 6: Critical Values</h6>
+    </div>
+    <div class="card-body">
+        <p><strong>For a two-tailed test with α = 0.05, the critical values are ±1.96:</strong></p>
+        <div class="quiz-options">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="quiz6" id="quiz6a" value="a">
+                <label class="form-check-label" for="quiz6a">
+                    True
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="quiz6" id="quiz6b" value="b">
+                <label class="form-check-label" for="quiz6b">
+                    False
+                </label>
+            </div>
+        </div>
+        <div class="quiz-feedback mt-3" id="quiz6-feedback" style="display: none;"></div>
+        <button class="btn btn-sm btn-outline-secondary mt-2" onclick="checkAnswer('quiz6', 'a', 'Correct! For a two-tailed test with α = 0.05, we split α/2 = 0.025 in each tail, giving critical values of ±1.96.')">Check Answer</button>
     </div>
 </div>
 
@@ -1885,6 +1813,68 @@ document.addEventListener('DOMContentLoaded', function() {
         // ...existing code...
     };
 });
+
+// Quiz answer checking function
+function checkAnswer(quizName, correctAnswer, explanation) {
+    const selectedOption = document.querySelector(`input[name="${quizName}"]:checked`);
+    const feedbackElement = document.getElementById(`${quizName}-feedback`);
+    
+    if (!selectedOption) {
+        feedbackElement.innerHTML = `
+            <div class="alert alert-warning">
+                <i class="fas fa-exclamation-circle me-2"></i>
+                Please select an answer before checking.
+            </div>
+        `;
+        feedbackElement.style.display = 'block';
+        return;
+    }
+    
+    const userAnswer = selectedOption.value;
+    const isCorrect = userAnswer === correctAnswer;
+    
+    if (isCorrect) {
+        feedbackElement.innerHTML = `
+            <div class="alert alert-success">
+                <i class="fas fa-check-circle me-2"></i>
+                <strong>Correct!</strong> ${explanation}
+            </div>
+        `;
+        
+        // Add success animation to the selected option
+        selectedOption.parentElement.classList.add('bg-success', 'text-white', 'rounded', 'p-2');
+        
+        // Disable all options for this quiz
+        document.querySelectorAll(`input[name="${quizName}"]`).forEach(input => {
+            input.disabled = true;
+        });
+        
+        // Hide the check answer button
+        const checkButton = feedbackElement.nextElementSibling;
+        if (checkButton && checkButton.tagName === 'BUTTON') {
+            checkButton.style.display = 'none';
+        }
+        
+    } else {
+        feedbackElement.innerHTML = `
+            <div class="alert alert-danger">
+                <i class="fas fa-times-circle me-2"></i>
+                <strong>Incorrect.</strong> Please try again. Think about the key concepts we've covered.
+            </div>
+        `;
+        
+        // Add error animation to the selected option
+        selectedOption.parentElement.classList.add('bg-danger', 'text-white', 'rounded', 'p-2');
+        
+        // Remove the error styling after a delay
+        setTimeout(() => {
+            selectedOption.parentElement.classList.remove('bg-danger', 'text-white', 'rounded', 'p-2');
+            selectedOption.checked = false;
+        }, 2000);
+    }
+    
+    feedbackElement.style.display = 'block';
+}
 </script>
 <style>
         /* Compact sidebar cards */

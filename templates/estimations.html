@@ -52,8 +52,64 @@
     </div>
 </div>
 
+<!-- MCQ Quiz 1: Point vs Interval Estimation -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card border-primary">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0"><i class="fas fa-question-circle me-2"></i>Quiz 1: Types of Estimation</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>What is the main difference between point estimation and interval estimation?</strong></p>
+                <div class="quiz-options">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz1" id="quiz1a" value="a">
+                        <label class="form-check-label" for="quiz1a">
+                            Point estimation gives a single value, interval estimation gives a range of values
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz1" id="quiz1b" value="b">
+                        <label class="form-check-label" for="quiz1b">
+                            Point estimation is always more accurate than interval estimation
+                        </label>
+                    </div>
+                </div>
+                <button class="btn btn-primary btn-sm mt-2" onclick="checkQuiz('quiz1', 'a', 'Correct! Point estimation provides a single best guess, while interval estimation provides a range with confidence level.')">Check Answer</button>
+                <div id="quiz1-feedback" class="quiz-feedback mt-2"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="row">
     <div class="col-lg-9">
+        <!-- MCQ Quiz 2: Confidence Intervals -->
+        <div class="card border-success mb-3">
+            <div class="card-header bg-success text-white">
+                <h6 class="mb-0"><i class="fas fa-question-circle me-2"></i>Quiz 2: Confidence Interval Meaning</h6>
+            </div>
+            <div class="card-body">
+                <p><strong>What does a 95% confidence interval mean?</strong></p>
+                <div class="quiz-options">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz2" id="quiz2a" value="a">
+                        <label class="form-check-label" for="quiz2a">
+                            If we repeat the sampling process many times, 95% of intervals will contain the true parameter
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz2" id="quiz2b" value="b">
+                        <label class="form-check-label" for="quiz2b">
+                            There is a 95% chance that the sample mean equals the population mean
+                        </label>
+                    </div>
+                </div>
+                <button class="btn btn-success btn-sm mt-2" onclick="checkQuiz('quiz2', 'a', 'Correct! The confidence level refers to the long-run success rate of the interval procedure.')">Check Answer</button>
+                <div id="quiz2-feedback" class="quiz-feedback mt-2"></div>
+            </div>
+        </div>
+
         <div class="card mb-2">
             <div class="card-body">
                 <h4><i class="fas fa-chart-line text-primary me-2"></i>Interactive Confidence Interval Calculator</h4>
@@ -125,6 +181,32 @@
             </div>
         </div>
 
+        <!-- MCQ Quiz 3: Margin of Error -->
+        <div class="card border-warning mb-3">
+            <div class="card-header bg-warning text-dark">
+                <h6 class="mb-0"><i class="fas fa-question-circle me-2"></i>Quiz 3: Margin of Error</h6>
+            </div>
+            <div class="card-body">
+                <p><strong>What happens to the margin of error when the sample size increases?</strong></p>
+                <div class="quiz-options">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz3" id="quiz3a" value="a">
+                        <label class="form-check-label" for="quiz3a">
+                            The margin of error decreases (interval becomes narrower)
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz3" id="quiz3b" value="b">
+                        <label class="form-check-label" for="quiz3b">
+                            The margin of error increases (interval becomes wider)
+                        </label>
+                    </div>
+                </div>
+                <button class="btn btn-warning btn-sm mt-2" onclick="checkQuiz('quiz3', 'a', 'Correct! Larger samples provide more precision, so the margin of error decreases by 1/√n.')">Check Answer</button>
+                <div id="quiz3-feedback" class="quiz-feedback mt-2"></div>
+            </div>
+        </div>
+
         <div class="card">
             <div class="card-body">
                 <h4><i class="fas fa-chart-area text-success me-2"></i>Confidence Interval Simulation</h4>
@@ -193,10 +275,62 @@
                     </div>
                 </div>
             </div>
+
+            <!-- MCQ Quiz 4: Confidence Level Effect -->
+            <div class="card border-info mt-3 mb-3">
+                <div class="card-header bg-info text-white">
+                    <h6 class="mb-0"><i class="fas fa-question-circle me-2"></i>Quiz 4: Confidence Level Trade-off</h6>
+                </div>
+                <div class="card-body">
+                    <p><strong>What happens when you increase the confidence level from 95% to 99%?</strong></p>
+                    <div class="quiz-options">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="quiz4" id="quiz4a" value="a">
+                            <label class="form-check-label" for="quiz4a">
+                                The confidence interval becomes wider
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="quiz4" id="quiz4b" value="b">
+                            <label class="form-check-label" for="quiz4b">
+                                The confidence interval becomes narrower
+                            </label>
+                        </div>
+                    </div>
+                    <button class="btn btn-info btn-sm mt-2" onclick="checkQuiz('quiz4', 'a', 'Correct! Higher confidence requires a wider interval to capture the parameter more often.')">Check Answer</button>
+                    <div id="quiz4-feedback" class="quiz-feedback mt-2"></div>
+                </div>
+            </div>
         </div>
     </div>
 
     <div class="col-lg-3">
+        <!-- MCQ Quiz 5: Key Concepts -->
+        <div class="card border-danger mb-3">
+            <div class="card-header bg-danger text-white">
+                <h6 class="mb-0"><i class="fas fa-question-circle me-2"></i>Quiz 5: Unbiased Estimator</h6>
+            </div>
+            <div class="card-body">
+                <p><strong>What does it mean for an estimator to be unbiased?</strong></p>
+                <div class="quiz-options">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz5" id="quiz5a" value="a">
+                        <label class="form-check-label" for="quiz5a">
+                            The expected value of the estimator equals the true parameter
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz5" id="quiz5b" value="b">
+                        <label class="form-check-label" for="quiz5b">
+                            The estimator always gives the exact true value
+                        </label>
+                    </div>
+                </div>
+                <button class="btn btn-danger btn-sm mt-2" onclick="checkQuiz('quiz5', 'a', 'Correct! Unbiased means E[θ̂] = θ - on average, it hits the target.')">Check Answer</button>
+                <div id="quiz5-feedback" class="quiz-feedback mt-2"></div>
+            </div>
+        </div>
+
         <div class="card mb-2">
             <div class="card-body">
                 <h5><i class="fas fa-key text-primary me-2"></i>Key Concepts</h5>
@@ -218,6 +352,32 @@
                         <strong>Efficient:</strong> Smallest variance among unbiased estimators
                     </li>
                 </ul>
+            </div>
+        </div>
+
+        <!-- MCQ Quiz 6: Critical Values -->
+        <div class="card border-secondary mb-3">
+            <div class="card-header bg-secondary text-white">
+                <h6 class="mb-0"><i class="fas fa-question-circle me-2"></i>Quiz 6: Critical Values</h6>
+            </div>
+            <div class="card-body">
+                <p><strong>Which critical value is used for a 95% confidence interval?</strong></p>
+                <div class="quiz-options">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz6" id="quiz6a" value="a">
+                        <label class="form-check-label" for="quiz6a">
+                            z = 1.96
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz6" id="quiz6b" value="b">
+                        <label class="form-check-label" for="quiz6b">
+                            z = 2.576
+                        </label>
+                    </div>
+                </div>
+                <button class="btn btn-secondary btn-sm mt-2" onclick="checkQuiz('quiz6', 'a', 'Correct! z = 1.96 corresponds to 95% confidence (2.5% in each tail).')">Check Answer</button>
+                <div id="quiz6-feedback" class="quiz-feedback mt-2"></div>
             </div>
         </div>
 
@@ -259,6 +419,33 @@
         <div class="card">
             <div class="card-body">
                 <h4><i class="fas fa-calculator text-primary me-2"></i>Estimation Formulas</h4>
+                
+                <!-- MCQ Quiz 7: When to Use t vs z -->
+                <div class="card border-warning mb-3">
+                    <div class="card-header bg-warning text-dark">
+                        <h6 class="mb-0"><i class="fas fa-question-circle me-2"></i>Quiz 7: t vs z Distribution</h6>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>When should you use the t-distribution instead of the z-distribution for confidence intervals?</strong></p>
+                        <div class="quiz-options">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="quiz7" id="quiz7a" value="a">
+                                <label class="form-check-label" for="quiz7a">
+                                    When the population standard deviation is unknown and estimated from the sample
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="quiz7" id="quiz7b" value="b">
+                                <label class="form-check-label" for="quiz7b">
+                                    When the sample size is greater than 30
+                                </label>
+                            </div>
+                        </div>
+                        <button class="btn btn-warning btn-sm mt-2" onclick="checkQuiz('quiz7', 'a', 'Correct! Use t-distribution when σ is unknown and must be estimated with sample standard deviation s.')">Check Answer</button>
+                        <div id="quiz7-feedback" class="quiz-feedback mt-2"></div>
+                    </div>
+                </div>
+
                 <div class="row">
                     <div class="col-lg-6">
                         <h5>Confidence Interval for Mean (σ known)</h5>
@@ -321,6 +508,32 @@
                     </div>
                 </div>
                 
+                <!-- MCQ Quiz 8: Sample Size Calculation -->
+                <div class="card border-success mt-3">
+                    <div class="card-header bg-success text-white">
+                        <h6 class="mb-0"><i class="fas fa-question-circle me-2"></i>Quiz 8: Sample Size Requirements</h6>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>If you want to reduce the margin of error by half, how should you change the sample size?</strong></p>
+                        <div class="quiz-options">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="quiz8" id="quiz8a" value="a">
+                                <label class="form-check-label" for="quiz8a">
+                                    Increase the sample size by 4 times (quadruple it)
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="quiz8" id="quiz8b" value="b">
+                                <label class="form-check-label" for="quiz8b">
+                                    Increase the sample size by 2 times (double it)
+                                </label>
+                            </div>
+                        </div>
+                        <button class="btn btn-success btn-sm mt-2" onclick="checkQuiz('quiz8', 'a', 'Correct! Since margin of error involves √n, to halve the error you need 4 times the sample size.')">Check Answer</button>
+                        <div id="quiz8-feedback" class="quiz-feedback mt-2"></div>
+                    </div>
+                </div>
+                
                 <div class="alert alert-info mt-3">
                     <h6><i class="fas fa-info-circle me-1"></i>Parameter Notation:</h6>
                     <div class="row">
@@ -348,6 +561,23 @@
 
 {% block scripts %}
 <script>
+// Quiz functionality - Define this first
+function checkQuiz(quizName, correctAnswer, successMessage) {
+    const selectedAnswer = document.querySelector(`input[name="${quizName}"]:checked`);
+    const feedbackDiv = document.getElementById(`${quizName}-feedback`);
+    
+    if (!selectedAnswer) {
+        feedbackDiv.innerHTML = '<div class="alert alert-warning">Please select an answer!</div>';
+        return;
+    }
+    
+    if (selectedAnswer.value === correctAnswer) {
+        feedbackDiv.innerHTML = `<div class="alert alert-success"><i class="fas fa-check-circle me-2"></i>${successMessage}</div>`;
+    } else {
+        feedbackDiv.innerHTML = '<div class="alert alert-danger"><i class="fas fa-times-circle me-2"></i>Incorrect. Try again!</div>';
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     const calculateCIButton = document.getElementById('calculateCI');
     const runSimButton = document.getElementById('runSimulation');
@@ -424,4 +654,37 @@ document.addEventListener('DOMContentLoaded', function() {
     calculateCIButton.click();
 });
 </script>
+
+<style>
+/* Quiz specific styles */
+.quiz-options {
+    margin: 15px 0;
+}
+
+.quiz-options .form-check {
+    margin-bottom: 10px;
+    padding: 8px;
+    border-radius: 5px;
+    transition: background-color 0.2s ease;
+}
+
+.quiz-options .form-check:hover {
+    background-color: #f8f9fa;
+}
+
+.quiz-options .form-check-input:checked + .form-check-label {
+    font-weight: bold;
+    color: #007bff;
+}
+
+.quiz-feedback {
+    min-height: 20px;
+}
+
+.quiz-feedback .alert {
+    margin-bottom: 0;
+    padding: 8px 12px;
+    font-size: 0.9em;
+}
+</style>
 {% endblock %}

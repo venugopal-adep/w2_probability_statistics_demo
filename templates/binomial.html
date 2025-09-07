@@ -51,6 +51,36 @@
     </div>
 </div>
 
+<!-- MCQ Quiz 1: Introduction to Binomial Distribution -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card border-success">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0"><i class="fas fa-question-circle me-2"></i>Quiz 1: Binomial Distribution Basics</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>A binomial distribution models the number of successes in what type of scenario?</strong></p>
+                <div class="quiz-options">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz1" id="quiz1a" value="a">
+                        <label class="form-check-label" for="quiz1a">
+                            A fixed number of independent trials with two possible outcomes
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz1" id="quiz1b" value="b">
+                        <label class="form-check-label" for="quiz1b">
+                            A continuous range of values with equal probability
+                        </label>
+                    </div>
+                </div>
+                <button class="btn btn-success btn-sm mt-2" onclick="checkQuiz('quiz1', 'a', 'Correct! Binomial distribution counts successes in n independent trials, each with two outcomes.')">Check Answer</button>
+                <div id="quiz1-feedback" class="quiz-feedback mt-2"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Main Control Panel -->
 <div class="row">
     <div class="col-lg-8">
@@ -162,6 +192,32 @@
             </div>
         </div>
 
+        <!-- MCQ Quiz 2: Distribution Parameters -->
+        <div class="card border-primary mb-3">
+            <div class="card-header bg-primary text-white">
+                <h6 class="mb-0"><i class="fas fa-question-circle me-2"></i>Quiz 2: Binomial Parameters</h6>
+            </div>
+            <div class="card-body">
+                <p><strong>In a binomial distribution B(n,p), what does 'p' represent?</strong></p>
+                <div class="quiz-options">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz2" id="quiz2a" value="a">
+                        <label class="form-check-label" for="quiz2a">
+                            The probability of success on each individual trial
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz2" id="quiz2b" value="b">
+                        <label class="form-check-label" for="quiz2b">
+                            The total number of trials
+                        </label>
+                    </div>
+                </div>
+                <button class="btn btn-primary btn-sm mt-2" onclick="checkQuiz('quiz2', 'a', 'Correct! p is the probability of success on each trial, while n is the number of trials.')">Check Answer</button>
+                <div id="quiz2-feedback" class="quiz-feedback mt-2"></div>
+            </div>
+        </div>
+
         <!-- Main Plot -->
         <div class="card mb-3">
             <div class="card-body">
@@ -207,6 +263,32 @@
                     <h6>Result:</h6>
                     <div id="probResultText"></div>
                 </div>
+            </div>
+        </div>
+
+        <!-- MCQ Quiz 3: Probability Calculations -->
+        <div class="card border-info mb-3">
+            <div class="card-header bg-info text-white">
+                <h6 class="mb-0"><i class="fas fa-question-circle me-2"></i>Quiz 3: Binomial Probability</h6>
+            </div>
+            <div class="card-body">
+                <p><strong>If you flip a fair coin 10 times, what type of probability does P(X = 5) represent?</strong></p>
+                <div class="quiz-options">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz3" id="quiz3a" value="a">
+                        <label class="form-check-label" for="quiz3a">
+                            The probability of getting exactly 5 heads
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz3" id="quiz3b" value="b">
+                        <label class="form-check-label" for="quiz3b">
+                            The probability of getting at least 5 heads
+                        </label>
+                    </div>
+                </div>
+                <button class="btn btn-info btn-sm mt-2" onclick="checkQuiz('quiz3', 'a', 'Correct! P(X = k) represents the probability of exactly k successes in n trials.')">Check Answer</button>
+                <div id="quiz3-feedback" class="quiz-feedback mt-2"></div>
             </div>
         </div>
 
@@ -318,6 +400,32 @@
             </div>
         </div>
 
+        <!-- MCQ Quiz 4: Distribution Statistics -->
+        <div class="card border-warning mb-3">
+            <div class="card-header bg-warning text-dark">
+                <h6 class="mb-0"><i class="fas fa-question-circle me-2"></i>Quiz 4: Binomial Statistics</h6>
+            </div>
+            <div class="card-body">
+                <p><strong>What is the mean (expected value) of a binomial distribution B(n,p)?</strong></p>
+                <div class="quiz-options">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz4" id="quiz4a" value="a">
+                        <label class="form-check-label" for="quiz4a">
+                            μ = np
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz4" id="quiz4b" value="b">
+                        <label class="form-check-label" for="quiz4b">
+                            μ = n/p
+                        </label>
+                    </div>
+                </div>
+                <button class="btn btn-warning btn-sm mt-2" onclick="checkQuiz('quiz4', 'a', 'Correct! The mean of a binomial distribution is μ = np (trials × probability).')">Check Answer</button>
+                <div id="quiz4-feedback" class="quiz-feedback mt-2"></div>
+            </div>
+        </div>
+
         <!-- Conditions Checker -->
         <div class="card mb-3">
             <div class="card-body">
@@ -343,6 +451,32 @@
             </div>
         </div>
 
+        <!-- MCQ Quiz 5: Binomial Conditions -->
+        <div class="card border-success mb-3">
+            <div class="card-header bg-success text-white">
+                <h6 class="mb-0"><i class="fas fa-question-circle me-2"></i>Quiz 5: Binomial Conditions</h6>
+            </div>
+            <div class="card-body">
+                <p><strong>Which of these is NOT a requirement for a binomial distribution?</strong></p>
+                <div class="quiz-options">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz5" id="quiz5a" value="a">
+                        <label class="form-check-label" for="quiz5a">
+                            The number of trials must be greater than 30
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz5" id="quiz5b" value="b">
+                        <label class="form-check-label" for="quiz5b">
+                            Each trial must have exactly two possible outcomes
+                        </label>
+                    </div>
+                </div>
+                <button class="btn btn-success btn-sm mt-2" onclick="checkQuiz('quiz5', 'a', 'Correct! Binomial distribution works with any number of trials. The key requirements are: fixed n, two outcomes, independence, and constant p.')">Check Answer</button>
+                <div id="quiz5-feedback" class="quiz-feedback mt-2"></div>
+            </div>
+        </div>
+
         <!-- Normal Approximation Guide -->
         <div class="card mb-3">
             <div class="card-body">
@@ -358,6 +492,32 @@
                         <span class="badge bg-success">Normal approximation is appropriate</span>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <!-- MCQ Quiz 6: Normal Approximation -->
+        <div class="card border-info mb-3">
+            <div class="card-header bg-info text-white">
+                <h6 class="mb-0"><i class="fas fa-question-circle me-2"></i>Quiz 6: Normal Approximation</h6>
+            </div>
+            <div class="card-body">
+                <p><strong>When is it appropriate to use normal approximation for a binomial distribution?</strong></p>
+                <div class="quiz-options">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz6" id="quiz6a" value="a">
+                        <label class="form-check-label" for="quiz6a">
+                            When both np ≥ 5 and n(1-p) ≥ 5
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz6" id="quiz6b" value="b">
+                        <label class="form-check-label" for="quiz6b">
+                            When n ≥ 30 regardless of p
+                        </label>
+                    </div>
+                </div>
+                <button class="btn btn-info btn-sm mt-2" onclick="checkQuiz('quiz6', 'a', 'Correct! Both np ≥ 5 and n(1-p) ≥ 5 ensure the binomial distribution is sufficiently symmetric for normal approximation.')">Check Answer</button>
+                <div id="quiz6-feedback" class="quiz-feedback mt-2"></div>
             </div>
         </div>
 
@@ -387,6 +547,32 @@
                         </button>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <!-- MCQ Quiz 7: Real-World Applications -->
+        <div class="card border-danger mb-3">
+            <div class="card-header bg-danger text-white">
+                <h6 class="mb-0"><i class="fas fa-question-circle me-2"></i>Quiz 7: Real-World Applications</h6>
+            </div>
+            <div class="card-body">
+                <p><strong>Which scenario would be best modeled by a binomial distribution?</strong></p>
+                <div class="quiz-options">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz7" id="quiz7a" value="a">
+                        <label class="form-check-label" for="quiz7a">
+                            Testing 50 light bulbs to count how many are defective
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz7" id="quiz7b" value="b">
+                        <label class="form-check-label" for="quiz7b">
+                            Measuring the exact height of 50 people
+                        </label>
+                    </div>
+                </div>
+                <button class="btn btn-danger btn-sm mt-2" onclick="checkQuiz('quiz7', 'a', 'Correct! Testing light bulbs has fixed trials (50), two outcomes (defective/not defective), and constant probability.')">Check Answer</button>
+                <div id="quiz7-feedback" class="quiz-feedback mt-2"></div>
             </div>
         </div>
 
@@ -421,12 +607,55 @@
                 </div>
             </div>
         </div>
+
+        <!-- MCQ Quiz 8: Mathematical Formulas -->
+        <div class="card border-secondary mt-3">
+            <div class="card-header bg-secondary text-white">
+                <h6 class="mb-0"><i class="fas fa-question-circle me-2"></i>Quiz 8: Binomial Formula</h6>
+            </div>
+            <div class="card-body">
+                <p><strong>In the binomial probability formula P(X=k) = C(n,k) × p^k × (1-p)^(n-k), what does C(n,k) represent?</strong></p>
+                <div class="quiz-options">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz8" id="quiz8a" value="a">
+                        <label class="form-check-label" for="quiz8a">
+                            The number of ways to choose k successes from n trials
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="quiz8" id="quiz8b" value="b">
+                        <label class="form-check-label" for="quiz8b">
+                            The probability of exactly k successes
+                        </label>
+                    </div>
+                </div>
+                <button class="btn btn-secondary btn-sm mt-2" onclick="checkQuiz('quiz8', 'a', 'Correct! C(n,k) is the binomial coefficient representing combinations - the number of ways to arrange k successes in n trials.')">Check Answer</button>
+                <div id="quiz8-feedback" class="quiz-feedback mt-2"></div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}
 
 {% block scripts %}
 <script>
+// Quiz functionality - Define this first
+function checkQuiz(quizName, correctAnswer, successMessage) {
+    const selectedAnswer = document.querySelector(`input[name="${quizName}"]:checked`);
+    const feedbackDiv = document.getElementById(`${quizName}-feedback`);
+    
+    if (!selectedAnswer) {
+        feedbackDiv.innerHTML = '<div class="alert alert-warning">Please select an answer!</div>';
+        return;
+    }
+    
+    if (selectedAnswer.value === correctAnswer) {
+        feedbackDiv.innerHTML = `<div class="alert alert-success"><i class="fas fa-check-circle me-2"></i>${successMessage}</div>`;
+    } else {
+        feedbackDiv.innerHTML = '<div class="alert alert-danger"><i class="fas fa-times-circle me-2"></i>Incorrect. Try again!</div>';
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     // Get all the DOM elements
     const nTrialsSlider = document.getElementById('nTrials');
@@ -574,13 +803,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (data.plot) {
                     plotImage.src = 'data:image/png;base64,' + data.plot;
                     plotImage.style.display = 'block';
-                    plotImage.onload = function() {
-                        if (isInitialLoad) {
-                            loadingSpinner.classList.add('d-none');
-                            isInitialLoad = false;
-                        }
-                    };
-                    plotImage.onerror = function() {
+                    if (isInitialLoad) {
+                        loadingSpinner.classList.add('d-none');
+                        isInitialLoad = false;
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                if (isInitialLoad) {
+                    loadingSpinner.classList.add('d-none');
+                    isInitialLoad = false;
+                }
+            });
+    }
 
     function debounceUpdate() {
         updateStats();
@@ -905,4 +1141,37 @@ document.addEventListener('DOMContentLoaded', function() {
     generatePlot();
 });
 </script>
+
+<style>
+/* Quiz specific styles */
+.quiz-options {
+    margin: 15px 0;
+}
+
+.quiz-options .form-check {
+    margin-bottom: 10px;
+    padding: 8px;
+    border-radius: 5px;
+    transition: background-color 0.2s ease;
+}
+
+.quiz-options .form-check:hover {
+    background-color: #f8f9fa;
+}
+
+.quiz-options .form-check-input:checked + .form-check-label {
+    font-weight: bold;
+    color: #007bff;
+}
+
+.quiz-feedback {
+    min-height: 20px;
+}
+
+.quiz-feedback .alert {
+    margin-bottom: 0;
+    padding: 8px 12px;
+    font-size: 0.9em;
+}
+</style>
 {% endblock %}
